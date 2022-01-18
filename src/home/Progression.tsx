@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'green',
     padding: 20,
+    flexGrow: 1,
   },
   bar: {
     margin: 5,
