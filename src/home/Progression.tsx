@@ -20,7 +20,6 @@ export default function Progression() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'green',
     padding: 20,
     flexGrow: 1,
   },

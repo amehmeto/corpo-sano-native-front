@@ -1,24 +1,32 @@
 import { StyleSheet, Text, View } from 'react-native'
 import {
-  Ionicons as Icons,
-  MaterialCommunityIcons as Icons2,
+  Ionicons as Ionicons,
+  MaterialCommunityIcons as MaterialCommunityIcons,
 } from '@expo/vector-icons'
 import React, { useState } from 'react'
+
+type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
+
+type Tab = {
+  iconName: ioniconsNames | 'settings'
+  name: string
+  isSelected: boolean
+}
 
 export function NavBar() {
   const [menuTabIcons, setMenuTabIcons] = useState([
     {
-      iconName: 'home' as 'home',
+      iconName: 'home' as ioniconsNames,
       name: 'Dashboard',
-      isSelected: false,
+      isSelected: true,
     },
     {
-      iconName: 'trending-up' as 'trending-up',
+      iconName: 'trending-up' as ioniconsNames,
       name: 'Progression',
       isSelected: false,
     },
     {
-      iconName: 'dumbbell' as 'dumbbell',
+      iconName: 'dumbbell' as ioniconsNames,
       name: 'Workouts',
       isSelected: false,
     },
@@ -29,7 +37,7 @@ export function NavBar() {
     },
   ])
 
-  function selectedTab(index: number) {
+  function selectTab(index: number) {
     return () => {
       const newMenu = menuTabIcons.map((tab) => ({ ...tab, isSelected: false }))
       newMenu[index].isSelected = true
@@ -37,27 +45,28 @@ export function NavBar() {
     }
   }
 
-  const menuTabsElements = menuTabIcons.map((element, index) => {
+  function generateTabIcon(tab: Tab, index: number) {
     const elementAttributes = {
-      name: element.iconName,
-      size: element.iconName === 'settings' ? 46.5 : 50,
-      color: element.isSelected ? 'green' : 'gray',
-      onPress: selectedTab(index),
+      name: tab.iconName,
+      size: tab.iconName === 'settings' ? 46.5 : 50,
+      color: tab.isSelected ? 'green' : 'gray',
+      onPress: selectTab(index),
     }
+    return tab.iconName === 'settings' ? (
+      // @ts-ignore
+      <Ionicons {...elementAttributes} />
+    ) : (
+      // @ts-ignore
+      <MaterialCommunityIcons {...elementAttributes} />
+    )
+  }
 
-    const iconType =
-      element.iconName === 'settings' ? (
-        // @ts-ignore
-        <Icons {...elementAttributes} />
-      ) : (
-        // @ts-ignore
-        <Icons2 {...elementAttributes} />
-      )
-
+  const menuTabsElements = menuTabIcons.map((tab, index) => {
+    const tabIcon = generateTabIcon(tab, index)
     return (
       <View key={index} style={styles.tab}>
-        {iconType}
-        <Text>{element.name}</Text>
+        {tabIcon}
+        <Text>{tab.name}</Text>
       </View>
     )
   })

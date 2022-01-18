@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   header: {
     marginTop: 20,
     flexDirection: 'row',
-    backgroundColor: 'red',
     height: '20%',
   },
 })

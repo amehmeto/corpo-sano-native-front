@@ -9,9 +9,11 @@ export default function ProfileInformation() {
         source={{
           uri: 'https://www.investopedia.com/thmb/lqOcGlE7PI6vLMzhn5EDdO0HvYk=/1337x1003/smart/filters:no_upscale()/GettyImages-1054017850-7ef42af7b8044d7a86cfb2bff8641e1d.jpg',
         }}
-      ></Avatar>
-
-      <Text style={styles.biometrics}>80 kg 35% b. fat</Text>
+      />
+      <View style={styles.biometrics}>
+        <Text style={styles.biometricsData}>80 kg</Text>
+        <Text style={styles.biometricsData}>35% b. fat</Text>
+      </View>
     </View>
   )
 }
@@ -30,9 +32,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   biometrics: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingTop: 5,
     paddingBottom: 5,
-    fontSize: 12,
+  },
+  biometricsData: {
+    fontSize: 10,
     lineHeight: 16,
     textAlign: 'center',
   },
