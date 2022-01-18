@@ -38,3 +38,9 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
+
+#ERkam computer shit
+gradle/
+gradlew
+gradlew.bat
+local.properties

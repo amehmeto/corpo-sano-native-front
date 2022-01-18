@@ -3,49 +3,66 @@ import {
   Ionicons as Icons,
   MaterialCommunityIcons as Icons2,
 } from '@expo/vector-icons'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 export function NavBar() {
-  const [tab, setTab] = useState(false)
-  const menuTabIcons = [
+  const [menuTabIcons, setMenuTabIcons] = useState([
     {
       iconName: 'home' as 'home',
       name: 'Dashboard',
+      isSelected: false,
     },
     {
       iconName: 'trending-up' as 'trending-up',
       name: 'Progression',
+      isSelected: false,
     },
     {
       iconName: 'dumbbell' as 'dumbbell',
       name: 'Workouts',
+      isSelected: false,
     },
-  ]
+    {
+      iconName: 'settings' as 'settings',
+      name: 'Settings',
+      isSelected: false,
+    },
+  ])
 
-  const tabColor = tab ? 'green' : 'gray'
+  function selectedTab(index: number) {
+    return () => {
+      const newMenu = menuTabIcons.map((tab) => ({ ...tab, isSelected: false }))
+      newMenu[index].isSelected = true
+      setMenuTabIcons(newMenu)
+    }
+  }
 
   const menuTabsElements = menuTabIcons.map((element, index) => {
+    const elementAttributes = {
+      name: element.iconName,
+      size: element.iconName === 'settings' ? 46.5 : 50,
+      color: element.isSelected ? 'green' : 'gray',
+      onPress: selectedTab(index),
+    }
+
+    const iconType =
+      element.iconName === 'settings' ? (
+        // @ts-ignore
+        <Icons {...elementAttributes} />
+      ) : (
+        // @ts-ignore
+        <Icons2 {...elementAttributes} />
+      )
+
     return (
       <View key={index} style={styles.tab}>
-        <Icons2
-          name={element.iconName}
-          size={50}
-          color={tabColor}
-          onPress={() => setTab(true)}
-        />
+        {iconType}
         <Text>{element.name}</Text>
       </View>
     )
   })
-  return (
-    <View style={styles.container}>
-      {menuTabsElements}
-      <View style={styles.tab}>
-        <Icons name="settings" size={46.5} color={tabColor} />
-        <Text>Settings</Text>
-      </View>
-    </View>
-  )
+
+  return <View style={styles.container}>{menuTabsElements}</View>
 }
 
 const styles = StyleSheet.create({
