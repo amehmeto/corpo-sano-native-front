@@ -1,15 +1,15 @@
-import { StyleSheet } from 'react-native'
 import { NativeBaseProvider } from 'native-base'
-import { Home } from './src/home/Home'
 import { NavBar } from './src/home/NavBar'
+import CreateProgramScreen from './src/program/CreateProgramScreen'
+import { StyleSheet, View } from 'react-native'
+import { HomeScreen } from './src/home/HomeScreen'
 
 export default function App() {
   return (
-    <>
-      <NativeBaseProvider>
-        <Home />
-        <NavBar />
-      </NativeBaseProvider>
-    </>
+    <NativeBaseProvider>
+      {/*<HomeScreen />*/}
+      <CreateProgramScreen />
+      <NavBar />
+    </NativeBaseProvider>
   )
 }

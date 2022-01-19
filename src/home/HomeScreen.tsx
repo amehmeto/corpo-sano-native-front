@@ -2,7 +2,7 @@ import ProfileInformation from './ProfileInformation'
 import Progression from './Progression'
 import { StyleSheet, Text, View } from 'react-native'
 
-export function Home() {
+export function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -21,11 +21,11 @@ export function Home() {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     flex: 1,
     backgroundColor: '#fff',
   },
   header: {
-    marginTop: 20,
     flexDirection: 'row',
     height: '20%',
   },
