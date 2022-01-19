@@ -14,7 +14,7 @@ type Tab = {
 }
 
 export function NavBar() {
-  const [menuTabIcons, setMenuTabIcons] = useState([
+  const [menuTabs, setMenuTabs] = useState([
     {
       iconName: 'home' as ioniconsNames,
       name: 'Dashboard',
@@ -39,9 +39,9 @@ export function NavBar() {
 
   function selectTab(index: number) {
     return () => {
-      const newMenu = menuTabIcons.map((tab) => ({ ...tab, isSelected: false }))
+      const newMenu = menuTabs.map((tab) => ({ ...tab, isSelected: false }))
       newMenu[index].isSelected = true
-      setMenuTabIcons(newMenu)
+      setMenuTabs(newMenu)
     }
   }
 
@@ -61,7 +61,7 @@ export function NavBar() {
     )
   }
 
-  const menuTabsElements = menuTabIcons.map((tab, index) => {
+  const menuTabsElements = menuTabs.map((tab, index) => {
     const tabIcon = generateTabIcon(tab, index)
     return (
       <View key={index} style={styles.tab}>
