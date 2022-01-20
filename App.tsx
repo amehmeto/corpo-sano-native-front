@@ -6,6 +6,7 @@ import { HomeScreen } from './src/home/HomeScreen'
 import AddExercisesScreen from './src/program/AddExercisesScreen'
 import EditWorkout from './src/program/EditWorkout'
 import React from 'react'
+import ExerciseSettings from './src/program/ExerciseSettings'
 
 export default function App() {
   return (
@@ -13,7 +14,8 @@ export default function App() {
       {/*<HomeScreen />*/}
       {/*<CreateProgramScreen />*/}
       {/*<AddExercisesScreen />*/}
-      <EditWorkout />
+      {/*<EditWorkout />*/}
+      <ExerciseSettings />
       <NavBar />
     </NativeBaseProvider>
   )

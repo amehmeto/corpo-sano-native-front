@@ -1,6 +1,36 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 
 export default function AddExercisesScreen() {
+  const exercisesDataFromApi = [
+    { name: 'Abs', isSelected: true },
+    { name: 'Squat', isSelected: false },
+    { name: 'Pull up', isSelected: false },
+    { name: 'Push up', isSelected: false },
+    { name: 'Abs', isSelected: false },
+    { name: 'Squat', isSelected: false },
+    { name: 'Pull up', isSelected: false },
+    { name: 'Push up', isSelected: false },
+    { name: 'Abs', isSelected: false },
+    { name: 'Squat', isSelected: false },
+    { name: 'Pull up', isSelected: false },
+    { name: 'Push up', isSelected: false },
+    { name: 'Abs', isSelected: false },
+    { name: 'Squat', isSelected: false },
+    { name: 'Pull up', isSelected: false },
+  ]
+
+  const exercisesElements = exercisesDataFromApi.map((exercise) => {
+    const exerciseStyle = exercise.isSelected
+      ? styles.selectedExercise
+      : styles.exercise
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={exerciseStyle}>{exercise.name}</Text>
+      </View>
+    )
+  })
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Add exercises</Text>
@@ -8,24 +38,7 @@ export default function AddExercisesScreen() {
       <Text>Choose among the exercises below :</Text>
 
       <ScrollView style={styles.scroll}>
-        <View style={styles.exercises}>
-          <Text style={styles.selectedExercise}>Push up</Text>
-          <Text style={styles.exercise}>Abs</Text>
-          <Text style={styles.exercise}>Squat</Text>
-          <Text style={styles.exercise}>Pull up</Text>
-          <Text style={styles.exercise}>Push up</Text>
-          <Text style={styles.exercise}>Abs</Text>
-          <Text style={styles.exercise}>Squat</Text>
-          <Text style={styles.exercise}>Pull up</Text>
-          <Text style={styles.exercise}>Push up</Text>
-          <Text style={styles.exercise}>Abs</Text>
-          <Text style={styles.exercise}>Squat</Text>
-          <Text style={styles.exercise}>Pull up</Text>
-          <Text style={styles.exercise}>Push up</Text>
-          <Text style={styles.exercise}>Abs</Text>
-          <Text style={styles.exercise}>Squat</Text>
-          <Text style={styles.exercise}>Pull up</Text>
-        </View>
+        <View style={styles.exercises}>{exercisesElements}</View>
       </ScrollView>
 
       <Button title={'Create program'} onPress={() => {}} />
@@ -74,6 +87,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     margin: 10,
+    flexGrow: 1,
   },
   scroll: {
     maxHeight: '60%',
@@ -91,5 +105,6 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: 'bold',
     backgroundColor: '#80ff80',
+    flexGrow: 1,
   },
 })
