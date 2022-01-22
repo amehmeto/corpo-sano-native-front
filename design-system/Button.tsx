@@ -1,9 +1,11 @@
 import { Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
 
-export function Button(props: { onPress: () => void }) {
+type ButtonProps = { onPress: () => void; style?: {} }
+
+export function Button({ onPress, style = {} }: ButtonProps) {
   return (
-    <Pressable style={styles.button} onPress={props.onPress}>
+    <Pressable style={[styles.button, style]} onPress={onPress}>
       <Text style={styles.buttonText}>Start workout</Text>
     </Pressable>
   )

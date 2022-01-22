@@ -14,7 +14,10 @@ export default function SetsRunnerScreen() {
     [4, 8, 9],
   ]
   const setElement = setsStatistics.map((set, index) => {
-    return <SetRunnerRow key={index} set={set} index={index} />
+    const isRunning = index === 1
+    return (
+      <SetRunnerRow key={index} set={set} index={index} isRunning={isRunning} />
+    )
   })
   return (
     <View style={styles.container}>
@@ -26,7 +29,7 @@ export default function SetsRunnerScreen() {
         {setElement}
       </ScrollView>
 
-      <Button onPress={() => {}} />
+      <Button style={styles.button} onPress={() => {}} />
     </View>
   )
 }

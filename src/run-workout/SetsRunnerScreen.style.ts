@@ -6,10 +6,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
-
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'orange',
   },
   title: {
     fontWeight: 'bold',
@@ -17,12 +13,11 @@ export const styles = StyleSheet.create({
     margin: 20,
   },
   scroll: {
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'blue',
-
     display: 'flex',
     alignItems: 'center',
     width: 400,
+  },
+  button: {
+    marginTop: 20,
   },
 })

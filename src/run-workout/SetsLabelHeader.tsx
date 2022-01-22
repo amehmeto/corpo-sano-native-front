@@ -17,10 +17,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: '80%',
-
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'red',
   },
   label: {
     paddingLeft: 10,

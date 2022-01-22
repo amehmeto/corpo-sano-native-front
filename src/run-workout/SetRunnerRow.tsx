@@ -1,9 +1,11 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native'
 import React from 'react'
+import { ColorsEnum } from '../../design-system/colors.enum'
 
-type SetRunnerRowProps = { index: number; set: number[] }
+type SetRunnerRowProps = { index: number; set: number[]; isRunning: boolean }
 
-export function SetRunnerRow({ set, index }: SetRunnerRowProps) {
+export function SetRunnerRow({ set, index, isRunning }: SetRunnerRowProps) {
+  const styles = isRunning ? isRunningStyles : isNotRunningStyles
   return (
     <View style={styles.setRow}>
       <Text style={styles.setTitle}>{index + 1}st set:</Text>
@@ -14,12 +16,8 @@ export function SetRunnerRow({ set, index }: SetRunnerRowProps) {
   )
 }
 
-const styles = StyleSheet.create({
+const isRunningStyles = StyleSheet.create({
   setRow: {
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'red',
-
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -31,10 +29,12 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     margin: 20,
     fontSize: 28,
+    color: ColorsEnum.PRIMARY_700,
   },
   setTitle: {
     fontWeight: 'bold',
     fontSize: 22,
+    color: ColorsEnum.PRIMARY_700,
   },
   newPerf: {
     paddingLeft: 10,
@@ -45,10 +45,39 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textDecorationStyle: 'solid',
     textDecorationColor: 'green',
+    color: ColorsEnum.PRIMARY_700,
+  },
+})
 
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderColor: 'transparent',
-    borderBottomColor: 'green',
+const isNotRunningStyles = StyleSheet.create({
+  setRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    padding: 10,
+  },
+  performance: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    margin: 20,
+    fontSize: 28,
+    color: 'gray',
+  },
+  setTitle: {
+    fontWeight: 'bold',
+    fontSize: 22,
+    color: 'gray',
+  },
+  newPerf: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    margin: 20,
+    fontSize: 28,
+    textAlign: 'center',
+    textDecorationStyle: 'solid',
+    textDecorationColor: 'green',
+    color: 'gray',
   },
 })
