@@ -1,12 +1,14 @@
 import { NativeBaseProvider } from 'native-base'
 import { NavBar } from './src/home/NavBar'
-import CreateProgramScreen from './src/program/CreateProgramScreen'
+import CreateProgramScreen from './src/create-workout/CreateProgramScreen'
 import { StyleSheet, View } from 'react-native'
 import { HomeScreen } from './src/home/HomeScreen'
-import AddExercisesScreen from './src/program/AddExercisesScreen'
-import EditWorkout from './src/program/EditWorkout'
+import AddExercisesScreen from './src/create-workout/AddExercisesScreen'
+import EditWorkout from './src/create-workout/EditWorkout'
 import React from 'react'
-import ExerciseSettings from './src/program/ExerciseSettings'
+import ExerciseSettings from './src/create-workout/ExerciseSettings'
+import WorkoutPreview from './src/run-workout/WorkoutPreview'
+import SetsRunnerScreen from './src/run-workout/SetsRunnerScreen'
 
 export default function App() {
   return (
@@ -15,7 +17,9 @@ export default function App() {
       {/*<CreateProgramScreen />*/}
       {/*<AddExercisesScreen />*/}
       {/*<EditWorkout />*/}
-      <ExerciseSettings />
+      {/* <ExerciseSettings /> */}
+      {/* <WorkoutPreview /> */}
+      <SetsRunnerScreen />
       <NavBar />
     </NativeBaseProvider>
   )

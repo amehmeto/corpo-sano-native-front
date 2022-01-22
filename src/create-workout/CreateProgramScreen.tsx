@@ -10,7 +10,7 @@ export default function CreateProgramScreen() {
         <TextInput style={styles.input} placeholder={'Description'} />
       </View>
 
-      <Button title={'Create program'} onPress={() => {}} />
+      <Button title={'Create create-workout'} onPress={() => {}} />
     </View>
   )
 }
