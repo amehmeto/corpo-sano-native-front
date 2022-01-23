@@ -13,7 +13,7 @@ export default function SetsRunnerScreen() {
     [4, 8, 9],
     [4, 8, 9],
   ]
-  const setElement = setsStatistics.map((set, index) => {
+  const setRunnerRows = setsStatistics.map((set, index) => {
     const isRunning = index === 1
     return (
       <SetRunnerRow key={index} set={set} index={index} isRunning={isRunning} />
@@ -26,10 +26,10 @@ export default function SetsRunnerScreen() {
       <SetsLabelHeader />
 
       <ScrollView contentContainerStyle={styles.scroll}>
-        {setElement}
+        {setRunnerRows}
       </ScrollView>
 
-      <Button style={styles.button} onPress={() => {}} />
+      <Button style={styles.button} text={'Start Workout'} onPress={() => {}} />
     </View>
   )
 }

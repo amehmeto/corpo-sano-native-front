@@ -9,6 +9,7 @@ import React from 'react'
 import ExerciseSettings from './src/create-workout/ExerciseSettings'
 import WorkoutPreview from './src/run-workout/WorkoutPreview'
 import SetsRunnerScreen from './src/run-workout/SetsRunnerScreen'
+import WorkoutSessionSummaryScreen from './src/run-workout/WorkoutSessionSummaryScreen'
 
 export default function App() {
   return (
@@ -19,7 +20,8 @@ export default function App() {
       {/*<EditWorkout />*/}
       {/* <ExerciseSettings /> */}
       {/* <WorkoutPreview /> */}
-      <SetsRunnerScreen />
+      {/* <SetsRunnerScreen /> */}
+      <WorkoutSessionSummaryScreen />
       <NavBar />
     </NativeBaseProvider>
   )
