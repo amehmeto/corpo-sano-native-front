@@ -1,8 +1,19 @@
 import ProfileInformation from './ProfileInformation'
 import Progression from './Progression'
 import { StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteParams } from '../../App'
+import { NavBar } from './NavBar'
+import React from 'react'
 
 export function HomeScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
+
+  function goToCreateProgramScreen() {
+    navigation.navigate('CreateProgram')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -10,7 +21,9 @@ export function HomeScreen() {
         <Progression />
       </View>
       <View style={styles.dailyTasks}>
-        <Text style={styles.dailyTask}>Create your first program</Text>
+        <Text style={styles.dailyTask} onPress={goToCreateProgramScreen}>
+          Create your first program
+        </Text>
         <Text style={styles.dailyTask}>Take your measurements</Text>
         <Text style={styles.dailyTask}>Weight yourself</Text>
         <Text style={styles.dailyTask}>Congrats Erkam kanka</Text>
@@ -21,7 +34,6 @@ export function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 1,
     backgroundColor: '#fff',
   },

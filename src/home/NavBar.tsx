@@ -4,6 +4,9 @@ import {
   MaterialCommunityIcons as MaterialCommunityIcons,
 } from '@expo/vector-icons'
 import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteParams } from '../../App'
 
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 

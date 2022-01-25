@@ -1,28 +1,59 @@
 import { NativeBaseProvider } from 'native-base'
 import { NavBar } from './src/home/NavBar'
-import CreateProgramScreen from './src/create-workout/CreateProgramScreen'
-import { StyleSheet, View } from 'react-native'
-import { HomeScreen } from './src/home/HomeScreen'
-import AddExercisesScreen from './src/create-workout/AddExercisesScreen'
-import EditWorkout from './src/create-workout/EditWorkout'
 import React from 'react'
-import ExerciseSettings from './src/create-workout/ExerciseSettings'
-import WorkoutPreview from './src/run-workout/WorkoutPreview'
-import SetsRunnerScreen from './src/run-workout/SetsRunnerScreen'
 import WorkoutSessionSummaryScreen from './src/run-workout/WorkoutSessionSummaryScreen'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { HomeScreen } from './src/home/HomeScreen'
+import CreateProgramScreen from './src/create-workout/CreateProgramScreen'
+import EditWorkoutScreen from './src/create-workout/EditWorkout'
+import ExerciseSettingsScreen from './src/create-workout/ExerciseSettings'
+import WorkoutPreviewScreen from './src/run-workout/WorkoutPreview'
+import AddExercisesScreen from './src/create-workout/AddExercisesScreen'
+import SetsRunnerScreen from './src/run-workout/SetsRunnerScreen'
+
+export type RouteParams = {
+  Home: undefined
+  CreateProgram: undefined
+  AddExercises: undefined
+  EditWorkout: undefined
+  ExerciseSettings: undefined
+  WorkoutPreview: undefined
+  SetsRunner: undefined
+  WorkoutSessionSummary: undefined
+}
+
+const { Navigator, Screen } = createNativeStackNavigator()
+
+function Router() {
+  return (
+    <NavigationContainer>
+      <Navigator initialRouteName="Home">
+        <Screen name="Home" component={HomeScreen} />
+        <Screen
+          name="CreateProgram"
+          component={CreateProgramScreen}
+          options={{ animation: 'slide_from_right' }}
+        />
+        <Screen name="AddExercises" component={AddExercisesScreen} />
+        <Screen name="EditWorkout" component={EditWorkoutScreen} />
+        <Screen name="ExerciseSettings" component={ExerciseSettingsScreen} />
+        <Screen name="WorkoutPreview" component={WorkoutPreviewScreen} />
+        <Screen name="SetsRunner" component={SetsRunnerScreen} />
+        <Screen
+          name="WorkoutSessionSummary"
+          component={WorkoutSessionSummaryScreen}
+        />
+      </Navigator>
+    </NavigationContainer>
+  )
+}
 
 export default function App() {
   return (
     <NativeBaseProvider>
-      {/*<HomeScreen />*/}
-      {/*<CreateProgramScreen />*/}
-      {/*<AddExercisesScreen />*/}
-      {/*<EditWorkout />*/}
-      {/* <ExerciseSettings /> */}
-      {/* <WorkoutPreview /> */}
-      {/* <SetsRunnerScreen /> */}
-      <WorkoutSessionSummaryScreen />
-      <NavBar />
+      <Router />
+      <NavBar />r
     </NativeBaseProvider>
   )
 }
