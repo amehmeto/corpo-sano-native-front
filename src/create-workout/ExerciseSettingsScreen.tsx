@@ -5,8 +5,8 @@ import { NumberSetter } from './NumberSetter'
 import { Button } from '../../design-system/Button'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteParams } from '../../App'
 import { FontSize } from '../../design-system/font-size.enum'
+import { RouteParams } from '../router/Router'
 
 export default function ExerciseSettingsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()

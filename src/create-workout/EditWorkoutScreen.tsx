@@ -3,7 +3,7 @@ import { AntDesign as AntDesign } from '@expo/vector-icons'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteParams } from '../../App'
+import { RouteParams } from '../router/Router'
 
 export default function EditWorkoutScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()

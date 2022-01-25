@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import {
   Ionicons as Ionicons,
   MaterialCommunityIcons as MaterialCommunityIcons,
 } from '@expo/vector-icons'
 import React, { useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteParams } from '../../App'
 import { Colors } from '../../design-system/colors'
+import { useNavigation } from '@react-navigation/native'
+import { RouteParams } from '../router/Router'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 
@@ -16,28 +16,34 @@ type Tab = {
   name: string
   isSelected: boolean
 }
-
-export function NavBar() {
+type NavBarProps = {
+  navigation: any
+}
+export function NavBar({ navigation }: NavBarProps) {
   const [menuTabs, setMenuTabs] = useState([
     {
       iconName: 'home' as ioniconsNames,
       name: 'Dashboard',
       isSelected: true,
+      route: 'Home',
     },
     {
       iconName: 'trending-up' as ioniconsNames,
       name: 'Progression',
       isSelected: false,
+      route: undefined,
     },
     {
       iconName: 'dumbbell' as ioniconsNames,
       name: 'Workouts',
       isSelected: false,
+      route: undefined,
     },
     {
       iconName: 'settings' as 'settings',
       name: 'Settings',
       isSelected: false,
+      route: undefined,
     },
   ])
 
@@ -65,13 +71,17 @@ export function NavBar() {
     )
   }
 
+  function goToHomeScreen() {
+    navigation.navigate('Home')
+  }
+
   const menuTabsElements = menuTabs.map((tab, index) => {
     const tabIcon = generateTabIcon(tab, index)
     return (
-      <View key={index} style={styles.tab}>
+      <Pressable key={index} style={styles.tab} onPress={goToHomeScreen}>
         {tabIcon}
         <Text>{tab.name}</Text>
-      </View>
+      </Pressable>
     )
   })
 

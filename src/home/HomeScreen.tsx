@@ -3,8 +3,9 @@ import Progression from './Progression'
 import { StyleSheet, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteParams } from '../../App'
 import React from 'react'
+import { RouteParams } from '../router/Router'
+import { NavBar } from './NavBar'
 
 export function HomeScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
@@ -14,20 +15,23 @@ export function HomeScreen() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <ProfileInformation />
-        <Progression />
+    <>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <ProfileInformation />
+          <Progression />
+        </View>
+        <View style={styles.dailyTasks}>
+          <Text style={styles.dailyTask} onPress={goToCreateProgramScreen}>
+            Create your first program
+          </Text>
+          <Text style={styles.dailyTask}>Take your measurements</Text>
+          <Text style={styles.dailyTask}>Weight yourself</Text>
+          <Text style={styles.dailyTask}>Congrats Erkam kanka</Text>
+        </View>
       </View>
-      <View style={styles.dailyTasks}>
-        <Text style={styles.dailyTask} onPress={goToCreateProgramScreen}>
-          Create your first program
-        </Text>
-        <Text style={styles.dailyTask}>Take your measurements</Text>
-        <Text style={styles.dailyTask}>Weight yourself</Text>
-        <Text style={styles.dailyTask}>Congrats Erkam kanka</Text>
-      </View>
-    </View>
+      <NavBar />
+    </>
   )
 }
 
