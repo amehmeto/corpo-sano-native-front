@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteParams } from '../../App'
+import { Colors } from '../../design-system/colors'
 
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 
@@ -52,7 +53,7 @@ export function NavBar() {
     const elementAttributes = {
       name: tab.iconName,
       size: tab.iconName === 'settings' ? 46.5 : 50,
-      color: tab.isSelected ? 'green' : 'gray',
+      color: tab.isSelected ? Colors.PRIMARY_700 : 'gray',
       onPress: selectTab(index),
     }
     return tab.iconName === 'settings' ? (

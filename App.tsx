@@ -6,8 +6,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { HomeScreen } from './src/home/HomeScreen'
 import CreateProgramScreen from './src/create-workout/CreateProgramScreen'
-import EditWorkoutScreen from './src/create-workout/EditWorkout'
-import ExerciseSettingsScreen from './src/create-workout/ExerciseSettings'
+import EditWorkoutScreen from './src/create-workout/EditWorkoutScreen'
+import ExerciseSettingsScreen from './src/create-workout/ExerciseSettingsScreen'
 import WorkoutPreviewScreen from './src/run-workout/WorkoutPreview'
 import AddExercisesScreen from './src/create-workout/AddExercisesScreen'
 import SetsRunnerScreen from './src/run-workout/SetsRunnerScreen'
@@ -28,7 +28,7 @@ const { Navigator, Screen } = createNativeStackNavigator()
 function Router() {
   return (
     <NavigationContainer>
-      <Navigator initialRouteName="Home">
+      <Navigator initialRouteName="ExerciseSettings">
         <Screen name="Home" component={HomeScreen} />
         <Screen
           name="CreateProgram"
@@ -53,7 +53,7 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <Router />
-      <NavBar />r
+      <NavBar />
     </NativeBaseProvider>
   )
 }

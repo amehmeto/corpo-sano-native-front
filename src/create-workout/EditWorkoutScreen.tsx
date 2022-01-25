@@ -1,8 +1,13 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { AntDesign as AntDesign } from '@expo/vector-icons'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteParams } from '../../App'
 
-export default function EditWorkout() {
+export default function EditWorkoutScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
+
   const exercisesDataFromApi = [
     { name: 'Abs', isSelected: true },
     { name: 'Squat', isSelected: false },
@@ -31,22 +36,30 @@ export default function EditWorkout() {
     { day: 'sunday', isSelected: false },
   ]
 
-  const exercisesElements = exercisesDataFromApi.map((exercise) => {
+  const exercisesElements = exercisesDataFromApi.map((exercise, index) => {
     const exerciseStyle = exercise.isSelected
       ? styles.selectedExercise
       : styles.exercise
     return (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={exerciseStyle}>{exercise.name}</Text>
         <AntDesign name="closecircle" size={25} />
       </View>
     )
   })
 
-  const daysSelector = daysData.map((day) => {
+  const daysSelector = daysData.map((day, index) => {
     const dayStyle = day.isSelected ? styles.selectedDay : styles.day
-    return <Text style={dayStyle}>{day.day}</Text>
+    return (
+      <Text key={index} style={dayStyle}>
+        {day.day}
+      </Text>
+    )
   })
+
+  function goToExercisesSettingsScreen() {
+    navigation.navigate('ExerciseSettings')
+  }
 
   return (
     <View style={styles.container}>
@@ -60,7 +73,7 @@ export default function EditWorkout() {
 
       <View style={styles.days}>{daysSelector}</View>
 
-      <Button title={'Schedule Days'} onPress={() => {}} />
+      <Button title={'Schedule Days'} onPress={goToExercisesSettingsScreen} />
     </View>
   )
 }

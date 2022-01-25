@@ -29,7 +29,11 @@ export default function SetsRunnerScreen() {
         {setRunnerRows}
       </ScrollView>
 
-      <Button style={styles.button} text={'Start Workout'} onPress={() => {}} />
+      <Button
+        additionalStyle={styles.button}
+        text={'Start Workout'}
+        onPress={() => {}}
+      />
     </View>
   )
 }

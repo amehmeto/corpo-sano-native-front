@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native'
 import React from 'react'
-import { ColorsEnum } from '../../design-system/colors.enum'
+import { Colors } from '../../design-system/colors'
 
 type SetRunnerRowProps = { index: number; set: number[]; isRunning: boolean }
 
@@ -29,12 +29,12 @@ const isRunningStyles = StyleSheet.create({
     paddingRight: 10,
     margin: 20,
     fontSize: 28,
-    color: ColorsEnum.PRIMARY_700,
+    color: Colors.PRIMARY_700,
   },
   setTitle: {
     fontWeight: 'bold',
     fontSize: 22,
-    color: ColorsEnum.PRIMARY_700,
+    color: Colors.PRIMARY_700,
   },
   newPerf: {
     paddingLeft: 10,
@@ -45,7 +45,7 @@ const isRunningStyles = StyleSheet.create({
     textAlign: 'center',
     textDecorationStyle: 'solid',
     textDecorationColor: 'green',
-    color: ColorsEnum.PRIMARY_700,
+    color: Colors.PRIMARY_700,
   },
 })
 

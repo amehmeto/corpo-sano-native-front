@@ -45,7 +45,7 @@ export default function WorkoutSessionSummaryScreen() {
       </ScrollView>
 
       <Button
-        style={styles.button}
+        additionalStyle={styles.button}
         text={'Leave Workout Session'}
         onPress={() => {}}
       />
