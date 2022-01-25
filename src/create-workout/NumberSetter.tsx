@@ -2,7 +2,6 @@ import { StyleSheet, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { FontSize } from '../../design-system/font-size.enum'
-import { Colors } from '../../design-system/colors'
 import { TextInputStyle } from '../../design-system/TextInput'
 
 export function NumberSetter() {

@@ -17,7 +17,7 @@ export default function ExerciseSettingsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tractions</Text>
+      <Text style={styles.title}>Pull-ups</Text>
 
       <Text style={styles.subTitle}>Number of sets</Text>
       <NumberSetter />

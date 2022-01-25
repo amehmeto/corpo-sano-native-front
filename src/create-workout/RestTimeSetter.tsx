@@ -8,7 +8,7 @@ export function RestTimeSetter() {
     <View style={styles.numberSetter}>
       <TextInput style={[styles.number, TextInputStyle]}>1</TextInput>
       <Text style={styles.number}>min</Text>
-      <TextInput style={[styles.number, TextInputStyle]}>5</TextInput>
+      <TextInput style={[styles.number, TextInputStyle]}>00</TextInput>
     </View>
   )
 }
