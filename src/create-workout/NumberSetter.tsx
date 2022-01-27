@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { FontSize } from '../../design-system/font-size.enum'
-import { TextInputStyle } from '../../design-system/TextInput'
+import { IsActiveTextInputStyle } from '../../design-system/TextInput'
 
 export function NumberSetter() {
   const [number, setNumber] = useState(0)
@@ -22,7 +22,9 @@ export function NumberSetter() {
         onPress={subtractNumber}
         additionalStyle={styles.button}
       />
-      <TextInput style={[styles.number, TextInputStyle]}>{number}</TextInput>
+      <TextInput style={[styles.number, IsActiveTextInputStyle]}>
+        {number}
+      </TextInput>
       <Button text={'+'} onPress={addNumber} additionalStyle={styles.button} />
     </View>
   )

@@ -5,9 +5,6 @@ import {
 } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { Colors } from '../../design-system/colors'
-import { useNavigation } from '@react-navigation/native'
-import { RouteParams } from '../router/Router'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 
@@ -19,7 +16,7 @@ type Tab = {
 type NavBarProps = {
   navigation: any
 }
-export function NavBar({ navigation }: NavBarProps) {
+export function NavBar() {
   const [menuTabs, setMenuTabs] = useState([
     {
       iconName: 'home' as ioniconsNames,
@@ -71,9 +68,7 @@ export function NavBar({ navigation }: NavBarProps) {
     )
   }
 
-  function goToHomeScreen() {
-    navigation.navigate('Home')
-  }
+  function goToHomeScreen() {}
 
   const menuTabsElements = menuTabs.map((tab, index) => {
     const tabIcon = generateTabIcon(tab, index)
