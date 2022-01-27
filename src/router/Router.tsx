@@ -10,6 +10,8 @@ import WorkoutSessionSummaryScreen from '../run-workout/WorkoutSessionSummaryScr
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+const { Navigator, Screen } = createNativeStackNavigator()
+
 export type RouteParams = {
   Home: undefined
   CreateProgram: undefined
@@ -20,28 +22,25 @@ export type RouteParams = {
   SetsRunner: undefined
   WorkoutSessionSummary: undefined
 }
-const { Navigator, Screen } = createNativeStackNavigator()
+
+const routes = [
+  { name: 'Home', component: HomeScreen },
+  { name: 'CreateProgram', component: CreateProgramScreen },
+  { name: 'AddExercises', component: AddExercisesScreen },
+  { name: 'EditWorkout', component: EditWorkoutScreen },
+  { name: 'ExerciseSettings', component: ExerciseSettingsScreen },
+  { name: 'WorkoutPreview', component: WorkoutPreviewScreen },
+  { name: 'SetsRunner', component: SetsRunnerScreen },
+  { name: 'WorkoutSessionSummary', component: WorkoutSessionSummaryScreen },
+]
 
 export function Router() {
+  const screens = routes.map((route, index) => {
+    return <Screen key={index} name={route.name} component={route.component} />
+  })
   return (
     <NavigationContainer>
-      <Navigator initialRouteName="Home">
-        <Screen name="Home" component={HomeScreen} />
-        <Screen
-          name="CreateProgram"
-          component={CreateProgramScreen}
-          options={{ animation: 'slide_from_right' }}
-        />
-        <Screen name="AddExercises" component={AddExercisesScreen} />
-        <Screen name="EditWorkout" component={EditWorkoutScreen} />
-        <Screen name="ExerciseSettings" component={ExerciseSettingsScreen} />
-        <Screen name="WorkoutPreview" component={WorkoutPreviewScreen} />
-        <Screen name="SetsRunner" component={SetsRunnerScreen} />
-        <Screen
-          name="WorkoutSessionSummary"
-          component={WorkoutSessionSummaryScreen}
-        />
-      </Navigator>
+      <Navigator initialRouteName="Home">{screens}</Navigator>
     </NavigationContainer>
   )
 }
