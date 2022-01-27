@@ -1,19 +1,26 @@
 import ProfileInformation from './ProfileInformation'
 import Progression from './Progression'
-import { StyleSheet, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { RouteParams } from '../router/Router'
 import { NavBar } from './NavBar'
+import { dailyTasksFakeData } from './repositories/home.fake-data.repository'
 
-export function HomeScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
-
+export function HomeScreen({ navigation }: any) {
   function goToCreateProgramScreen() {
     navigation.navigate('CreateProgram')
   }
 
+  const dailyTasksElements = dailyTasksFakeData.map((task, index) => {
+    return (
+      <Pressable
+        key={index}
+        style={styles.dailyTask}
+        onPress={goToCreateProgramScreen}
+      >
+        <Text>{task.description}</Text>
+      </Pressable>
+    )
+  })
   return (
     <>
       <View style={styles.container}>
@@ -21,14 +28,7 @@ export function HomeScreen() {
           <ProfileInformation />
           <Progression />
         </View>
-        <View style={styles.dailyTasks}>
-          <Text style={styles.dailyTask} onPress={goToCreateProgramScreen}>
-            Create your first program
-          </Text>
-          <Text style={styles.dailyTask}>Take your measurements</Text>
-          <Text style={styles.dailyTask}>Weight yourself</Text>
-          <Text style={styles.dailyTask}>Congrats Erkam kanka</Text>
-        </View>
+        <View style={styles.dailyTasks}>{dailyTasksElements}</View>
       </View>
       <NavBar />
     </>

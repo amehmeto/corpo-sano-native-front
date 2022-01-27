@@ -1,26 +1,9 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { exercisesFakeData } from './repositories/exercise.fake-data.repository'
 
 export default function AddExercisesScreen() {
-  const exercisesDataFromApi = [
-    { name: 'Abs', isSelected: true },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-  ]
-
-  const exercisesElements = exercisesDataFromApi.map((exercise) => {
+  const exercisesElements = exercisesFakeData.map((exercise) => {
     const exerciseStyle = exercise.isSelected
       ? styles.selectedExercise
       : styles.exercise

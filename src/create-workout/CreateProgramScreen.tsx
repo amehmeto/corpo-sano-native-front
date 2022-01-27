@@ -1,12 +1,7 @@
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteParams } from '../router/Router'
 import { NavBar } from '../home/NavBar'
 
-export default function CreateProgramScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
-
+export default function CreateProgramScreen({ navigation }: any) {
   function goToEditWorkoutScreen() {
     navigation.navigate('EditWorkout')
   }
@@ -23,7 +18,7 @@ export default function CreateProgramScreen() {
 
         <Button title={'Create workout'} onPress={goToEditWorkoutScreen} />
       </View>
-      <NavBar navigation={navigation} />
+      <NavBar />
     </>
   )
 }

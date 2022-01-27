@@ -1,42 +1,11 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { AntDesign as AntDesign } from '@expo/vector-icons'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteParams } from '../router/Router'
+import { exercisesFakeData } from './repositories/exercise.fake-data.repository'
+import { scheduledDaysFakeData } from './repositories/schedule-days.fake-data.repository'
 
-export default function EditWorkoutScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
-
-  const exercisesDataFromApi = [
-    { name: 'Abs', isSelected: true },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-  ]
-
-  const daysData = [
-    { day: 'monday', isSelected: true },
-    { day: 'tuesday', isSelected: false },
-    { day: 'wednesday', isSelected: false },
-    { day: 'thursday', isSelected: false },
-    { day: 'friday', isSelected: false },
-    { day: 'saturday', isSelected: false },
-    { day: 'sunday', isSelected: false },
-  ]
-
-  const exercisesElements = exercisesDataFromApi.map((exercise, index) => {
+export default function EditWorkoutScreen({ navigation }: any) {
+  const exercisesElements = exercisesFakeData.map((exercise, index) => {
     const exerciseStyle = exercise.isSelected
       ? styles.selectedExercise
       : styles.exercise
@@ -48,8 +17,8 @@ export default function EditWorkoutScreen() {
     )
   })
 
-  const daysSelector = daysData.map((day, index) => {
-    const dayStyle = day.isSelected ? styles.selectedDay : styles.day
+  const daysSelector = scheduledDaysFakeData.map((day, index) => {
+    const dayStyle = day.isScheduled ? styles.scheduledDay : styles.day
     return (
       <Text key={index} style={dayStyle}>
         {day.day}
@@ -151,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
 
-  selectedDay: {
+  scheduledDay: {
     textAlign: 'center',
     textDecorationColor: 'green',
     padding: 10,
