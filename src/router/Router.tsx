@@ -23,7 +23,7 @@ export type RouteParams = {
   WorkoutSessionSummary: undefined
 }
 
-export const routes = [
+const routes = [
   { name: 'Home', component: HomeScreen },
   { name: 'CreateProgram', component: CreateProgramScreen },
   { name: 'AddExercises', component: AddExercisesScreen },
@@ -32,7 +32,9 @@ export const routes = [
   { name: 'WorkoutPreview', component: WorkoutPreviewScreen },
   { name: 'SetsRunner', component: SetsRunnerScreen },
   { name: 'WorkoutSessionSummary', component: WorkoutSessionSummaryScreen },
-]
+] as const
+
+export type RouteNames = typeof routes[number]['name']
 
 export function Router() {
   const screens = routes.map((route, index) => {

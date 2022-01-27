@@ -3,6 +3,7 @@ import React from 'react'
 import { SetRunnerRow } from './SetRunnerRow'
 import { Button } from '../../design-system/Button'
 import { SetsLabelHeader } from './SetsLabelHeader'
+import { RouteNames } from '../router/Router'
 
 export default function SetsRunnerScreen({ navigation }: any) {
   const setsStatistics = [
@@ -13,7 +14,7 @@ export default function SetsRunnerScreen({ navigation }: any) {
     [4, 8, 9],
   ]
 
-  function goTo(route: string) {
+  function goTo(route: RouteNames) {
     navigation.navigate(route)
   }
 

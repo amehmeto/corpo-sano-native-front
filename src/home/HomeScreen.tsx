@@ -6,16 +6,12 @@ import { NavBar } from './NavBar'
 import { dailyTasksFakeData } from './repositories/home.fake-data.repository'
 
 export function HomeScreen({ navigation }: any) {
-  function goTo(route: string) {
-    navigation.navigate(route)
-  }
-
   const dailyTasksElements = dailyTasksFakeData.map((task, index) => {
     return (
       <Pressable
         key={index}
         style={styles.dailyTask}
-        onPress={() => goTo(task.route)}
+        onPress={() => navigation.navigate(task.route)}
       >
         <Text>{task.description}</Text>
       </Pressable>

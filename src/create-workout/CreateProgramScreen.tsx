@@ -5,36 +5,23 @@ import { InMemoryProgramGateway } from './gateways/program.in-memory.gateway'
 import React, { useState } from 'react'
 
 export default function CreateProgramScreen({ navigation }: any) {
-  let [program, setProgram] = useState({
-    title: '',
-    description: '',
-  })
+  const [title, setTitle] = useState('abricot')
+  const [description, setDescription] = useState('')
 
   async function createProgram() {
     const createProgramGateway = new InMemoryProgramGateway()
     const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
-    const createdProgram = await createProgramUseCase.execute(program)
+    const createdProgram = await createProgramUseCase.execute({
+      title,
+      description,
+    })
     console.log(createdProgram)
     navigation.navigate('EditWorkout')
   }
 
-  function changeTitle() {
-    return (title: string) => {
-      setProgram((prevState) => ({
-        description: prevState.description,
-        title,
-      }))
-    }
-  }
+  const changeTitle = (event: any) => setTitle(event.target.value)
 
-  function changeDescription() {
-    return (description: string) => {
-      setProgram((prevState) => ({
-        description,
-        title: prevState.title,
-      }))
-    }
-  }
+  const changeDescription = (event: any) => setDescription(event.target.value)
 
   return (
     <>
@@ -45,12 +32,14 @@ export default function CreateProgramScreen({ navigation }: any) {
           <TextInput
             style={styles.input}
             placeholder={'Name'}
-            onChangeText={changeTitle()}
+            value={title}
+            onChange={changeTitle}
           />
           <TextInput
             style={styles.input}
             placeholder={'Description'}
-            onChangeText={changeDescription()}
+            value={description}
+            onChange={changeDescription}
           />
         </View>
 

@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Button } from '../../design-system/Button'
 import { Feather } from '@expo/vector-icons'
+import { RouteNames } from '../router/Router'
 
 export default function WorkoutSessionSummaryScreen({ navigation }: any) {
   const todaySessionExercisesStats = [
@@ -17,19 +18,19 @@ export default function WorkoutSessionSummaryScreen({ navigation }: any) {
     { name: 'Tractions', lastSets: [4, 8, 9] },
   ]
 
-  function goTo(route: string) {
+  function goTo(route: RouteNames) {
     navigation.navigate(route)
   }
 
   const exerciseSetsSummary = todaySessionExercisesStats.map(
-    (exercise, index) => {
-      const setPerfs = exercise.lastSets.map((perf, index) => (
-        <Text key={index} style={styles.exercisePerf}>
+    (exercise, exerciseIndex) => {
+      const setPerfs = exercise.lastSets.map((perf, perfIndex) => (
+        <Text key={perfIndex} style={styles.exercisePerf}>
           {perf}
         </Text>
       ))
       return (
-        <View style={styles.exerciseRow} key={index}>
+        <View style={styles.exerciseRow} key={exerciseIndex}>
           <Text style={styles.exerciseName}>{exercise.name}</Text>
           {setPerfs}
           <Feather name="arrow-up-right" size={24} color="black" />
