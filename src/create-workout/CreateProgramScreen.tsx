@@ -1,9 +1,39 @@
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavBar } from '../home/NavBar'
+import { CreateProgramUseCase } from './use-cases/create-program.use-case'
+import { InMemoryProgramGateway } from './gateways/program.in-memory.gateway'
+import React, { useState } from 'react'
 
 export default function CreateProgramScreen({ navigation }: any) {
-  function goToEditWorkoutScreen() {
+  let [program, setProgram] = useState({
+    title: '',
+    description: '',
+  })
+
+  async function createProgram() {
+    const createProgramGateway = new InMemoryProgramGateway()
+    const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
+    const createdProgram = await createProgramUseCase.execute(program)
+    console.log(createdProgram)
     navigation.navigate('EditWorkout')
+  }
+
+  function changeTitle() {
+    return (title: string) => {
+      setProgram((prevState) => ({
+        description: prevState.description,
+        title,
+      }))
+    }
+  }
+
+  function changeDescription() {
+    return (description: string) => {
+      setProgram((prevState) => ({
+        description,
+        title: prevState.title,
+      }))
+    }
   }
 
   return (
@@ -12,11 +42,19 @@ export default function CreateProgramScreen({ navigation }: any) {
         <Text style={styles.title}>Create a program</Text>
 
         <View style={styles.fields}>
-          <TextInput style={styles.input} placeholder={'Name'} />
-          <TextInput style={styles.input} placeholder={'Description'} />
+          <TextInput
+            style={styles.input}
+            placeholder={'Name'}
+            onChangeText={changeTitle()}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder={'Description'}
+            onChangeText={changeDescription()}
+          />
         </View>
 
-        <Button title={'Create workout'} onPress={goToEditWorkoutScreen} />
+        <Button title={'Create workout'} onPress={createProgram} />
       </View>
       <NavBar />
     </>

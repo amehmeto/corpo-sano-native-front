@@ -1,6 +1,6 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { exercisesFakeData } from './repositories/exercise.fake-data.repository'
+import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 
 export default function AddExercisesScreen() {
   const exercisesElements = exercisesFakeData.map((exercise) => {

@@ -1,8 +1,8 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { AntDesign as AntDesign } from '@expo/vector-icons'
 import React from 'react'
-import { exercisesFakeData } from './repositories/exercise.fake-data.repository'
-import { scheduledDaysFakeData } from './repositories/schedule-days.fake-data.repository'
+import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
+import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.repository'
 
 export default function EditWorkoutScreen({ navigation }: any) {
   const exercisesElements = exercisesFakeData.map((exercise, index) => {
