@@ -1,14 +1,14 @@
-export const dailyTasksFakeData = [
+export const dailyTasksFakeData: { description: string; route: string }[] = [
   {
     description: 'Create your first program',
-    route: undefined,
+    route: 'CreateProgram',
   },
   {
-    description: 'Start your Upper Body wokrout',
-    route: undefined,
+    description: 'Start your Upper Body workout',
+    route: 'WorkoutPreview',
   },
   {
     description: 'Create your first program',
-    route: undefined,
+    route: 'HomeScreen',
   },
 ]

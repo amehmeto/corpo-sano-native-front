@@ -24,7 +24,7 @@ export default function AddExercisesScreen() {
         <View style={styles.exercises}>{exercisesElements}</View>
       </ScrollView>
 
-      <Button title={'Create create-workout'} onPress={() => {}} />
+      <Button title={'Create workout'} onPress={() => {}} />
     </View>
   )
 }

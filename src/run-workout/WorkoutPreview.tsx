@@ -1,26 +1,13 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { exercisesFakeData } from '../create-workout/repositories/exercise.fake-data.repository'
 
-export default function WorkoutPreview() {
-  const exercisesDataFromApi = [
-    { name: 'Abs', isSelected: true },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-    { name: 'Push up', isSelected: false },
-    { name: 'Abs', isSelected: false },
-    { name: 'Squat', isSelected: false },
-    { name: 'Pull up', isSelected: false },
-  ]
+export default function WorkoutPreview({ navigation }: any) {
+  function goTo(route: string) {
+    navigation.navigate(route)
+  }
 
-  const exercisesElements = exercisesDataFromApi.map((exercise, index) => {
+  const exercisesElements = exercisesFakeData.map((exercise, index) => {
     const exerciseStyle = exercise.isSelected
       ? styles.selectedExercise
       : styles.exercise
@@ -41,7 +28,7 @@ export default function WorkoutPreview() {
         <View style={styles.exercises}>{exercisesElements}</View>
       </ScrollView>
 
-      <Button title={'Start workout'} onPress={() => {}} />
+      <Button title={'Start workout'} onPress={() => goTo('SetsRunner')} />
     </View>
   )
 }

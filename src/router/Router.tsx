@@ -23,7 +23,7 @@ export type RouteParams = {
   WorkoutSessionSummary: undefined
 }
 
-const routes = [
+export const routes = [
   { name: 'Home', component: HomeScreen },
   { name: 'CreateProgram', component: CreateProgramScreen },
   { name: 'AddExercises', component: AddExercisesScreen },

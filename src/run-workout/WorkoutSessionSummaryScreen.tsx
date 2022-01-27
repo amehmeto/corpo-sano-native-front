@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '../../design-system/Button'
 import { Feather } from '@expo/vector-icons'
 
-export default function WorkoutSessionSummaryScreen() {
+export default function WorkoutSessionSummaryScreen({ navigation }: any) {
   const todaySessionExercisesStats = [
     { name: 'Push-up', lastSets: [4, 8, 9] },
     { name: 'Dips', lastSets: [4, 8, 9] },
@@ -16,6 +16,11 @@ export default function WorkoutSessionSummaryScreen() {
     { name: 'Tractions', lastSets: [4, 8, 9] },
     { name: 'Tractions', lastSets: [4, 8, 9] },
   ]
+
+  function goTo(route: string) {
+    navigation.navigate(route)
+  }
+
   const exerciseSetsSummary = todaySessionExercisesStats.map(
     (exercise, index) => {
       const setPerfs = exercise.lastSets.map((perf, index) => (
@@ -32,6 +37,7 @@ export default function WorkoutSessionSummaryScreen() {
       )
     },
   )
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Upper Body Workout</Text>
@@ -47,7 +53,7 @@ export default function WorkoutSessionSummaryScreen() {
       <Button
         additionalStyle={styles.button}
         text={'Leave Workout Session'}
-        onPress={() => {}}
+        onPress={() => goTo('Home')}
       />
     </View>
   )
