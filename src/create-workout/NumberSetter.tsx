@@ -22,9 +22,13 @@ export function NumberSetter() {
         onPress={subtractNumber}
         additionalStyle={styles.button}
       />
-      <TextInput style={[styles.number, IsActiveTextInputStyle]}>
-        {number}
-      </TextInput>
+      <TextInput
+        style={[styles.number, IsActiveTextInputStyle]}
+        value={number.toString()}
+        onChange={() => {
+          setNumber(number)
+        }}
+      />
       <Button text={'+'} onPress={addNumber} additionalStyle={styles.button} />
     </View>
   )
@@ -41,6 +45,7 @@ const styles = StyleSheet.create({
 
     paddingLeft: 10,
     paddingRight: 10,
+    width: 60,
   },
   button: {
     paddingTop: 3,

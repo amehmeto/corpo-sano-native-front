@@ -3,14 +3,9 @@ import React from 'react'
 import { RestTimeSetter } from './RestTimeSetter'
 import { NumberSetter } from './NumberSetter'
 import { Button } from '../../design-system/Button'
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { FontSize } from '../../design-system/font-size.enum'
-import { RouteParams } from '../router/Router'
 
-export default function ExerciseSettingsScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RouteParams>>()
-
+export default function ExerciseSettingsScreen({ navigation }: any) {
   function goToHomeScreen() {
     navigation.navigate('Home')
   }

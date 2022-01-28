@@ -6,9 +6,9 @@ import { TextInputStyle } from '../../design-system/TextInput'
 export function RestTimeSetter() {
   return (
     <View style={styles.numberSetter}>
-      <TextInput style={[styles.number, TextInputStyle]}>1</TextInput>
+      <TextInput style={[styles.number, TextInputStyle]} value={'3'} />
       <Text style={styles.number}>min</Text>
-      <TextInput style={[styles.number, TextInputStyle]}>00</TextInput>
+      <TextInput style={[styles.number, TextInputStyle]} value={'00'} />
     </View>
   )
 }
@@ -23,5 +23,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.HEADING_4,
     paddingLeft: 10,
     paddingRight: 10,
+    width: 60,
   },
 })

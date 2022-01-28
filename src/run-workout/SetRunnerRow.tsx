@@ -11,7 +11,7 @@ export function SetRunnerRow({ set, index, isRunning }: SetRunnerRowProps) {
       <Text style={styles.setTitle}>{index + 1}st set:</Text>
       <Text style={styles.exerciseName}>{set[0]}</Text>
       <Text style={styles.exerciseName}>{set[1]}</Text>
-      <TextInput style={styles.newPerf}>{set[2]}</TextInput>
+      <TextInput style={styles.newPerf} value={set[2].toString()} />
     </View>
   )
 }
@@ -46,6 +46,7 @@ const isRunningStyles = StyleSheet.create({
     textDecorationStyle: 'solid',
     textDecorationColor: 'green',
     color: Colors.PRIMARY_700,
+    width: 10,
   },
 })
 
@@ -79,5 +80,6 @@ const isNotRunningStyles = StyleSheet.create({
     textDecorationStyle: 'solid',
     textDecorationColor: 'green',
     color: 'gray',
+    width: 10,
   },
 })

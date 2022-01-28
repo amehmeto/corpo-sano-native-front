@@ -3,7 +3,6 @@ import React from 'react'
 import { SetRunnerRow } from './SetRunnerRow'
 import { Button } from '../../design-system/Button'
 import { SetsLabelHeader } from './SetsLabelHeader'
-import { RouteNames } from '../router/Router'
 
 export default function SetsRunnerScreen({ navigation }: any) {
   const setsStatistics = [
@@ -13,10 +12,6 @@ export default function SetsRunnerScreen({ navigation }: any) {
     [4, 8, 9],
     [4, 8, 9],
   ]
-
-  function goTo(route: RouteNames) {
-    navigation.navigate(route)
-  }
 
   const setRunnerRows = setsStatistics.map((set, index) => {
     const isRunning = index === 1
@@ -38,7 +33,7 @@ export default function SetsRunnerScreen({ navigation }: any) {
       <Button
         additionalStyle={styles.button}
         text={'Start First Set'}
-        onPress={() => goTo('WorkoutSessionSummary')}
+        onPress={() => navigation.navigate('WorkoutSessionSummary')}
       />
     </View>
   )

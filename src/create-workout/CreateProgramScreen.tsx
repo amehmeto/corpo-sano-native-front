@@ -11,11 +11,10 @@ export default function CreateProgramScreen({ navigation }: any) {
   async function createProgram() {
     const createProgramGateway = new InMemoryProgramGateway()
     const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
-    const createdProgram = await createProgramUseCase.execute({
+    await createProgramUseCase.execute({
       title,
       description,
     })
-    console.log(createdProgram)
     navigation.navigate('EditWorkout')
   }
 

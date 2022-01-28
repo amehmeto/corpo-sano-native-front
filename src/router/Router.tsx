@@ -42,7 +42,7 @@ export function Router() {
   })
   return (
     <NavigationContainer>
-      <Navigator initialRouteName="Home">{screens}</Navigator>
+      <Navigator initialRouteName="CreateProgram">{screens}</Navigator>
     </NavigationContainer>
   )
 }
