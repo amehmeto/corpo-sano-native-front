@@ -1,34 +1,89 @@
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
+  Button,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { AntDesign as AntDesign } from '@expo/vector-icons'
-import React from 'react'
+import React, { useState } from 'react'
 import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.repository'
+import { SaveWorkoutEditUseCase } from './use-cases/save-workout-edit.use-case'
+import { v4 as uuid } from 'uuid'
+import { GraphQLWorkoutGateway } from './gateways/workout.graphql.gateway'
 
 export default function EditWorkoutScreen({ navigation }: any) {
-  const exercisesElements = exercisesFakeData.map((exercise, index) => {
+  const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
+  const [exercises, setExercises] = useState(exercisesFakeData)
+  const workoutId = uuid()
+
+  const selectExercise = (exerciseIndex: number) => {
+    setExercises((prevExercises) => {
+      return prevExercises.map((exercise, index) => {
+        return index === exerciseIndex
+          ? {
+              ...exercise,
+              isSelected: !exercise.isSelected,
+            }
+          : exercise
+      })
+    })
+  }
+
+  const scheduleDay = (dayIndex: number) => {
+    setScheduledDays((prevScheduledDays) => {
+      return prevScheduledDays.map((day, index) => {
+        return index === dayIndex
+          ? {
+              ...day,
+              isScheduled: !day.isScheduled,
+            }
+          : day
+      })
+    })
+  }
+
+  const saveWorkout = async () => {
+    try {
+      const workoutGateway = new GraphQLWorkoutGateway()
+      await new SaveWorkoutEditUseCase(workoutGateway).execute(
+        workoutId,
+        exercises,
+        scheduledDays,
+      )
+    } catch (e) {
+      console.error(e)
+    } finally {
+      navigation.navigate('ExerciseSettings')
+    }
+  }
+
+  const exercisesElements = exercises.map((exercise, index) => {
     const exerciseStyle = exercise.isSelected
       ? styles.selectedExercise
       : styles.exercise
     return (
-      <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Pressable
+        key={index}
+        style={styles.exerciseContainer}
+        onPress={() => selectExercise(index)}
+      >
         <Text style={exerciseStyle}>{exercise.name}</Text>
         <AntDesign name="closecircle" size={25} />
-      </View>
+      </Pressable>
     )
   })
 
-  const daysSelector = scheduledDaysFakeData.map((day, index) => {
+  const daysSelector = scheduledDays.map((day, index) => {
     const dayStyle = day.isScheduled ? styles.scheduledDay : styles.day
     return (
-      <Text key={index} style={dayStyle}>
+      <Text key={index} style={dayStyle} onPress={() => scheduleDay(index)}>
         {day.day}
       </Text>
     )
   })
-
-  function goToExercisesSettingsScreen() {
-    navigation.navigate('ExerciseSettings')
-  }
 
   return (
     <View style={styles.container}>
@@ -42,7 +97,7 @@ export default function EditWorkoutScreen({ navigation }: any) {
 
       <View style={styles.days}>{daysSelector}</View>
 
-      <Button title={'Schedule Days'} onPress={goToExercisesSettingsScreen} />
+      <Button title={'Schedule Days'} onPress={saveWorkout} />
     </View>
   )
 }
@@ -138,4 +193,5 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  exerciseContainer: { flexDirection: 'row', alignItems: 'center' },
 })

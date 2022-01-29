@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { RestTimeSetter } from './RestTimeSetter'
-import { NumberSetter } from './NumberSetter'
+import { RestTimeSetter } from './components/RestTimeSetter'
+import { NumberSetter } from './components/NumberSetter'
 import { Button } from '../../design-system/Button'
 import { FontSize } from '../../design-system/font-size.enum'
 

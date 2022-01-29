@@ -1,6 +1,6 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { exercisesFakeData } from '../create-workout/gateways/exercise.fake-data.repository'
+import { exercisesFakeData } from '../create-program/gateways/exercise.fake-data.repository'
 
 export default function WorkoutPreview({ navigation }: any) {
   function goTo(route: string) {

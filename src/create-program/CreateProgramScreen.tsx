@@ -1,7 +1,7 @@
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavBar } from '../home/NavBar'
 import { CreateProgramUseCase } from './use-cases/create-program.use-case'
-import { InMemoryProgramGateway } from './gateways/program.in-memory.gateway'
+import { GraphQLProgramGateway } from './gateways/program.graphql.gateway'
 import React, { useState } from 'react'
 
 export default function CreateProgramScreen({ navigation }: any) {
@@ -9,7 +9,7 @@ export default function CreateProgramScreen({ navigation }: any) {
   const [description, setDescription] = useState('')
 
   async function createProgram() {
-    const createProgramGateway = new InMemoryProgramGateway()
+    const createProgramGateway = new GraphQLProgramGateway()
     const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
     await createProgramUseCase.execute({
       title,

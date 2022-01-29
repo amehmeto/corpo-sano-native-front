@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { HomeScreen } from '../home/HomeScreen'
-import CreateProgramScreen from '../create-workout/CreateProgramScreen'
-import AddExercisesScreen from '../create-workout/AddExercisesScreen'
-import EditWorkoutScreen from '../create-workout/EditWorkoutScreen'
-import ExerciseSettingsScreen from '../create-workout/ExerciseSettingsScreen'
+import CreateProgramScreen from '../create-program/CreateProgramScreen'
+import AddExercisesScreen from '../create-program/AddExercisesScreen'
+import EditWorkoutScreen from '../create-program/EditWorkoutScreen'
+import ExerciseSettingsScreen from '../create-program/ExerciseSettingsScreen'
 import WorkoutPreviewScreen from '../run-workout/WorkoutPreview'
 import SetsRunnerScreen from '../run-workout/SetsRunnerScreen'
 import WorkoutSessionSummaryScreen from '../run-workout/WorkoutSessionSummaryScreen'
@@ -42,7 +42,7 @@ export function Router() {
   })
   return (
     <NavigationContainer>
-      <Navigator initialRouteName="CreateProgram">{screens}</Navigator>
+      <Navigator initialRouteName="EditWorkout">{screens}</Navigator>
     </NavigationContainer>
   )
 }
