@@ -10,7 +10,7 @@ export class SaveWorkoutEditUseCase {
     exercises: ExerciseTemplate[],
     scheduledDays: ScheduledDay[],
   ): Promise<void> {
-    await this.workoutGateway.scheduleWorkout(workoutId, scheduledDays)
-    await this.workoutGateway.fillWorkoutWithExercises(workoutId, exercises)
+    await this.workoutGateway.scheduleDays(workoutId, scheduledDays)
+    await this.workoutGateway.fillWithExercises(workoutId, exercises)
   }
 }

@@ -13,6 +13,12 @@ import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.reposi
 import { SaveWorkoutEditUseCase } from './use-cases/save-workout-edit.use-case'
 import { v4 as uuid } from 'uuid'
 import { GraphQLWorkoutGateway } from './gateways/workout.graphql.gateway'
+import { WorkoutGateway } from './gateways/workout.gateway.interface'
+import { selectWantedExercise } from './use-cases/select-exercise.handler'
+import { scheduleWantedDays } from './use-cases/schedule-days.handler'
+
+const workoutGateway: WorkoutGateway = new GraphQLWorkoutGateway()
+const saveWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
 
 export default function EditWorkoutScreen({ navigation }: any) {
   const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
@@ -20,39 +26,20 @@ export default function EditWorkoutScreen({ navigation }: any) {
   const workoutId = uuid()
 
   const selectExercise = (exerciseIndex: number) => {
-    setExercises((prevExercises) => {
-      return prevExercises.map((exercise, index) => {
-        return index === exerciseIndex
-          ? {
-              ...exercise,
-              isSelected: !exercise.isSelected,
-            }
-          : exercise
-      })
-    })
+    setExercises((prevExercises) =>
+      selectWantedExercise(prevExercises, exerciseIndex),
+    )
   }
 
   const scheduleDay = (dayIndex: number) => {
-    setScheduledDays((prevScheduledDays) => {
-      return prevScheduledDays.map((day, index) => {
-        return index === dayIndex
-          ? {
-              ...day,
-              isScheduled: !day.isScheduled,
-            }
-          : day
-      })
-    })
+    setScheduledDays((prevScheduledDays) =>
+      scheduleWantedDays(prevScheduledDays, dayIndex),
+    )
   }
 
   const saveWorkout = async () => {
     try {
-      const workoutGateway = new GraphQLWorkoutGateway()
-      await new SaveWorkoutEditUseCase(workoutGateway).execute(
-        workoutId,
-        exercises,
-        scheduledDays,
-      )
+      await saveWorkoutEditUseCase.execute(workoutId, exercises, scheduledDays)
     } catch (e) {
       console.error(e)
     } finally {

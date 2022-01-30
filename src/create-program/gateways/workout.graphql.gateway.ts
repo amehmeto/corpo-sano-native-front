@@ -7,7 +7,7 @@ export class GraphQLWorkoutGateway
   extends GraphQLGateway
   implements WorkoutGateway
 {
-  async scheduleWorkout(
+  async scheduleDays(
     workoutId: string,
     days: ScheduledDay[],
   ): Promise<boolean> {
@@ -37,7 +37,7 @@ export class GraphQLWorkoutGateway
     }
   }
 
-  async fillWorkoutWithExercises(
+  async fillWithExercises(
     workoutId: string,
     exerciseTemplates: ExerciseTemplate[],
   ): Promise<boolean> {
