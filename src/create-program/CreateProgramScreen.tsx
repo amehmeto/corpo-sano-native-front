@@ -20,9 +20,9 @@ export default function CreateProgramScreen({ navigation }: any) {
         description,
       })
     } catch (e) {
-      console.error(e)
+      console.warn(e)
     } finally {
-      navigation.navigate(Routes.EDIT_WORKOUT)
+      navigation.push(Routes.EDIT_WORKOUT, { title })
     }
   }
 

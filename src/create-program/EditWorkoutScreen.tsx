@@ -10,14 +10,16 @@ import { WorkoutGateway } from './gateways/workout.gateway.interface'
 import { selectWantedExercise } from './use-cases/select-exercise.handler'
 import { scheduleWantedDays } from './use-cases/schedule-days.handler'
 import { Button } from '../../design-system/Button'
+import { Routes } from '../router/Router'
 
 const workoutGateway: WorkoutGateway = new GraphQLWorkoutGateway()
 const saveWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
 
-export default function EditWorkoutScreen({ navigation }: any) {
+export default function EditWorkoutScreen({ route, navigation }: any) {
   const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
   const [exercises, setExercises] = useState(exercisesFakeData)
   const workoutId = uuid()
+  const { title: workoutTitle } = route.params
 
   const selectExercise = (exerciseIndex: number) => {
     setExercises((prevExercises) =>
@@ -37,7 +39,7 @@ export default function EditWorkoutScreen({ navigation }: any) {
     } catch (e) {
       console.error(e)
     } finally {
-      navigation.navigate('ExerciseSettings')
+      navigation.push(Routes.EXERCISE_SETTINGS)
     }
   }
 
@@ -70,7 +72,7 @@ export default function EditWorkoutScreen({ navigation }: any) {
     <View style={styles.container}>
       <Text>You've just created your first program</Text>
 
-      <Text style={styles.title}>Upper body Lafay - 1st week</Text>
+      <Text style={styles.title}>{workoutTitle}</Text>
 
       <ScrollView style={styles.scroll}>
         <View style={styles.exercises}>{exercisesElements}</View>
