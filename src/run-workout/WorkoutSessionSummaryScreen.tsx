@@ -54,7 +54,7 @@ export default function WorkoutSessionSummaryScreen({ navigation }: any) {
       <Button
         additionalStyle={styles.button}
         text={'Leave Workout Session'}
-        onPress={() => goTo('Home')}
+        onPress={() => goTo(Routes.HOME)}
       />
     </View>
   )

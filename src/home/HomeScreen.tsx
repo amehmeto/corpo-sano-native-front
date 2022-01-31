@@ -2,22 +2,36 @@ import ProfileSummary from './components/ProfileSummary'
 import Progression from './components/Progression'
 import {
   FlatList,
-  ListRenderItem,
   ListRenderItemInfo,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavBar } from './components/NavBar'
-import {
-  DailyTask,
-  dailyTasksFakeData,
-} from './repositories/home.fake-data.repository'
+import { DailyTask } from './gateways/home.fake-data.repository'
+import { GetAthleteUseCase } from './use-cases/get-athlete.use-case'
+import { AthleteGateway } from './gateways/athlete.gateway.interface'
+import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
+import { Athlete } from './entities/athlete.entity'
+
+const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()
+const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
 
 export function HomeScreen({ navigation }: any) {
-  const renderDailyTask: ListRenderItem<DailyTask> = ({
+  const [athlete, setAthlete] = useState(null as Athlete | null)
+
+  useEffect(() => {
+    if (!athlete) getAthlete()
+  }, [])
+
+  const getAthlete = async () => {
+    const retrievedAthlete = await getAthleteUseCase.execute('uuid from login')
+    setAthlete(retrievedAthlete)
+  }
+
+  const renderDailyTask = ({
     item: dailyTask,
   }: ListRenderItemInfo<DailyTask>) => {
     return (
@@ -30,6 +44,8 @@ export function HomeScreen({ navigation }: any) {
     )
   }
 
+  const { dailyTasks } = athlete || {}
+
   return (
     <>
       <View style={styles.container}>
@@ -38,7 +54,7 @@ export function HomeScreen({ navigation }: any) {
           <Progression />
         </View>
         <FlatList
-          data={dailyTasksFakeData}
+          data={dailyTasks}
           renderItem={renderDailyTask}
           keyExtractor={(item) => item.id}
         />
