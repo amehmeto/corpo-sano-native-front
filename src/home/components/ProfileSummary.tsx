@@ -1,21 +1,26 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { FontSize } from '../../../design-system/font-size.enum'
 import { Avatar } from '../../../design-system/Avatar'
+import { Athlete } from '../entities/athlete.entity'
 
-export default function ProfileSummary() {
+type ProfileSummaryProps = { athlete: Athlete }
+
+export default function ProfileSummary({ athlete }: ProfileSummaryProps) {
+  const {
+    name,
+    avatar,
+    biometrics: { weight, bodyFat },
+  } = athlete
+  const bodyFatPercentage = bodyFat / 100
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>Arthur</Text>
+      <Text style={styles.name}>{name}</Text>
 
-      <Avatar
-        source={
-          'https://www.investopedia.com/thmb/lqOcGlE7PI6vLMzhn5EDdO0HvYk=/1337x1003/smart/filters:no_upscale()/GettyImages-1054017850-7ef42af7b8044d7a86cfb2bff8641e1d.jpg'
-        }
-      />
+      <Avatar source={avatar} />
 
       <View style={styles.biometrics}>
-        <Text style={styles.biometricsData}>80 kg</Text>
-        <Text style={styles.biometricsData}>35% b. fat</Text>
+        <Text style={styles.biometricsData}>{weight} kg</Text>
+        <Text style={styles.biometricsData}>{bodyFatPercentage}% b. fat</Text>
       </View>
     </View>
   )

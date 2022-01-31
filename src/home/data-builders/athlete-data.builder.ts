@@ -9,6 +9,7 @@ export function athleteDataBuilder(athlete = {}) {
     id: faker.datatype.uuid(),
     name: faker.name.firstName(),
     email: faker.internet.email(),
+    avatar: faker.internet.avatar(),
     password: hashedPassword,
     biometrics: biometricsDataBuilder(),
     dailyTasks: [

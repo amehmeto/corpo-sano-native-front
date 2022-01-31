@@ -15,21 +15,25 @@ import { GetAthleteUseCase } from './use-cases/get-athlete.use-case'
 import { AthleteGateway } from './gateways/athlete.gateway.interface'
 import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
+import { athleteDataBuilder } from './data-builders/athlete-data.builder'
 
 const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()
 const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
 
 export function HomeScreen({ navigation }: any) {
-  const [athlete, setAthlete] = useState(null as Athlete | null)
+  const [athlete, setAthlete] = useState(athleteDataBuilder() as Athlete)
 
   useEffect(() => {
-    if (!athlete) getAthlete()
+    if (!athlete)
+      getAthlete().then((_athlete) => {
+        setAthlete(_athlete)
+      })
   }, [])
 
   const getAthlete = async () => {
-    const retrievedAthlete = await getAthleteUseCase.execute('uuid from login')
-    setAthlete(retrievedAthlete)
+    return getAthleteUseCase.execute('uuid from login')
   }
+  const { dailyTasks } = athlete
 
   const renderDailyTask = ({
     item: dailyTask,
@@ -44,13 +48,11 @@ export function HomeScreen({ navigation }: any) {
     )
   }
 
-  const { dailyTasks } = athlete || {}
-
   return (
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <ProfileSummary />
+          <ProfileSummary athlete={athlete} />
           <Progression />
         </View>
         <FlatList
