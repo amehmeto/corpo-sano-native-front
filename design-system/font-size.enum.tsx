@@ -5,4 +5,6 @@ export enum FontSize {
   HEADING_4 = 19,
   BODY_TEXT_MEDIUM = 15,
   BODY_TEXT_SMALL = 12,
+  BODY_TEXT_VERY_SMALL = 10,
+  BODY_TEXT_EXTRA_SMALL = 8,
 }

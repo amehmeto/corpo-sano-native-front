@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
-import { NavBar } from '../home/NavBar'
+import { NavBar } from '../home/components/NavBar'
 import { CreateProgramUseCase } from './use-cases/create-program.use-case'
 import { GraphQLProgramGateway } from './gateways/program.graphql.gateway'
 import React, { useState } from 'react'

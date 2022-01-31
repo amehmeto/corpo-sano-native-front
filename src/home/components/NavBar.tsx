@@ -4,7 +4,7 @@ import {
   MaterialCommunityIcons as MaterialCommunityIcons,
 } from '@expo/vector-icons'
 import React, { useState } from 'react'
-import { Colors } from '../../design-system/colors'
+import { Colors } from '../../../design-system/colors'
 
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 

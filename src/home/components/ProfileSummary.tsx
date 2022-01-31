@@ -1,10 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { Avatar, HStack } from 'native-base'
+import { FontSize } from '../../../design-system/font-size.enum'
+import { Avatar } from '../../../design-system/Avatar'
 
-export default function ProfileInformation() {
+export default function ProfileSummary() {
   return (
     <View style={styles.container}>
       <Text style={styles.name}>Arthur</Text>
+
+      <Avatar
+        source={
+          'https://www.investopedia.com/thmb/lqOcGlE7PI6vLMzhn5EDdO0HvYk=/1337x1003/smart/filters:no_upscale()/GettyImages-1054017850-7ef42af7b8044d7a86cfb2bff8641e1d.jpg'
+        }
+      />
 
       <View style={styles.biometrics}>
         <Text style={styles.biometricsData}>80 kg</Text>
@@ -27,6 +34,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+
   biometrics: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -34,8 +42,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   biometricsData: {
-    fontSize: 10,
-    lineHeight: 16,
+    fontSize: FontSize.BODY_TEXT_VERY_SMALL,
     textAlign: 'center',
   },
 })

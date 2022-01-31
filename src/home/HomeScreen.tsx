@@ -1,5 +1,5 @@
-import ProfileInformation from './ProfileInformation'
-import Progression from './Progression'
+import ProfileSummary from './components/ProfileSummary'
+import Progression from './components/Progression'
 import {
   FlatList,
   ListRenderItem,
@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native'
 import React from 'react'
-import { NavBar } from './NavBar'
+import { NavBar } from './components/NavBar'
 import {
   DailyTask,
   dailyTasksFakeData,
@@ -34,7 +34,7 @@ export function HomeScreen({ navigation }: any) {
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <ProfileInformation />
+          <ProfileSummary />
           <Progression />
         </View>
         <FlatList
