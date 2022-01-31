@@ -1,11 +1,4 @@
-import {
-  Button,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { AntDesign as AntDesign } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
@@ -16,6 +9,7 @@ import { GraphQLWorkoutGateway } from './gateways/workout.graphql.gateway'
 import { WorkoutGateway } from './gateways/workout.gateway.interface'
 import { selectWantedExercise } from './use-cases/select-exercise.handler'
 import { scheduleWantedDays } from './use-cases/schedule-days.handler'
+import { Button } from '../../design-system/Button'
 
 const workoutGateway: WorkoutGateway = new GraphQLWorkoutGateway()
 const saveWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
@@ -84,7 +78,7 @@ export default function EditWorkoutScreen({ navigation }: any) {
 
       <View style={styles.days}>{daysSelector}</View>
 
-      <Button title={'Schedule Days'} onPress={saveWorkout} />
+      <Button text={'Schedule Days'} onPress={saveWorkout} />
     </View>
   )
 }

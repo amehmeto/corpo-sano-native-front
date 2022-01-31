@@ -34,7 +34,16 @@ const routes = [
   { name: 'WorkoutSessionSummary', component: WorkoutSessionSummaryScreen },
 ] as const
 
-export type RouteNames = typeof routes[number]['name']
+export enum Routes {
+  HOME = 'Home',
+  CREATE_PROGRAM = 'CreateProgram',
+  ADD_EXERCISES = 'AddExercises',
+  EDIT_WORKOUT = 'EditWorkout',
+  EXERCISE_SETTINGS = 'ExerciseSettings',
+  WORKOUT_PREVIEW = 'WorkoutPreview',
+  SETS_RUNNER = 'SetsRunner',
+  WORKOUT_SESSION_SUMMARY = 'WorkoutSessionSummary',
+}
 
 export function Router() {
   const screens = routes.map((route, index) => {
@@ -42,7 +51,7 @@ export function Router() {
   })
   return (
     <NavigationContainer>
-      <Navigator initialRouteName="EditWorkout">{screens}</Navigator>
+      <Navigator initialRouteName={Routes.HOME}>{screens}</Navigator>
     </NavigationContainer>
   )
 }

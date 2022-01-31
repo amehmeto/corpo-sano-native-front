@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Button } from '../../design-system/Button'
 import { Feather } from '@expo/vector-icons'
-import { RouteNames } from '../router/Router'
+import { Routes } from '../router/Router'
 
 export default function WorkoutSessionSummaryScreen({ navigation }: any) {
   const todaySessionExercisesStats = [
@@ -18,7 +18,7 @@ export default function WorkoutSessionSummaryScreen({ navigation }: any) {
     { name: 'Tractions', lastSets: [4, 8, 9] },
   ]
 
-  function goTo(route: RouteNames) {
+  function goTo(route: Routes) {
     navigation.navigate(route)
   }
 

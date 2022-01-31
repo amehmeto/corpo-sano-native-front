@@ -1,21 +1,29 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavBar } from '../home/NavBar'
 import { CreateProgramUseCase } from './use-cases/create-program.use-case'
 import { GraphQLProgramGateway } from './gateways/program.graphql.gateway'
 import React, { useState } from 'react'
+import { Button } from '../../design-system/Button'
+import { Routes } from '../router/Router'
+
+const createProgramGateway = new GraphQLProgramGateway()
+const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
 
 export default function CreateProgramScreen({ navigation }: any) {
-  const [title, setTitle] = useState('abricot')
+  const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
   async function createProgram() {
-    const createProgramGateway = new GraphQLProgramGateway()
-    const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
-    await createProgramUseCase.execute({
-      title,
-      description,
-    })
-    navigation.navigate('EditWorkout')
+    try {
+      await createProgramUseCase.execute({
+        title,
+        description,
+      })
+    } catch (e) {
+      console.error(e)
+    } finally {
+      navigation.navigate(Routes.EDIT_WORKOUT)
+    }
   }
 
   const changeTitle = (event: any) => setTitle(event.target.value)
@@ -42,7 +50,7 @@ export default function CreateProgramScreen({ navigation }: any) {
           />
         </View>
 
-        <Button title={'Create workout'} onPress={createProgram} />
+        <Button text={'Create workout'} onPress={createProgram} />
       </View>
       <NavBar />
     </>

@@ -1,22 +1,35 @@
 import ProfileInformation from './ProfileInformation'
 import Progression from './Progression'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import {
+  FlatList,
+  ListRenderItem,
+  ListRenderItemInfo,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import React from 'react'
 import { NavBar } from './NavBar'
-import { dailyTasksFakeData } from './repositories/home.fake-data.repository'
+import {
+  DailyTask,
+  dailyTasksFakeData,
+} from './repositories/home.fake-data.repository'
 
 export function HomeScreen({ navigation }: any) {
-  const dailyTasksElements = dailyTasksFakeData.map((task, index) => {
+  const renderDailyTask: ListRenderItem<DailyTask> = ({
+    item: dailyTask,
+  }: ListRenderItemInfo<DailyTask>) => {
     return (
       <Pressable
-        key={index}
         style={styles.dailyTask}
-        onPress={() => navigation.navigate(task.route)}
+        onPress={() => navigation.navigate(dailyTask.route)}
       >
-        <Text>{task.description}</Text>
+        <Text>{dailyTask.description}</Text>
       </Pressable>
     )
-  })
+  }
+
   return (
     <>
       <View style={styles.container}>
@@ -24,7 +37,11 @@ export function HomeScreen({ navigation }: any) {
           <ProfileInformation />
           <Progression />
         </View>
-        <View style={styles.dailyTasks}>{dailyTasksElements}</View>
+        <FlatList
+          data={dailyTasksFakeData}
+          renderItem={renderDailyTask}
+          keyExtractor={(item) => item.id}
+        />
       </View>
       <NavBar />
     </>

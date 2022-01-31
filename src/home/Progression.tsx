@@ -1,20 +1,21 @@
-import { StyleSheet } from 'react-native'
-import { Box, Progress, Text } from 'native-base'
+import { StyleSheet, View } from 'react-native'
+import { Progress, Text } from 'native-base'
+import React from 'react'
 
 export default function Progression() {
   return (
-    <Box style={styles.container}>
+    <View style={styles.container}>
       <Progress colorScheme="secondary" style={styles.bar} value={34} />
-      <Box style={styles.barLabel}>
+      <View style={styles.barLabel}>
         <Text>3/22</Text>
         <Text>Program Lafay</Text>
-      </Box>
+      </View>
       <Progress colorScheme="emerald" style={styles.bar} value={34} />
-      <Box style={styles.barLabel}>
+      <View style={styles.barLabel}>
         <Text>4/22</Text>
         <Text>Assouplissement</Text>
-      </Box>
-    </Box>
+      </View>
+    </View>
   )
 }
 

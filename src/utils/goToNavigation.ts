@@ -1,1 +1,1 @@
-import { RouteNames } from '../router/Router'
+import { Routes } from '../router/Router'

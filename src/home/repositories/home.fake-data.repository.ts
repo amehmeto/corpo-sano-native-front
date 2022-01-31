@@ -1,17 +1,26 @@
-import { RouteNames } from '../../router/Router'
+import { Routes } from '../../router/Router'
+import { v4 as uuid } from 'uuid'
 
-export const dailyTasksFakeData: { description: string; route: RouteNames }[] =
-  [
-    {
-      description: 'Create your first program',
-      route: 'CreateProgram',
-    },
-    {
-      description: 'Start your Upper Body workout',
-      route: 'WorkoutPreview',
-    },
-    {
-      description: 'Create your first program',
-      route: 'Home',
-    },
-  ]
+export type DailyTask = {
+  id: string
+  description: string
+  route: Routes
+}
+
+export const dailyTasksFakeData: DailyTask[] = [
+  {
+    id: uuid(),
+    description: 'Create your first program',
+    route: 'CreateProgram' as Routes,
+  },
+  {
+    id: uuid(),
+    description: 'Start your Upper Body workout',
+    route: 'WorkoutPreview' as Routes,
+  },
+  {
+    id: uuid(),
+    description: 'Create your first program',
+    route: 'Home' as Routes,
+  },
+]
