@@ -8,6 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "test": "jest",
     "build:tailwind": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn",
     "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
   },
@@ -36,11 +37,13 @@
     "@babel/core": "^7.12.9",
     "@faker-js/faker": "^6.0.0-alpha.5",
     "@types/faker": "^6.6.9",
+    "@types/jest": "^27.4.0",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@types/uuid": "^8.3.4",
     "concurrently": "^7.0.0",
     "faker": "^5.5.3",
+    "jest": "^27.4.7",
     "prettier": "2.5.1",
     "tailwindcss": "^3.0.15",
     "typescript": "~4.3.5"

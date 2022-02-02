@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { dailyTaskDataBuilder } from './daily-tasks.data-builder'
 import { biometricsDataBuilder } from './biometrics.data-builder'
+import { Athlete } from '../entities/athlete.entity'
 
 export function athleteDataBuilder(athlete = {}) {
   const hashedPassword =

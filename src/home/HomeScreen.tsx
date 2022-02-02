@@ -15,25 +15,23 @@ import { GetAthleteUseCase } from './use-cases/get-athlete.use-case'
 import { AthleteGateway } from './gateways/athlete.gateway.interface'
 import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
-import { athleteDataBuilder } from './data-builders/athlete-data.builder'
 
 const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()
 const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
+const athleteId = 'asfdadsfas'
 
 export function HomeScreen({ navigation }: any) {
-  const [athlete, setAthlete] = useState(athleteDataBuilder() as Athlete)
+  const [athlete, setAthlete] = useState<Athlete | undefined>(undefined)
 
   useEffect(() => {
-    if (!athlete)
-      getAthlete().then((_athlete) => {
-        setAthlete(_athlete)
-      })
+    getAthlete().then((_athlete) => {
+      setAthlete(_athlete)
+    })
   }, [])
 
   const getAthlete = async () => {
-    return getAthleteUseCase.execute('uuid from login')
+    return getAthleteUseCase.execute(athleteId)
   }
-  const { dailyTasks } = athlete
 
   const renderDailyTask = ({
     item: dailyTask,
@@ -48,18 +46,26 @@ export function HomeScreen({ navigation }: any) {
     )
   }
 
+  console.log(athlete)
+
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.header}>
-          <ProfileSummary athlete={athlete} />
-          <Progression />
-        </View>
-        <FlatList
-          data={dailyTasks}
-          renderItem={renderDailyTask}
-          keyExtractor={(item) => item.id}
-        />
+        {athlete ? (
+          <>
+            <View style={styles.header}>
+              <ProfileSummary athlete={athlete} />
+              <Progression />
+            </View>
+            <FlatList
+              data={athlete.dailyTasks}
+              renderItem={renderDailyTask}
+              keyExtractor={(item) => item.id}
+            />
+          </>
+        ) : (
+          <Text>Loading...</Text>
+        )}
       </View>
       <NavBar />
     </>

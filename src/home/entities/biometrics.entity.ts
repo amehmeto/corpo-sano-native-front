@@ -4,11 +4,11 @@ import { WeightGoal } from '../types/weight-goal.enum'
 
 export class Biometrics {
   constructor(
-    public readonly bodyFat: number,
+    public bodyFat: number,
     public readonly height: number,
     public readonly weight: number,
     public readonly lengthUnit: UnitSystem,
-    public readonly weightUnit: UnitSystem,
+    public weightUnit: 'kg' | 'lbs',
     public readonly gender: Gender,
     public readonly birthday: Date,
     public readonly weightGoal: WeightGoal,

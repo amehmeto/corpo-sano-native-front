@@ -9,9 +9,9 @@ export default function ProfileSummary({ athlete }: ProfileSummaryProps) {
   const {
     name,
     avatar,
-    biometrics: { weight, bodyFat },
+    biometrics: { weight, bodyFat, weightUnit },
   } = athlete
-  const bodyFatPercentage = bodyFat / 100
+
   return (
     <View style={styles.container}>
       <Text style={styles.name}>{name}</Text>
@@ -19,8 +19,8 @@ export default function ProfileSummary({ athlete }: ProfileSummaryProps) {
       <Avatar source={avatar} />
 
       <View style={styles.biometrics}>
-        <Text style={styles.biometricsData}>{weight} kg</Text>
-        <Text style={styles.biometricsData}>{bodyFatPercentage}% b. fat</Text>
+        <Text style={styles.biometricsData}>{`${weight}\n${weightUnit}`}</Text>
+        <Text style={styles.biometricsData}>{`${bodyFat}%\nb. fat`}</Text>
       </View>
     </View>
   )
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 5,
     paddingBottom: 5,
+    width: '100%',
   },
   biometricsData: {
     fontSize: FontSize.BODY_TEXT_VERY_SMALL,

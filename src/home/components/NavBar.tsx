@@ -5,6 +5,7 @@ import {
 } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { Colors } from '../../../design-system/colors'
+import { FontSize } from '../../../design-system/font-size.enum'
 
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 
@@ -16,6 +17,9 @@ type Tab = {
 type NavBarProps = {
   navigation: any
 }
+
+// TODO: use React Active tintColor
+// TODO: use Navigation Tab Navigator
 export function NavBar() {
   const [menuTabs, setMenuTabs] = useState([
     {
@@ -55,7 +59,7 @@ export function NavBar() {
   function generateTabIcon(tab: Tab, index: number) {
     const elementAttributes = {
       name: tab.iconName,
-      size: tab.iconName === 'settings' ? 46.5 : 50,
+      size: tab.iconName === 'settings' ? 38.5 : 40,
       color: tab.isSelected ? Colors.PRIMARY_700 : 'gray',
       onPress: selectTab(index),
     }
@@ -75,7 +79,7 @@ export function NavBar() {
     return (
       <Pressable key={index} style={styles.tab} onPress={goToHomeScreen}>
         {tabIcon}
-        <Text>{tab.name}</Text>
+        <Text style={styles.name}>{tab.name}</Text>
       </Pressable>
     )
   })
@@ -94,5 +98,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     padding: 10,
+  },
+  name: {
+    fontSize: FontSize.BODY_TEXT_VERY_SMALL,
   },
 })

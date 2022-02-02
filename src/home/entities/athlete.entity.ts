@@ -1,6 +1,7 @@
 import { Program } from '../../create-program/entities/program.entity'
 import { DailyTask } from './daily-task.entity'
 import { Biometrics } from './biometrics.entity'
+import { UnitSystem } from '../types/metric-system.enum'
 
 export class Athlete {
   constructor(
@@ -12,5 +13,16 @@ export class Athlete {
     public readonly biometrics: Biometrics,
     public readonly dailyTasks?: DailyTask[],
     public readonly programs?: Program[],
-  ) {}
+  ) {
+    this.setWeightUnitMetric(biometrics.weightUnit)
+    this.setBodyFat(biometrics.bodyFat)
+  }
+
+  private setWeightUnitMetric(weightUnit: string) {
+    this.biometrics.weightUnit = weightUnit === UnitSystem.METRIC ? 'kg' : 'lbs'
+  }
+
+  private setBodyFat(bodyFat: number) {
+    this.biometrics.bodyFat = bodyFat / 10
+  }
 }

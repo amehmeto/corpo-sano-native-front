@@ -1,5 +1,6 @@
 import { Routes } from '../../router/Router'
 import { v4 as uuid } from 'uuid'
+import { dailyTaskDataBuilder } from '../data-builders/daily-tasks.data-builder'
 
 export type DailyTask = {
   id: string
@@ -8,11 +9,7 @@ export type DailyTask = {
 }
 
 export const dailyTasksFakeData: DailyTask[] = [
-  {
-    id: uuid(),
-    description: 'Create your first program',
-    route: 'CreateProgram' as Routes,
-  },
+  dailyTaskDataBuilder(),
   {
     id: uuid(),
     description: 'Start your Upper Body workout',
