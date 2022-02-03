@@ -1,7 +1,6 @@
 import { GetAthleteUseCase } from './get-athlete.use-case'
 import { AthleteGateway } from '../gateways/athlete.gateway.interface'
 import { InMemoryAthleteGateway } from '../gateways/athlete.in-memory.gateway'
-import { Athlete } from '../entities/athlete.entity'
 
 describe('Get Athlete Use Case', () => {
   let getAthleteUseCase: GetAthleteUseCase

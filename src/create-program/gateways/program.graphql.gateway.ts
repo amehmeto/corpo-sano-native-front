@@ -1,12 +1,12 @@
-import { CreateProgramGateway } from './program.gateway.interface'
+import { ProgramGateway } from './program.gateway.interface'
 import { Program } from '../entities/program.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
 
 export class GraphQLProgramGateway
   extends GraphQLGateway
-  implements CreateProgramGateway
+  implements ProgramGateway
 {
-  async createProgram(programInput: Program): Promise<Program> {
+  async create(programInput: Program): Promise<Program> {
     try {
       const CREATE_PROGRAM_MUTATION = `mutation
         createProgram($title: String!) {

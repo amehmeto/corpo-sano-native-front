@@ -1,6 +1,6 @@
 import { Routes } from '../../router/Router'
 import { v4 as uuid } from 'uuid'
-import { dailyTaskDataBuilder } from '../data-builders/daily-tasks.data-builder'
+import { dailyTaskDataBuilder } from '../../_data-builders/daily-tasks.data-builder'
 
 export type DailyTask = {
   id: string

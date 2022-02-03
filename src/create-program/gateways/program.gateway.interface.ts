@@ -1,5 +1,6 @@
 import { Program } from '../entities/program.entity'
+import { ProgramInput } from '../use-cases/create-program.use-case'
 
-export interface CreateProgramGateway {
-  createProgram(programInput: Program): Promise<Program>
+export interface ProgramGateway {
+  create(programInput: ProgramInput): Promise<Program>
 }

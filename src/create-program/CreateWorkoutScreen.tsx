@@ -1,28 +1,31 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavBar } from '../home/components/NavBar'
-import { CreateProgramUseCase } from './use-cases/create-program.use-case'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { Routes } from '../router/Router'
-import { ProgramGateway } from './gateways/program.gateway.interface'
-import { InMemoryProgramGateway } from './gateways/program.in-memory.gateway'
+import { WorkoutGateway } from './gateways/workout.gateway.interface'
+import { CreateWorkoutUseCase } from './use-cases/create-workout.use-case'
+import { InMemoryWorkoutGateway } from './gateways/workout.in-memory.gateway'
 
-const createProgramGateway: ProgramGateway = new InMemoryProgramGateway()
-const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
+const inMemoryWorkoutGateway: WorkoutGateway = new InMemoryWorkoutGateway()
+const createWorkoutUseCase = new CreateWorkoutUseCase(inMemoryWorkoutGateway)
 
-export default function CreateProgramScreen({ navigation }: any) {
+export default function CreateWorkoutScreen({ route, navigation }: any) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const programId = route.params.programId
 
-  async function createProgram() {
+  async function createWorkout() {
     try {
-      const createdProgram = await createProgramUseCase.execute({
+      const createdWorkout = await createWorkoutUseCase.execute({
         title,
         description,
+        programId,
       })
-      navigation.push(Routes.CREATE_WORKOUT, {
-        programId: createdProgram.id,
+      navigation.push(Routes.ADD_EXERCISES, {
         title,
+        programId,
+        workoutId: createdWorkout.id,
       })
     } catch (e) {
       console.warn(e)
@@ -36,7 +39,7 @@ export default function CreateProgramScreen({ navigation }: any) {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.title}>Create a program</Text>
+        <Text style={styles.title}>Create a workout</Text>
 
         <View style={styles.fields}>
           <TextInput
@@ -53,7 +56,7 @@ export default function CreateProgramScreen({ navigation }: any) {
           />
         </View>
 
-        <Button text={'Create program'} onPress={createProgram} />
+        <Button text={'Create workout'} onPress={createWorkout} />
       </View>
       <NavBar />
     </>

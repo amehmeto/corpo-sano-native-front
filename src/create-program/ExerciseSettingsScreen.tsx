@@ -4,10 +4,11 @@ import { RestTimeSetter } from './components/RestTimeSetter'
 import { NumberSetter } from './components/NumberSetter'
 import { Button } from '../../design-system/Button'
 import { FontSize } from '../../design-system/font-size.enum'
+import { Routes } from '../router/Router'
 
 export default function ExerciseSettingsScreen({ navigation }: any) {
   function goToHomeScreen() {
-    navigation.navigate('Home')
+    navigation.navigate(Routes.HOME)
   }
 
   return (

@@ -5,17 +5,20 @@ import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.repository'
 import { SaveWorkoutEditUseCase } from './use-cases/save-workout-edit.use-case'
 import { v4 as uuid } from 'uuid'
-import { GraphQLWorkoutGateway } from './gateways/workout.graphql.gateway'
 import { WorkoutGateway } from './gateways/workout.gateway.interface'
 import { selectWantedExercise } from './use-cases/select-exercise.handler'
 import { scheduleWantedDays } from './use-cases/schedule-days.handler'
 import { Button } from '../../design-system/Button'
 import { Routes } from '../router/Router'
+import { InMemoryWorkoutGateway } from './gateways/workout.in-memory.gateway'
 
-const workoutGateway: WorkoutGateway = new GraphQLWorkoutGateway()
+const workoutGateway: WorkoutGateway = new InMemoryWorkoutGateway()
 const saveWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
 
-export default function EditWorkoutScreen({ route, navigation }: any) {
+export default function AddExercisesAndDayScheduleToWorkoutScreen({
+  route,
+  navigation,
+}: any) {
   const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
   const [exercises, setExercises] = useState(exercisesFakeData)
   const workoutId = uuid()

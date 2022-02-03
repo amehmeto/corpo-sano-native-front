@@ -3,12 +3,12 @@ import React from 'react'
 import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 
 export default function AddExercisesScreen() {
-  const exercisesElements = exercisesFakeData.map((exercise) => {
+  const exercisesElements = exercisesFakeData.map((exercise, index) => {
     const exerciseStyle = exercise.isSelected
       ? styles.selectedExercise
       : styles.exercise
     return (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={exerciseStyle}>{exercise.name}</Text>
       </View>
     )

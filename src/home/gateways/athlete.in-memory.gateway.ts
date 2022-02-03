@@ -1,5 +1,5 @@
 import { AthleteGateway } from './athlete.gateway.interface'
-import { athleteDataBuilder } from '../data-builders/athlete-data.builder'
+import { athleteDataBuilder } from '../../_data-builders/athlete-data.builder'
 import { Athlete } from '../entities/athlete.entity'
 
 export class InMemoryAthleteGateway implements AthleteGateway {

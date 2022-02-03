@@ -2,13 +2,14 @@ import { NavigationContainer } from '@react-navigation/native'
 import { HomeScreen } from '../home/HomeScreen'
 import CreateProgramScreen from '../create-program/CreateProgramScreen'
 import AddExercisesScreen from '../create-program/AddExercisesScreen'
-import EditWorkoutScreen from '../create-program/EditWorkoutScreen'
+import AddExercisesAndDayScheduleToWorkoutScreen from '../create-program/AddExercisesAndDayScheduleToWorkoutScreen'
 import ExerciseSettingsScreen from '../create-program/ExerciseSettingsScreen'
 import WorkoutPreviewScreen from '../run-workout/WorkoutPreview'
 import SetsRunnerScreen from '../run-workout/SetsRunnerScreen'
 import WorkoutSessionSummaryScreen from '../run-workout/WorkoutSessionSummaryScreen'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import CreateWorkoutScreen from '../create-program/CreateWorkoutScreen'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
@@ -26,8 +27,9 @@ export type RouteParams = {
 const routes = [
   { name: 'Home', component: HomeScreen },
   { name: 'CreateProgram', component: CreateProgramScreen },
+  { name: 'CreateWorkout', component: CreateWorkoutScreen },
   { name: 'AddExercises', component: AddExercisesScreen },
-  { name: 'EditWorkout', component: EditWorkoutScreen },
+  { name: 'EditWorkout', component: AddExercisesAndDayScheduleToWorkoutScreen },
   { name: 'ExerciseSettings', component: ExerciseSettingsScreen },
   { name: 'WorkoutPreview', component: WorkoutPreviewScreen },
   { name: 'SetsRunner', component: SetsRunnerScreen },
@@ -38,7 +40,7 @@ export enum Routes {
   HOME = 'Home',
   CREATE_PROGRAM = 'CreateProgram',
   ADD_EXERCISES = 'AddExercises',
-  EDIT_WORKOUT = 'EditWorkout',
+  CREATE_WORKOUT = 'CreateWorkout',
   EXERCISE_SETTINGS = 'ExerciseSettings',
   WORKOUT_PREVIEW = 'WorkoutPreview',
   SETS_RUNNER = 'SetsRunner',
