@@ -1,39 +1,31 @@
 import { AthleteGateway } from './athlete.gateway.interface'
 import { athleteDataBuilder } from '../data-builders/athlete-data.builder'
 import { Athlete } from '../entities/athlete.entity'
-import { Routes } from '../../router/Router'
-
-type DAOAthlete = {
-  biometrics: {
-    birthday: Date
-    bodyFat: number
-    gender: string
-    weightGoal: string
-    lengthUnit: string
-    weight: number
-    height: number
-    weightUnit: string
-  }
-  password: string
-  dailyTasks: { route: Routes; description: string; id: string }[]
-  name: string
-  id: string
-  avatar: string
-  email: string
-}
 
 export class InMemoryAthleteGateway implements AthleteGateway {
-  private athletes = [
+  private rawAthletes = [
     athleteDataBuilder(),
     athleteDataBuilder(),
     athleteDataBuilder(),
   ]
 
+  private athletes = this.rawAthletes.map((rawAthlete) => {
+    return new Athlete(
+      rawAthlete.id,
+      rawAthlete.name,
+      rawAthlete.email,
+      rawAthlete.password,
+      rawAthlete.avatar,
+      rawAthlete.biometrics,
+      rawAthlete.dailyTasks,
+    )
+  })
+
   findAll(): Promise<any[]> {
     return Promise.resolve(this.athletes)
   }
 
-  findById(athleteId: string): Promise<DAOAthlete> {
+  findById(athleteId: string): Promise<Athlete> {
     console.log('called with id ' + athleteId)
     return Promise.resolve(this.athletes[0])
   }
