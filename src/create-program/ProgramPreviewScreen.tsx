@@ -1,6 +1,7 @@
 import {
   FlatList,
   ListRenderItemInfo,
+  Pressable,
   StyleSheet,
   Text,
   View,
@@ -14,6 +15,8 @@ import { workoutDataBuilder } from '../_data-builders/workout.data-builder'
 import { Card } from '../../design-system/Card'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
+import { Padding } from '../../design-system/enums/padding.enum'
+import { faker } from '@faker-js/faker'
 
 type ProgramPreviewProps = NativeStackScreenProps<
   RouteParams,
@@ -27,6 +30,7 @@ export default function ProgramPreviewScreen({
   const programTitle = route.params.title
   const programDescription = route.params.description
   const programId = route.params.programId
+  const numberOfExercises = faker.datatype.number({ min: 1, max: 10 })
 
   const programWorkouts = [
     workoutDataBuilder(),
@@ -38,12 +42,18 @@ export default function ProgramPreviewScreen({
   const renderWorkoutPreview = ({
     item: workout,
   }: ListRenderItemInfo<Workout>) => {
+    const dayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+    const dayInitialElements = dayInitials.map((initial, index) => (
+      <Text key={index} style={styles.dayInitial}>
+        {initial}
+      </Text>
+    ))
     return (
-      <Card
-        style={styles.workoutPreview}
-        onPress={() => {}}
-        text={workout.title}
-      />
+      <Pressable style={styles.workoutPreview} onPress={() => {}}>
+        <Text style={styles.workoutTitle}>{workout.title}</Text>
+        <Text>{`${numberOfExercises} exercises`}</Text>
+        <View style={styles.dayInitialContainer}>{dayInitialElements}</View>
+      </Pressable>
     )
   }
 
@@ -98,9 +108,35 @@ const styles = StyleSheet.create({
   },
   workoutPreview: {
     margin: Margin.MEDIUM,
-    width: '50%',
+    padding: Padding.MEDIUM,
+    flexGrow: 1,
+    borderRadius: 10,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'grey',
   },
   workoutPreviewList: {
     width: '100%',
   },
+  dayInitial: {
+    fontSize: FontSize.BODY_TEXT_EXTRA_SMALL,
+    fontWeight: 'bold',
+    backgroundColor: 'gray',
+    color: 'white',
+    textTransform: 'uppercase',
+    margin: Margin.SMALL,
+    marginLeft: Margin.NONE,
+    marginBottom: Margin.NONE,
+    padding: Padding.EXTRA_SMALL,
+    borderRadius: 2,
+    width: 15,
+    textAlign: 'center',
+  },
+  dayInitialContainer: {
+    flexDirection: 'row',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'red',
+  },
+  workoutTitle: { fontWeight: 'bold', marginBottom: Margin.SMALL },
 })

@@ -1,9 +1,19 @@
 import { Pressable, Text, StyleSheet } from 'react-native'
 import React from 'react'
 
-type CardProps = { onPress: () => void; text: string; style?: any }
+type CardProps = {
+  children: Element
+  onPress: () => void
+  text: string
+  style?: any
+}
 
-export function Card({ onPress, text, style: additionalStyle }: CardProps) {
+export function Card({
+  children,
+  onPress,
+  text,
+  style: additionalStyle,
+}: CardProps) {
   return (
     <Pressable style={[styles.card, additionalStyle]} onPress={onPress}>
       <Text>{text}</Text>
