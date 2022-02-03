@@ -3,16 +3,25 @@ import { NavBar } from '../home/components/NavBar'
 import { CreateProgramUseCase } from './use-cases/create-program.use-case'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
-import { Routes } from '../router/Router'
+import { RouteParams, Routes } from '../router/Router'
 import { ProgramGateway } from './gateways/program.gateway.interface'
 import { InMemoryProgramGateway } from './gateways/program.in-memory.gateway'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { faker } from '@faker-js/faker'
 
 const createProgramGateway: ProgramGateway = new InMemoryProgramGateway()
 const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
 
-export default function CreateProgramScreen({ navigation }: any) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+type CreateProgramScreenProps = NativeStackScreenProps<
+  RouteParams,
+  Routes.CREATE_PROGRAM
+>
+
+export default function CreateProgramScreen({
+  navigation,
+}: CreateProgramScreenProps) {
+  const [title, setTitle] = useState('3 weeks upper body')
+  const [description, setDescription] = useState(faker.lorem.paragraph())
 
   async function createProgram() {
     try {
@@ -20,9 +29,10 @@ export default function CreateProgramScreen({ navigation }: any) {
         title,
         description,
       })
-      navigation.push(Routes.CREATE_WORKOUT, {
+      navigation.push(Routes.PROGRAM_PREVIEW, {
         programId: createdProgram.id,
         title,
+        description,
       })
     } catch (e) {
       console.warn(e)
@@ -41,13 +51,13 @@ export default function CreateProgramScreen({ navigation }: any) {
         <View style={styles.fields}>
           <TextInput
             style={styles.input}
-            placeholder={'Name'}
+            placeholder={'Name (required)'}
             value={title}
             onChange={changeTitle}
           />
           <TextInput
             style={styles.input}
-            placeholder={'Description'}
+            placeholder={'Description (optional)'}
             value={description}
             onChange={changeDescription}
           />

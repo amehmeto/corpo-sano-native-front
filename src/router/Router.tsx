@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { HomeScreen } from '../home/HomeScreen'
 import CreateProgramScreen from '../create-program/CreateProgramScreen'
-import AddExercisesScreen from '../create-program/AddExercisesScreen'
 import AddExercisesAndDayScheduleToWorkoutScreen from '../create-program/AddExercisesAndDayScheduleToWorkoutScreen'
 import ExerciseSettingsScreen from '../create-program/ExerciseSettingsScreen'
 import WorkoutPreviewScreen from '../run-workout/WorkoutPreview'
@@ -10,12 +9,21 @@ import WorkoutSessionSummaryScreen from '../run-workout/WorkoutSessionSummaryScr
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CreateWorkoutScreen from '../create-program/CreateWorkoutScreen'
+import ProgramPreviewScreen from '../create-program/ProgramPreviewScreen'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
 export type RouteParams = {
   Home: undefined
   CreateProgram: undefined
+  ProgramPreview: {
+    programId: string
+    title: string
+    description: string
+  }
+  CreateWorkout: {
+    programId: string
+  }
   AddExercises: undefined
   EditWorkout: undefined
   ExerciseSettings: undefined
@@ -27,9 +35,12 @@ export type RouteParams = {
 const routes = [
   { name: 'Home', component: HomeScreen },
   { name: 'CreateProgram', component: CreateProgramScreen },
+  { name: 'ProgramPreview', component: ProgramPreviewScreen },
   { name: 'CreateWorkout', component: CreateWorkoutScreen },
-  { name: 'AddExercises', component: AddExercisesScreen },
-  { name: 'EditWorkout', component: AddExercisesAndDayScheduleToWorkoutScreen },
+  {
+    name: 'AddExercises',
+    component: AddExercisesAndDayScheduleToWorkoutScreen,
+  },
   { name: 'ExerciseSettings', component: ExerciseSettingsScreen },
   { name: 'WorkoutPreview', component: WorkoutPreviewScreen },
   { name: 'SetsRunner', component: SetsRunnerScreen },
@@ -39,6 +50,7 @@ const routes = [
 export enum Routes {
   HOME = 'Home',
   CREATE_PROGRAM = 'CreateProgram',
+  PROGRAM_PREVIEW = 'ProgramPreview',
   ADD_EXERCISES = 'AddExercises',
   CREATE_WORKOUT = 'CreateWorkout',
   EXERCISE_SETTINGS = 'ExerciseSettings',

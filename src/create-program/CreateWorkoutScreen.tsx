@@ -22,7 +22,7 @@ export default function CreateWorkoutScreen({ route, navigation }: any) {
         description,
         programId,
       })
-      navigation.push(Routes.ADD_EXERCISES, {
+      navigation.push(Routes.PROGRAM_PREVIEW, {
         title,
         programId,
         workoutId: createdWorkout.id,

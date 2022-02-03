@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { FontSize } from '../../design-system/font-size.enum'
+import { FontSize } from '../../design-system/enums/font-size.enum'
 
 export function SetsLabelHeader() {
   return (

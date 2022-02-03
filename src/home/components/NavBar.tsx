@@ -4,8 +4,8 @@ import {
   MaterialCommunityIcons as MaterialCommunityIcons,
 } from '@expo/vector-icons'
 import React, { useState } from 'react'
-import { Colors } from '../../../design-system/colors'
-import { FontSize } from '../../../design-system/font-size.enum'
+import { Colors } from '../../../design-system/enums/colors.enum'
+import { FontSize } from '../../../design-system/enums/font-size.enum'
 
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 

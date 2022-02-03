@@ -1,6 +1,6 @@
 import { Text, TextInput, View, StyleSheet } from 'react-native'
 import React from 'react'
-import { FontSize } from '../../../design-system/font-size.enum'
+import { FontSize } from '../../../design-system/enums/font-size.enum'
 import { TextInputStyle } from '../../../design-system/TextInput'
 
 export function RestTimeSetter() {

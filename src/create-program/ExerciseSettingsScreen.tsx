@@ -3,7 +3,7 @@ import React from 'react'
 import { RestTimeSetter } from './components/RestTimeSetter'
 import { NumberSetter } from './components/NumberSetter'
 import { Button } from '../../design-system/Button'
-import { FontSize } from '../../design-system/font-size.enum'
+import { FontSize } from '../../design-system/enums/font-size.enum'
 import { Routes } from '../router/Router'
 
 export default function ExerciseSettingsScreen({ navigation }: any) {

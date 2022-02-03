@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { FontSize } from '../../../design-system/font-size.enum'
+import { FontSize } from '../../../design-system/enums/font-size.enum'
 import { Avatar } from '../../../design-system/Avatar'
 import { Athlete } from '../entities/athlete.entity'
 

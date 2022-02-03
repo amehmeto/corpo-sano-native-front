@@ -39,10 +39,11 @@ export default function AddExercisesAndDayScheduleToWorkoutScreen({
   const saveWorkout = async () => {
     try {
       await saveWorkoutEditUseCase.execute(workoutId, exercises, scheduledDays)
+      navigation.push(Routes.EXERCISE_SETTINGS, {
+        workoutId,
+      })
     } catch (e) {
       console.error(e)
-    } finally {
-      navigation.push(Routes.EXERCISE_SETTINGS)
     }
   }
 

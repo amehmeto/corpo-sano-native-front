@@ -1,4 +1,4 @@
-import { Colors } from './colors'
+import { Colors } from './enums/colors.enum'
 
 export const TextInputStyle = {
   backgroundColor: 'rgba(5, 154, 34, 0.1)',

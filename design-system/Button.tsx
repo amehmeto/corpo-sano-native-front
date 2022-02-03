@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
-import { Colors } from './colors'
+import { Colors } from './enums/colors.enum'
 
 type ButtonProps = { text: string; onPress: any; additionalStyle?: {} }
 

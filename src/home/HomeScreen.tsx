@@ -38,7 +38,7 @@ export function HomeScreen({ navigation }: any) {
   }: ListRenderItemInfo<DailyTask>) => {
     return (
       <Pressable
-        style={styles.dailyTask}
+        style={styles.card}
         onPress={() => navigation.navigate(dailyTask.route)}
       >
         <Text>{dailyTask.description}</Text>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 10,
   },
-  dailyTask: {
+  card: {
     padding: 10,
     paddingLeft: 30,
     borderRadius: 10,
