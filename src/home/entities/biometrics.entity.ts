@@ -1,6 +1,6 @@
-import { UnitSystem } from '../types/metric-system.enum'
-import { Gender } from '../types/gender.enum'
-import { WeightGoal } from '../types/weight-goal.enum'
+import { UnitSystem } from '../../_data-builders/types/metric-system.enum'
+import { Gender } from '../../_data-builders/types/gender.enum'
+import { WeightGoal } from '../../_data-builders/types/weight-goal.enum'
 
 export class Biometrics {
   constructor(

@@ -12,11 +12,12 @@ import { RouteParams, Routes } from '../router/Router'
 import { Button } from '../../design-system/Button'
 import { Workout } from './entities/workout.entity'
 import { workoutDataBuilder } from '../_data-builders/workout.data-builder'
-import { Card } from '../../design-system/Card'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
 import { Padding } from '../../design-system/enums/padding.enum'
 import { faker } from '@faker-js/faker'
+import { WeekDays } from '../_data-builders/types/week-days.enum'
+import { determineDayInitialStyle } from './use-cases/determine-schedule-days-initial-style.handler'
 
 type ProgramPreviewProps = NativeStackScreenProps<
   RouteParams,
@@ -33,21 +34,36 @@ export default function ProgramPreviewScreen({
   const numberOfExercises = faker.datatype.number({ min: 1, max: 10 })
 
   const programWorkouts = [
-    workoutDataBuilder(),
-    workoutDataBuilder(),
-    workoutDataBuilder(),
+    workoutDataBuilder({
+      scheduleDays: [WeekDays.MONDAY, WeekDays.FRIDAY],
+    }),
+    workoutDataBuilder({
+      scheduleDays: [WeekDays.THURSDAY, WeekDays.SATURDAY],
+    }),
+    workoutDataBuilder({
+      scheduleDays: [WeekDays.WEDNESDAY, WeekDays.SUNDAY, WeekDays.TUESDAY],
+    }),
     workoutDataBuilder(),
   ] as Workout[] // should come from the server
+
+  function goToCreateWorkout() {
+    navigation.navigate(Routes.CREATE_WORKOUT, {
+      programId,
+    })
+  }
 
   const renderWorkoutPreview = ({
     item: workout,
   }: ListRenderItemInfo<Workout>) => {
     const dayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
-    const dayInitialElements = dayInitials.map((initial, index) => (
-      <Text key={index} style={styles.dayInitial}>
-        {initial}
-      </Text>
-    ))
+    const dayInitialElements = dayInitials.map((initial, index) => {
+      const dayInitialStyle = determineDayInitialStyle(workout, index)
+      return (
+        <Text key={index} style={dayInitialStyle}>
+          {initial}
+        </Text>
+      )
+    })
     return (
       <Pressable style={styles.workoutPreview} onPress={() => {}}>
         <Text style={styles.workoutTitle}>{workout.title}</Text>
@@ -55,12 +71,6 @@ export default function ProgramPreviewScreen({
         <View style={styles.dayInitialContainer}>{dayInitialElements}</View>
       </Pressable>
     )
-  }
-
-  function goToCreateWorkout() {
-    navigation.navigate(Routes.CREATE_WORKOUT, {
-      programId,
-    })
   }
 
   const workoutPreviewElements =
@@ -118,25 +128,9 @@ const styles = StyleSheet.create({
   workoutPreviewList: {
     width: '100%',
   },
-  dayInitial: {
-    fontSize: FontSize.BODY_TEXT_EXTRA_SMALL,
-    fontWeight: 'bold',
-    backgroundColor: 'gray',
-    color: 'white',
-    textTransform: 'uppercase',
-    margin: Margin.SMALL,
-    marginLeft: Margin.NONE,
-    marginBottom: Margin.NONE,
-    padding: Padding.EXTRA_SMALL,
-    borderRadius: 2,
-    width: 15,
-    textAlign: 'center',
-  },
+
   dayInitialContainer: {
     flexDirection: 'row',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'red',
   },
   workoutTitle: { fontWeight: 'bold', marginBottom: Margin.SMALL },
 })

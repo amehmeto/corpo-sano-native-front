@@ -1,6 +1,6 @@
-import { UnitSystem } from '../home/types/metric-system.enum'
-import { Gender } from '../home/types/gender.enum'
-import { WeightGoal } from '../home/types/weight-goal.enum'
+import { UnitSystem } from './types/metric-system.enum'
+import { Gender } from './types/gender.enum'
+import { WeightGoal } from './types/weight-goal.enum'
 
 const { faker } = require('@faker-js/faker')
 

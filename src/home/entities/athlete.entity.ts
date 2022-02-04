@@ -1,7 +1,7 @@
 import { Program } from '../../create-program/entities/program.entity'
 import { DailyTask } from './daily-task.entity'
 import { Biometrics } from './biometrics.entity'
-import { UnitSystem } from '../types/metric-system.enum'
+import { UnitSystem } from '../../_data-builders/types/metric-system.enum'
 
 export class Athlete {
   constructor(
