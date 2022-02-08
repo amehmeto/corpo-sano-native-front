@@ -53,9 +53,11 @@ export class InMemoryWorkoutGateway implements WorkoutGateway {
 
   private async updateWorkouts() {
     const programs = await this.programGateway.find()
-    let tempWorkouts: any[] = []
-    for (let i = 0; programs[i]; i++)
-      tempWorkouts = this.workouts.concat(programs[i].workouts)
-    this.workouts = tempWorkouts
+
+    this.workouts = programs.reduce(
+      (cumulativeWorkouts, program) =>
+        cumulativeWorkouts.concat(program.workouts),
+      [] as Workout[],
+    )
   }
 }

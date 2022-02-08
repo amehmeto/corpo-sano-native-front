@@ -71,7 +71,6 @@ export default function ProgramPreviewScreen({
       <WorkoutPreviewCard
         workout={workout}
         navigate={() => {
-          console.log('Inside ProgramPreview: ' + workout.id)
           navigation.navigate(Routes.EDIT_WORKOUT, {
             workoutId: workout.id,
           })
