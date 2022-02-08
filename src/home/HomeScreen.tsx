@@ -24,14 +24,10 @@ export function HomeScreen({ navigation }: any) {
   const [athlete, setAthlete] = useState<Athlete | undefined>(undefined)
 
   useEffect(() => {
-    getAthlete().then((_athlete) => {
+    getAthleteUseCase.execute(athleteId).then((_athlete) => {
       setAthlete(_athlete)
     })
   }, [])
-
-  const getAthlete = async () => {
-    return getAthleteUseCase.execute(athleteId)
-  }
 
   const renderDailyTask = ({
     item: dailyTask,
@@ -45,8 +41,6 @@ export function HomeScreen({ navigation }: any) {
       </Pressable>
     )
   }
-
-  console.log(athlete)
 
   return (
     <>

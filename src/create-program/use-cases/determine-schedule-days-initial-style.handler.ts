@@ -14,6 +14,7 @@ function isDayScheduled(workout: Workout, weekDay: WeekDays, index: number) {
 
 export function determineDayInitialStyle(workout: Workout, index: number) {
   let dayInitialStyle = [styles.dayInitial] as {}[]
+
   if (!workout.scheduleDays) return dayInitialStyle
 
   const weekDays = Object.keys(WeekDays) as Array<keyof typeof WeekDays>

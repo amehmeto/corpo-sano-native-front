@@ -6,18 +6,25 @@ import {
   Text,
   View,
 } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RouteParams, Routes } from '../router/Router'
 import { Button } from '../../design-system/Button'
 import { Workout } from './entities/workout.entity'
-import { workoutDataBuilder } from '../_data-builders/workout.data-builder'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
-import { Padding } from '../../design-system/enums/padding.enum'
 import { faker } from '@faker-js/faker'
-import { WeekDays } from '../_data-builders/types/week-days.enum'
 import { determineDayInitialStyle } from './use-cases/determine-schedule-days-initial-style.handler'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { Padding } from '../../design-system/enums/padding.enum'
+import { Program } from './entities/program.entity'
+import { GetProgramWorkoutsUseCase } from './use-cases/get-program-workouts.use-case'
+import { GetProgramUseCase } from './use-cases/get-program.use-case'
+import { programGateway } from '../di-container.experiment'
+
+const getProgramWorkoutsUseCase = new GetProgramWorkoutsUseCase(programGateway)
+
+const getProgramUseCase = new GetProgramUseCase(programGateway)
 
 type ProgramPreviewProps = NativeStackScreenProps<
   RouteParams,
@@ -28,23 +35,15 @@ export default function ProgramPreviewScreen({
   route,
   navigation,
 }: ProgramPreviewProps) {
-  const programTitle = route.params.title
-  const programDescription = route.params.description
   const programId = route.params.programId
-  const numberOfExercises = faker.datatype.number({ min: 1, max: 10 })
 
-  const programWorkouts = [
-    workoutDataBuilder({
-      scheduleDays: [WeekDays.MONDAY, WeekDays.FRIDAY],
-    }),
-    workoutDataBuilder({
-      scheduleDays: [WeekDays.THURSDAY, WeekDays.SATURDAY],
-    }),
-    workoutDataBuilder({
-      scheduleDays: [WeekDays.WEDNESDAY, WeekDays.SUNDAY, WeekDays.TUESDAY],
-    }),
-    workoutDataBuilder(),
-  ] as Workout[] // should come from the server
+  const [program, setProgram] = useState<Program | undefined>(undefined)
+
+  useEffect(() => {
+    getProgramUseCase.execute(programId).then((_program) => {
+      setProgram(_program)
+    })
+  })
 
   function goToCreateWorkout() {
     navigation.navigate(Routes.CREATE_WORKOUT, {
@@ -56,6 +55,8 @@ export default function ProgramPreviewScreen({
     item: workout,
   }: ListRenderItemInfo<Workout>) => {
     const dayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+    const numberOfExercises = faker.datatype.number({ min: 1, max: 10 })
+
     const dayInitialElements = dayInitials.map((initial, index) => {
       const dayInitialStyle = determineDayInitialStyle(workout, index)
       return (
@@ -65,8 +66,26 @@ export default function ProgramPreviewScreen({
       )
     })
     return (
-      <Pressable style={styles.workoutPreview} onPress={() => {}}>
-        <Text style={styles.workoutTitle}>{workout.title}</Text>
+      <Pressable style={styles.workoutPreview}>
+        <View style={styles.titleAndEditIcons}>
+          <Text style={styles.workoutTitle}>{workout.title}</Text>
+          <View style={styles.editIcons}>
+            <Pressable onPress={() => navigation.navigate(Routes.HOME)}>
+              <MaterialCommunityIcons
+                name={'square-edit-outline'}
+                size={20}
+                color={'gray'}
+              />
+            </Pressable>
+            <Pressable>
+              <MaterialCommunityIcons
+                name={'delete-outline'}
+                size={20}
+                color={'gray'}
+              />
+            </Pressable>
+          </View>
+        </View>
         <Text>{`${numberOfExercises} exercises`}</Text>
         <View style={styles.dayInitialContainer}>{dayInitialElements}</View>
       </Pressable>
@@ -74,10 +93,10 @@ export default function ProgramPreviewScreen({
   }
 
   const workoutPreviewElements =
-    programWorkouts.length > 0 ? (
+    program && program.workouts && program.workouts.length > 0 ? (
       <FlatList
         style={styles.workoutPreviewList}
-        data={programWorkouts}
+        data={program.workouts}
         renderItem={renderWorkoutPreview}
         keyExtractor={(item) => item.id}
       />
@@ -86,9 +105,9 @@ export default function ProgramPreviewScreen({
     )
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{programTitle}</Text>
+      <Text style={styles.title}>{program?.title}</Text>
 
-      <Text style={styles.description}>{programDescription}</Text>
+      <Text style={styles.description}>{program?.description}</Text>
 
       {workoutPreviewElements}
 
@@ -116,6 +135,10 @@ const styles = StyleSheet.create({
   description: {
     margin: Margin.LARGE,
   },
+
+  workoutPreviewList: {
+    width: '100%',
+  },
   workoutPreview: {
     margin: Margin.MEDIUM,
     padding: Padding.MEDIUM,
@@ -123,14 +146,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: 'gray',
   },
-  workoutPreviewList: {
-    width: '100%',
-  },
-
+  workoutTitle: { fontWeight: 'bold', marginBottom: Margin.SMALL },
   dayInitialContainer: {
     flexDirection: 'row',
   },
-  workoutTitle: { fontWeight: 'bold', marginBottom: Margin.SMALL },
+  titleAndEditIcons: { flexDirection: 'row', justifyContent: 'space-between' },
+  editIcons: { flexDirection: 'row', justifyContent: 'flex-end' },
 })

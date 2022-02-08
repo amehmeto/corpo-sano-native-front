@@ -4,13 +4,11 @@ import { CreateProgramUseCase } from './use-cases/create-program.use-case'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
-import { ProgramGateway } from './gateways/program.gateway.interface'
-import { InMemoryProgramGateway } from './gateways/program.in-memory.gateway'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { faker } from '@faker-js/faker'
+import { programGateway } from '../di-container.experiment'
 
-const createProgramGateway: ProgramGateway = new InMemoryProgramGateway()
-const createProgramUseCase = new CreateProgramUseCase(createProgramGateway)
+const createProgramUseCase = new CreateProgramUseCase(programGateway)
 
 type CreateProgramScreenProps = NativeStackScreenProps<
   RouteParams,
