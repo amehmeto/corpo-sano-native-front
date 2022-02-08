@@ -4,9 +4,13 @@ import { Colors } from './enums/colors.enum'
 import { Padding } from './enums/padding.enum'
 import { FontSize } from './enums/font-size.enum'
 
-type ButtonProps = { text: string; onPress: any; additionalStyle?: {} }
+type ButtonProps = { text: string; onPress: any; style?: {} }
 
-export function Button({ text, onPress, additionalStyle = {} }: ButtonProps) {
+export function Button({
+  text,
+  onPress,
+  style: additionalStyle = {},
+}: ButtonProps) {
   return (
     <Pressable style={[styles.button, additionalStyle]} onPress={onPress}>
       <Text style={styles.buttonText}>{text}</Text>

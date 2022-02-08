@@ -55,4 +55,16 @@ export class InMemoryProgramGateway implements ProgramGateway {
     )
     return Promise.resolve(program)
   }
+
+  deleteWorkout(programId: string, workoutId: string): Promise<boolean> {
+    const programIndex = this.programs.findIndex(
+      (_program) => _program.id === programId,
+    )
+    if (programIndex === -1) throw new Error('Program not found')
+    const workoutIndex = this.programs[programIndex].workouts.findIndex(
+      (_workout) => _workout.id === workoutId,
+    )
+    this.programs[programIndex].workouts.splice(workoutIndex, 1)
+    return Promise.resolve(true)
+  }
 }

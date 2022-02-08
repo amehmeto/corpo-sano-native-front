@@ -1,7 +1,7 @@
 import {
   FlatList,
   ListRenderItemInfo,
-  Pressable,
+  Modal,
   StyleSheet,
   Text,
   View,
@@ -14,13 +14,15 @@ import { Workout } from './entities/workout.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
 import { determineDayInitialStyle } from './use-cases/determine-schedule-days-initial-style.handler'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Padding } from '../../design-system/enums/padding.enum'
 import { Program } from './entities/program.entity'
 import { GetProgramUseCase } from './use-cases/get-program.use-case'
 import { programGateway } from '../di-container.experiment'
+import { WorkoutPreviewCard } from './components/WorkoutPreviewCard'
+import { DeleteWorkoutUseCase } from './use-cases/remove-workout.use-case'
 
 const getProgramUseCase = new GetProgramUseCase(programGateway)
+const deleteWorkoutUseCase = new DeleteWorkoutUseCase(programGateway)
 
 type ProgramPreviewProps = NativeStackScreenProps<
   RouteParams,
@@ -34,6 +36,11 @@ export default function ProgramPreviewScreen({
   const programId = route.params.programId
 
   const [program, setProgram] = useState<Program | undefined>(undefined)
+  const [isRemoveModalVisible, setIsRemoveModalVisible] =
+    useState<boolean>(false)
+  const [removeModalWorkoutId, setRemoveModalWorkoutId] = useState<
+    string | undefined
+  >(undefined)
 
   useEffect(() => {
     getProgramUseCase.execute(programId).then((_program) => {
@@ -61,29 +68,15 @@ export default function ProgramPreviewScreen({
       )
     })
     return (
-      <Pressable style={styles.workoutPreview}>
-        <View style={styles.titleAndEditIcons}>
-          <Text style={styles.workoutTitle}>{workout.title}</Text>
-          <View style={styles.editIcons}>
-            <Pressable onPress={() => navigation.navigate(Routes.HOME)}>
-              <MaterialCommunityIcons
-                name={'square-edit-outline'}
-                size={20}
-                color={'gray'}
-              />
-            </Pressable>
-            <Pressable>
-              <MaterialCommunityIcons
-                name={'delete-outline'}
-                size={20}
-                color={'gray'}
-              />
-            </Pressable>
-          </View>
-        </View>
-        <Text>{`${workout.exercises.length} exercises`}</Text>
-        <View style={styles.dayInitialContainer}>{dayInitialElements}</View>
-      </Pressable>
+      <WorkoutPreviewCard
+        workout={workout}
+        navigate={() => navigation.navigate(Routes.HOME)}
+        openDeleteModal={() => {
+          setRemoveModalWorkoutId(workout.id)
+          setIsRemoveModalVisible(true)
+        }}
+        elements={dayInitialElements}
+      />
     )
   }
 
@@ -106,11 +99,39 @@ export default function ProgramPreviewScreen({
 
       {workoutPreviewElements}
 
-      {/*<ScrollView style={styles.scroll}>
-        <View style={styles.exercises} />
-      </ScrollView>*/}
-
       <Button text={'Add a workout'} onPress={goToCreateWorkout} />
+
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isRemoveModalVisible}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.deleteWorkoutModal}>
+            <Text style={styles.deleteWorkoutModalQuestion}>
+              {'Remove this workout from the program?'}
+            </Text>
+            <View style={styles.deleteWorkoutModalButtons}>
+              <Button
+                style={[styles.deleteWorkoutModalButton, styles.cancelButton]}
+                text={'Cancel'}
+                onPress={() => setIsRemoveModalVisible(false)}
+              />
+              <Button
+                style={[styles.deleteWorkoutModalButton, styles.deleteButton]}
+                text={'Remove'}
+                onPress={async () => {
+                  await deleteWorkoutUseCase.execute(
+                    programId,
+                    removeModalWorkoutId!,
+                  )
+                  setIsRemoveModalVisible(false)
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   )
 }
@@ -130,23 +151,36 @@ const styles = StyleSheet.create({
   description: {
     margin: Margin.LARGE,
   },
-
   workoutPreviewList: {
     width: '100%',
   },
-  workoutPreview: {
-    margin: Margin.MEDIUM,
-    padding: Padding.MEDIUM,
-    flexGrow: 1,
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteWorkoutModal: {
+    backgroundColor: 'white',
     borderRadius: 10,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'gray',
   },
-  workoutTitle: { fontWeight: 'bold', marginBottom: Margin.SMALL },
-  dayInitialContainer: {
+  deleteWorkoutModalButtons: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    margin: Margin.LARGE,
   },
-  titleAndEditIcons: { flexDirection: 'row', justifyContent: 'space-between' },
-  editIcons: { flexDirection: 'row', justifyContent: 'flex-end' },
+  deleteWorkoutModalQuestion: {
+    margin: Margin.LARGE,
+  },
+  deleteWorkoutModalButton: {
+    borderRadius: 5,
+    paddingVertical: Padding.SMALL,
+    paddingHorizontal: Padding.LARGE,
+  },
+  cancelButton: {
+    backgroundColor: 'grey',
+    marginRight: Margin.LARGE,
+  },
+  deleteButton: {
+    backgroundColor: 'red',
+  },
 })

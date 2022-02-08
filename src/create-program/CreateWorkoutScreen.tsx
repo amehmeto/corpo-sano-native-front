@@ -9,8 +9,8 @@ import { programGateway } from '../di-container.experiment'
 const createWorkoutUseCase = new CreateWorkoutUseCase(programGateway)
 
 export default function CreateWorkoutScreen({ route, navigation }: any) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+  const [title, setTitle] = useState('Leg day')
+  const [description, setDescription] = useState('Never skip the leg day')
   const programId = route.params.programId
 
   async function createWorkout() {

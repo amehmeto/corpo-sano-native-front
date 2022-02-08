@@ -6,4 +6,5 @@ export interface ProgramGateway {
   create(programInput: ProgramInput): Promise<Program>
   findById(programId: string): Promise<Program | undefined>
   addWorkout(programId: string, workoutInput: WorkoutInput): Promise<Program>
+  deleteWorkout(programId: string, workoutId: string): Promise<boolean>
 }
