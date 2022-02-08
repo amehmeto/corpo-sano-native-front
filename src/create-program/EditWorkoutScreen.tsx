@@ -26,12 +26,11 @@ export default function EditWorkoutScreen({
   route,
   navigation,
 }: EditWorkoutScreenProps) {
-  const { workoutId } = route.params
-  console.log('Inside  EditWorkout: ' + workoutId)
+  const workoutId = route.params.workoutId
 
-  const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
   const [exercises, setExercises] = useState(exercisesFakeData)
   const [workout, setWorkout] = useState<Workout | undefined>(undefined)
+  const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
   const exerciseId = uuid()
 
   useEffect(() => {

@@ -48,7 +48,7 @@ export class InMemoryProgramGateway implements ProgramGateway {
     workoutInput: WorkoutInput,
   ): Promise<Program> {
     const program = await this.findById(programId)
-    console.log(programId, program)
+
     if (!program) throw new Error('Program not found')
     program.workouts.push(
       new Workout(
