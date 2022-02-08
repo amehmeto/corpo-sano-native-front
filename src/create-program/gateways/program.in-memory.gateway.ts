@@ -18,10 +18,6 @@ export class InMemoryProgramGateway implements ProgramGateway {
       ),
   )
 
-  constructor() {
-    console.warn('InMemoryProgramGateway called', this.programs)
-  }
-
   create(programInput: ProgramInput): Promise<Program> {
     const newId = uuid()
     this.programs.push(
@@ -38,6 +34,10 @@ export class InMemoryProgramGateway implements ProgramGateway {
     return Promise.resolve(createdProgram)
   }
 
+  find(): Promise<Program[]> {
+    return Promise.resolve(this.programs)
+  }
+
   findById(programId: string): Promise<Program | undefined> {
     const program = this.programs.find((_program) => _program.id === programId)
     return Promise.resolve(program)
@@ -51,7 +51,12 @@ export class InMemoryProgramGateway implements ProgramGateway {
     console.log(programId, program)
     if (!program) throw new Error('Program not found')
     program.workouts.push(
-      new Workout(uuid(), workoutInput.title, workoutInput.description),
+      new Workout(
+        uuid(),
+        workoutInput.title,
+        workoutInput.description,
+        workoutInput.programId,
+      ),
     )
     return Promise.resolve(program)
   }

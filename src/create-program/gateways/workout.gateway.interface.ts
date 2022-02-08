@@ -10,4 +10,5 @@ export interface WorkoutGateway {
   ): Promise<boolean>
   scheduleDays(workoutId: string, days: ScheduledDay[]): Promise<boolean>
   create(workoutInput: WorkoutInput): Promise<Workout>
+  findById(workoutId: string): Promise<Workout>
 }

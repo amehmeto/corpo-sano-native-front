@@ -1,28 +1,44 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { AntDesign as AntDesign } from '@expo/vector-icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.repository'
 import { SaveWorkoutEditUseCase } from './use-cases/save-workout-edit.use-case'
 import { v4 as uuid } from 'uuid'
-import { WorkoutGateway } from './gateways/workout.gateway.interface'
 import { selectWantedExercise } from './use-cases/select-exercise.handler'
 import { scheduleWantedDays } from './use-cases/schedule-days.handler'
 import { Button } from '../../design-system/Button'
-import { Routes } from '../router/Router'
-import { InMemoryWorkoutGateway } from './gateways/workout.in-memory.gateway'
+import { RouteParams, Routes } from '../router/Router'
+import { Workout } from './entities/workout.entity'
+import { workoutGateway } from '../di-container.experiment'
+import { GetWorkoutUseCase } from './use-cases/get-workout.use-case'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-const workoutGateway: WorkoutGateway = new InMemoryWorkoutGateway()
 const saveWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
+const getWorkoutUseCase = new GetWorkoutUseCase(workoutGateway)
 
-export default function AddExercisesAndDayScheduleToWorkoutScreen({
+type EditWorkoutScreenProps = NativeStackScreenProps<
+  RouteParams,
+  Routes.EDIT_WORKOUT
+>
+
+export default function EditWorkoutScreen({
   route,
   navigation,
-}: any) {
+}: EditWorkoutScreenProps) {
+  const { workoutId } = route.params
+  console.log('Inside  EditWorkout: ' + workoutId)
+
   const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
   const [exercises, setExercises] = useState(exercisesFakeData)
-  const workoutId = uuid()
-  const { title: workoutTitle } = route.params
+  const [workout, setWorkout] = useState<Workout | undefined>(undefined)
+  const exerciseId = uuid()
+
+  useEffect(() => {
+    getWorkoutUseCase.execute(workoutId).then((_workout) => {
+      setWorkout(_workout)
+    })
+  }, [])
 
   const selectExercise = (exerciseIndex: number) => {
     setExercises((prevExercises) =>
@@ -40,7 +56,7 @@ export default function AddExercisesAndDayScheduleToWorkoutScreen({
     try {
       await saveWorkoutEditUseCase.execute(workoutId, exercises, scheduledDays)
       navigation.push(Routes.EXERCISE_SETTINGS, {
-        workoutId,
+        exerciseId,
       })
     } catch (e) {
       console.error(e)
@@ -72,11 +88,11 @@ export default function AddExercisesAndDayScheduleToWorkoutScreen({
     )
   })
 
+  if (!workout) return <Text>Loading... Bekle amk</Text>
   return (
     <View style={styles.container}>
-      <Text>You've just created your first program</Text>
-
-      <Text style={styles.title}>{workoutTitle}</Text>
+      <Text style={styles.title}>{workout.title}</Text>
+      <Text>{workout.description ?? 'No description'}</Text>
 
       <ScrollView style={styles.scroll}>
         <View style={styles.exercises}>{exercisesElements}</View>
@@ -84,7 +100,7 @@ export default function AddExercisesAndDayScheduleToWorkoutScreen({
 
       <View style={styles.days}>{daysSelector}</View>
 
-      <Button text={'Schedule Days'} onPress={saveWorkout} />
+      <Button text={'Update Workout'} onPress={saveWorkout} />
     </View>
   )
 }

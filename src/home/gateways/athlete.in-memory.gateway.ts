@@ -26,7 +26,6 @@ export class InMemoryAthleteGateway implements AthleteGateway {
   }
 
   findById(athleteId: string): Promise<Athlete> {
-    console.log('called with id ' + athleteId)
     return Promise.resolve(this.athletes[0])
   }
 

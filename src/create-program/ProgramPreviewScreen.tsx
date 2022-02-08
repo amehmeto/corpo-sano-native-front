@@ -70,7 +70,12 @@ export default function ProgramPreviewScreen({
     return (
       <WorkoutPreviewCard
         workout={workout}
-        navigate={() => navigation.navigate(Routes.HOME)}
+        navigate={() => {
+          console.log('Inside ProgramPreview: ' + workout.id)
+          navigation.navigate(Routes.EDIT_WORKOUT, {
+            workoutId: workout.id,
+          })
+        }}
         openDeleteModal={() => {
           setRemoveModalWorkoutId(workout.id)
           setIsRemoveModalVisible(true)

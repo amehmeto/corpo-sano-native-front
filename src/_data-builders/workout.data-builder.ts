@@ -5,6 +5,11 @@ export function workoutDataBuilder(workout = {}) {
   const template = {
     id: faker.datatype.uuid(),
     title: faker.random.arrayElement(titleExamples),
+    description: faker.lorem.paragraph(),
+    programId: faker.datatype.uuid(),
   }
-  return { ...template, ...workout }
+  return {
+    ...template,
+    ...workout,
+  }
 }
