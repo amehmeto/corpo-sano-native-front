@@ -1,5 +1,5 @@
-import { WorkoutGateway } from '../gateways/workout.gateway.interface'
-import { Workout } from '../entities/workout.entity'
+import { ProgramGateway } from '../gateways/program.gateway.interface'
+import { Program } from '../entities/program.entity'
 
 export type WorkoutInput = {
   title: string
@@ -8,9 +8,12 @@ export type WorkoutInput = {
 }
 
 export class CreateWorkoutUseCase {
-  constructor(private readonly workoutGateway: WorkoutGateway) {}
+  constructor(private readonly programGateway: ProgramGateway) {}
 
-  async execute(workoutInput: WorkoutInput): Promise<Workout> {
-    return this.workoutGateway.create(workoutInput)
+  async execute(
+    programId: string,
+    workoutInput: WorkoutInput,
+  ): Promise<Program> {
+    return this.programGateway.addWorkout(programId, workoutInput)
   }
 }

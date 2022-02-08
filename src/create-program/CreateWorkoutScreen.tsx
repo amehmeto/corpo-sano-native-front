@@ -3,12 +3,10 @@ import { NavBar } from '../home/components/NavBar'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { Routes } from '../router/Router'
-import { WorkoutGateway } from './gateways/workout.gateway.interface'
 import { CreateWorkoutUseCase } from './use-cases/create-workout.use-case'
-import { InMemoryWorkoutGateway } from './gateways/workout.in-memory.gateway'
+import { programGateway } from '../di-container.experiment'
 
-const inMemoryWorkoutGateway: WorkoutGateway = new InMemoryWorkoutGateway()
-const createWorkoutUseCase = new CreateWorkoutUseCase(inMemoryWorkoutGateway)
+const createWorkoutUseCase = new CreateWorkoutUseCase(programGateway)
 
 export default function CreateWorkoutScreen({ route, navigation }: any) {
   const [title, setTitle] = useState('')
@@ -17,15 +15,13 @@ export default function CreateWorkoutScreen({ route, navigation }: any) {
 
   async function createWorkout() {
     try {
-      const createdWorkout = await createWorkoutUseCase.execute({
+      await createWorkoutUseCase.execute(programId, {
         title,
         description,
         programId,
       })
       navigation.push(Routes.PROGRAM_PREVIEW, {
-        title,
         programId,
-        workoutId: createdWorkout.id,
       })
     } catch (e) {
       console.warn(e)

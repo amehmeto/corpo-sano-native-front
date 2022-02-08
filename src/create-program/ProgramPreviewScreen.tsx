@@ -13,16 +13,12 @@ import { Button } from '../../design-system/Button'
 import { Workout } from './entities/workout.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
-import { faker } from '@faker-js/faker'
 import { determineDayInitialStyle } from './use-cases/determine-schedule-days-initial-style.handler'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Padding } from '../../design-system/enums/padding.enum'
 import { Program } from './entities/program.entity'
-import { GetProgramWorkoutsUseCase } from './use-cases/get-program-workouts.use-case'
 import { GetProgramUseCase } from './use-cases/get-program.use-case'
 import { programGateway } from '../di-container.experiment'
-
-const getProgramWorkoutsUseCase = new GetProgramWorkoutsUseCase(programGateway)
 
 const getProgramUseCase = new GetProgramUseCase(programGateway)
 
@@ -55,7 +51,6 @@ export default function ProgramPreviewScreen({
     item: workout,
   }: ListRenderItemInfo<Workout>) => {
     const dayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
-    const numberOfExercises = faker.datatype.number({ min: 1, max: 10 })
 
     const dayInitialElements = dayInitials.map((initial, index) => {
       const dayInitialStyle = determineDayInitialStyle(workout, index)
@@ -86,7 +81,7 @@ export default function ProgramPreviewScreen({
             </Pressable>
           </View>
         </View>
-        <Text>{`${numberOfExercises} exercises`}</Text>
+        <Text>{`${workout.exercises.length} exercises`}</Text>
         <View style={styles.dayInitialContainer}>{dayInitialElements}</View>
       </Pressable>
     )
