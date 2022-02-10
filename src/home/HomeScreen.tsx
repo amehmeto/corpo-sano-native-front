@@ -31,16 +31,14 @@ export function HomeScreen({ navigation }: any) {
 
   const renderDailyTask = ({
     item: dailyTask,
-  }: ListRenderItemInfo<DailyTask>) => {
-    return (
-      <Pressable
-        style={styles.card}
-        onPress={() => navigation.navigate(dailyTask.route)}
-      >
-        <Text>{dailyTask.description}</Text>
-      </Pressable>
-    )
-  }
+  }: ListRenderItemInfo<DailyTask>) => (
+    <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate(dailyTask.route)}
+    >
+      <Text>{dailyTask.description}</Text>
+    </Pressable>
+  )
 
   return (
     <>

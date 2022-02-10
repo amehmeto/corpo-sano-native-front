@@ -8,12 +8,9 @@ export default function WorkoutPreview({ navigation }: any) {
   }
 
   const exercisesElements = exercisesFakeData.map((exercise, index) => {
-    const exerciseStyle = exercise.isSelected
-      ? styles.selectedExercise
-      : styles.exercise
     return (
       <View key={index}>
-        <Text style={exerciseStyle}>{exercise.name}</Text>
+        <Text style={styles.exercise}>{exercise.name}</Text>
       </View>
     )
   })

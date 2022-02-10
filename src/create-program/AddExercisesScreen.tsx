@@ -4,12 +4,9 @@ import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 
 export default function AddExercisesScreen() {
   const exercisesElements = exercisesFakeData.map((exercise, index) => {
-    const exerciseStyle = exercise.isSelected
-      ? styles.selectedExercise
-      : styles.exercise
     return (
       <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={exerciseStyle}>{exercise.name}</Text>
+        <Text style={styles.exercise}>{exercise.name}</Text>
       </View>
     )
   })

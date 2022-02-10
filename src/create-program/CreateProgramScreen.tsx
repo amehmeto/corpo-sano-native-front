@@ -29,8 +29,6 @@ export default function CreateProgramScreen({
       })
       navigation.push(Routes.PROGRAM_PREVIEW, {
         programId: createdProgram.id,
-        title,
-        description,
       })
     } catch (e) {
       console.warn(e)

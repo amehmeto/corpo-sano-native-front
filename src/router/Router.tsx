@@ -18,8 +18,6 @@ export type RouteParams = {
   CreateProgram: undefined
   ProgramPreview: {
     programId: string
-    title: string
-    description: string
   }
   CreateWorkout: {
     programId: string

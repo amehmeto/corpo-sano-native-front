@@ -17,11 +17,7 @@ export function NumberSetter() {
 
   return (
     <View style={styles.numberSetter}>
-      <Button
-        text={'-'}
-        onPress={subtractNumber}
-        additionalStyle={styles.button}
-      />
+      <Button text={'-'} onPress={subtractNumber} style={styles.button} />
       <TextInput
         style={[styles.number, IsActiveTextInputStyle]}
         value={number.toString()}
@@ -29,7 +25,7 @@ export function NumberSetter() {
           setNumber(number)
         }}
       />
-      <Button text={'+'} onPress={addNumber} additionalStyle={styles.button} />
+      <Button text={'+'} onPress={addNumber} style={styles.button} />
     </View>
   )
 }

@@ -9,6 +9,10 @@ export class GraphQLWorkoutGateway
   extends GraphQLGateway
   implements WorkoutGateway
 {
+  findById(workoutId: string): Promise<Workout> {
+    throw new Error('Method not implemented.')
+  }
+
   async scheduleDays(
     workoutId: string,
     days: ScheduledDay[],

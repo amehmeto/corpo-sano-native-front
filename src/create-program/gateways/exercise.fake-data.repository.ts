@@ -1,19 +1,20 @@
 import { v4 as uuid } from 'uuid'
+import { Exercise } from '../entities/exercise.entity'
 
-export const exercisesFakeData = [
-  { id: uuid(), name: 'Abs', isSelected: true },
-  { id: uuid(), name: 'Squat', isSelected: false },
-  { id: uuid(), name: 'Pull up', isSelected: false },
-  { id: uuid(), name: 'Push up', isSelected: false },
-  { id: uuid(), name: 'Abs', isSelected: false },
-  { id: uuid(), name: 'Squat', isSelected: false },
-  { id: uuid(), name: 'Pull up', isSelected: false },
-  { id: uuid(), name: 'Push up', isSelected: false },
-  { id: uuid(), name: 'Abs', isSelected: false },
-  { id: uuid(), name: 'Squat', isSelected: false },
-  { id: uuid(), name: 'Pull up', isSelected: false },
-  { id: uuid(), name: 'Push up', isSelected: false },
-  { id: uuid(), name: 'Abs', isSelected: false },
-  { id: uuid(), name: 'Squat', isSelected: false },
-  { id: uuid(), name: 'Pull up', isSelected: false },
+export const exercisesFakeData: Exercise[] = [
+  { id: uuid(), name: 'Abs' },
+  { id: uuid(), name: 'Squat' },
+  { id: uuid(), name: 'Pull up' },
+  { id: uuid(), name: 'Push up' },
+  { id: uuid(), name: 'Abs' },
+  { id: uuid(), name: 'Squat' },
+  { id: uuid(), name: 'Pull up' },
+  { id: uuid(), name: 'Push up' },
+  { id: uuid(), name: 'Abs' },
+  { id: uuid(), name: 'Squat' },
+  { id: uuid(), name: 'Pull up' },
+  { id: uuid(), name: 'Push up' },
+  { id: uuid(), name: 'Abs' },
+  { id: uuid(), name: 'Squat' },
+  { id: uuid(), name: 'Pull up' },
 ]

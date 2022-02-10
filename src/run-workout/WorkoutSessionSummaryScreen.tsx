@@ -52,7 +52,7 @@ export default function WorkoutSessionSummaryScreen({ navigation }: any) {
       </ScrollView>
 
       <Button
-        additionalStyle={styles.button}
+        style={styles.button}
         text={'Leave Workout Session'}
         onPress={() => goTo(Routes.HOME)}
       />

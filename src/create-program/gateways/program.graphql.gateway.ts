@@ -1,6 +1,7 @@
 import { ProgramGateway } from './program.gateway.interface'
 import { Program } from '../entities/program.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
+import { WorkoutInput } from '../use-cases/create-workout.use-case'
 
 export class GraphQLProgramGateway
   extends GraphQLGateway
@@ -28,5 +29,21 @@ export class GraphQLProgramGateway
     } catch (e) {
       throw this.handleError(e)
     }
+  }
+
+  addWorkout(programId: string, workoutInput: WorkoutInput): Promise<Program> {
+    throw new Error('Method not implemented.')
+  }
+
+  deleteWorkout(programId: string, workoutId: string): Promise<boolean> {
+    return Promise.resolve(false)
+  }
+
+  find(): Promise<Program[]> {
+    return Promise.resolve([])
+  }
+
+  findById(programId: string): Promise<Program | undefined> {
+    return Promise.resolve(undefined)
   }
 }

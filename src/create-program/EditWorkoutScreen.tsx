@@ -1,11 +1,15 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { AntDesign as AntDesign } from '@expo/vector-icons'
+import {
+  FlatList,
+  ListRenderItemInfo,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.repository'
 import { SaveWorkoutEditUseCase } from './use-cases/save-workout-edit.use-case'
 import { v4 as uuid } from 'uuid'
-import { selectWantedExercise } from './use-cases/select-exercise.handler'
 import { scheduleWantedDays } from './use-cases/schedule-days.handler'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
@@ -13,8 +17,10 @@ import { Workout } from './entities/workout.entity'
 import { workoutGateway } from '../di-container.experiment'
 import { GetWorkoutUseCase } from './use-cases/get-workout.use-case'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { Exercise } from './entities/exercise.entity'
+import { ExerciseCardComponent } from './components/ExerciseCardPreviewComponent'
 
-const saveWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
+const updateWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
 const getWorkoutUseCase = new GetWorkoutUseCase(workoutGateway)
 
 type EditWorkoutScreenProps = NativeStackScreenProps<
@@ -39,50 +45,42 @@ export default function EditWorkoutScreen({
     })
   }, [])
 
-  const selectExercise = (exerciseIndex: number) => {
-    setExercises((prevExercises) =>
-      selectWantedExercise(prevExercises, exerciseIndex),
-    )
-  }
-
   const scheduleDay = (dayIndex: number) => {
     setScheduledDays((prevScheduledDays) =>
       scheduleWantedDays(prevScheduledDays, dayIndex),
     )
   }
 
-  const saveWorkout = async () => {
+  const updateWorkout = async () => {
     try {
-      await saveWorkoutEditUseCase.execute(workoutId, exercises, scheduledDays)
-      navigation.push(Routes.EXERCISE_SETTINGS, {
-        exerciseId,
+      await updateWorkoutEditUseCase.execute(
+        workoutId,
+        exercises,
+        scheduledDays,
+      )
+      navigation.push(Routes.PROGRAM_PREVIEW, {
+        programId: uuid(),
       })
     } catch (e) {
       console.error(e)
     }
   }
 
-  const exercisesElements = exercises.map((exercise, index) => {
-    const exerciseStyle = exercise.isSelected
-      ? styles.selectedExercise
-      : styles.exercise
-    return (
-      <Pressable
-        key={index}
-        style={styles.exerciseContainer}
-        onPress={() => selectExercise(index)}
-      >
-        <Text style={exerciseStyle}>{exercise.name}</Text>
-        <AntDesign name="closecircle" size={25} />
-      </Pressable>
-    )
-  })
+  const renderExerciseCard = ({
+    item: exercise,
+  }: ListRenderItemInfo<Exercise>) => (
+    <ExerciseCardComponent
+      exercise={exercise}
+      onPress={() => Routes.EXERCISE_SETTINGS}
+      onPress1={() => Routes.EDIT_WORKOUT}
+    />
+  )
 
   const daysSelector = scheduledDays.map((day, index) => {
     const dayStyle = day.isScheduled ? styles.scheduledDay : styles.day
     return (
       <Text key={index} style={dayStyle} onPress={() => scheduleDay(index)}>
-        {day.day}
+        {day.day.slice(0, 3)}
       </Text>
     )
   })
@@ -93,13 +91,16 @@ export default function EditWorkoutScreen({
       <Text style={styles.title}>{workout.title}</Text>
       <Text>{workout.description ?? 'No description'}</Text>
 
-      <ScrollView style={styles.scroll}>
-        <View style={styles.exercises}>{exercisesElements}</View>
-      </ScrollView>
+      <FlatList
+        style={[styles.scroll]}
+        data={exercises}
+        renderItem={renderExerciseCard}
+        keyExtractor={(item) => item.id}
+      />
 
       <View style={styles.days}>{daysSelector}</View>
 
-      <Button text={'Update Workout'} onPress={saveWorkout} />
+      <Button text={'Update Workout'} onPress={updateWorkout} />
     </View>
   )
 }
@@ -115,18 +116,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
   },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 5,
-    color: 'gray',
-  },
-  fields: {
-    width: '80%',
-    alignItems: 'stretch',
-  },
   exercises: {
     display: 'flex',
     flexDirection: 'column',
@@ -135,37 +124,10 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     minWidth: '60%',
   },
-  exercise: {
-    textAlign: 'center',
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 10,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'gray',
-    margin: 10,
-    flexBasis: 175,
-  },
   scroll: {
+    width: '90%',
     maxHeight: '60%',
   },
-  selectedExercise: {
-    textAlign: 'center',
-    textDecorationColor: 'green',
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 10,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'green',
-    margin: 10,
-    fontWeight: 'bold',
-    backgroundColor: '#80ff80',
-    flexBasis: 175,
-  },
-
   day: {
     textAlign: 'center',
     padding: 10,
@@ -176,7 +138,6 @@ const styles = StyleSheet.create({
     margin: 2,
     fontSize: 8,
   },
-
   scheduledDay: {
     textAlign: 'center',
     textDecorationColor: 'green',
@@ -190,10 +151,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: '#80ff80',
   },
-
   days: {
     display: 'flex',
     flexDirection: 'row',
   },
-  exerciseContainer: { flexDirection: 'row', alignItems: 'center' },
 })

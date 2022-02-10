@@ -79,7 +79,7 @@ export default function ProgramPreviewScreen({
           setRemoveModalWorkoutId(workout.id)
           setIsRemoveModalVisible(true)
         }}
-        elements={dayInitialElements}
+        dayInitials={dayInitialElements}
       />
     )
   }

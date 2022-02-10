@@ -31,7 +31,7 @@ export default function SetsRunnerScreen({ navigation }: any) {
       </ScrollView>
 
       <Button
-        additionalStyle={styles.button}
+        style={styles.button}
         text={'Start First Set'}
         onPress={() => navigation.navigate('WorkoutSessionSummary')}
       />
