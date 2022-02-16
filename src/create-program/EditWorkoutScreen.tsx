@@ -6,7 +6,6 @@ import {
   View,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { exercisesFakeData } from './gateways/exercise.fake-data.repository'
 import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.repository'
 import { SaveWorkoutEditUseCase } from './use-cases/save-workout-edit.use-case'
 import { v4 as uuid } from 'uuid'
@@ -34,10 +33,8 @@ export default function EditWorkoutScreen({
 }: EditWorkoutScreenProps) {
   const workoutId = route.params.workoutId
 
-  const [exercises, setExercises] = useState(exercisesFakeData)
   const [workout, setWorkout] = useState<Workout | undefined>(undefined)
   const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
-  const exerciseId = uuid()
 
   useEffect(() => {
     getWorkoutUseCase.execute(workoutId).then((_workout) => {
@@ -53,11 +50,7 @@ export default function EditWorkoutScreen({
 
   const updateWorkout = async () => {
     try {
-      await updateWorkoutEditUseCase.execute(
-        workoutId,
-        exercises,
-        scheduledDays,
-      )
+      await updateWorkoutEditUseCase.execute(workoutId, scheduledDays)
       navigation.push(Routes.PROGRAM_PREVIEW, {
         programId: uuid(),
       })
@@ -85,7 +78,7 @@ export default function EditWorkoutScreen({
     )
   })
 
-  if (!workout) return <Text>Loading... Bekle amk</Text>
+  if (!workout) return <Text>Loading...</Text>
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{workout.title}</Text>
@@ -93,7 +86,7 @@ export default function EditWorkoutScreen({
 
       <FlatList
         style={[styles.scroll]}
-        data={exercises}
+        data={workout.exercises}
         renderItem={renderExerciseCard}
         keyExtractor={(item) => item.id}
       />

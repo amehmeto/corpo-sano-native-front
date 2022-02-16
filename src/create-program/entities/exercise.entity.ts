@@ -1,3 +1,3 @@
 export class Exercise {
-  constructor(public readonly id: string, public readonly name: string) {}
+  constructor(public readonly id: string, public readonly title: string) {}
 }

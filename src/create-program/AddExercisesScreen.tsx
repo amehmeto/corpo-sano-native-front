@@ -6,7 +6,7 @@ export default function AddExercisesScreen() {
   const exercisesElements = exercisesFakeData.map((exercise, index) => {
     return (
       <View key={index} style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={styles.exercise}>{exercise.name}</Text>
+        <Text style={styles.exercise}>{exercise.title}</Text>
       </View>
     )
   })

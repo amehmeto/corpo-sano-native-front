@@ -7,7 +7,10 @@ export function workoutDataBuilder(workout = {}) {
     title: faker.random.arrayElement(titleExamples),
     description: faker.lorem.paragraph(),
     programId: faker.datatype.uuid(),
+    exercises: [],
+    scheduledDays: [],
   }
+  console.log(workout)
   return {
     ...template,
     ...workout,

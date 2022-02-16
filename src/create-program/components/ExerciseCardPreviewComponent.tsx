@@ -7,14 +7,14 @@ import { Margin } from '../../../design-system/enums/margin.enum'
 import { Padding } from '../../../design-system/enums/padding.enum'
 
 export function ExerciseCardComponent(props: {
-  exercise: Exercise
+  exercise: any
   onPress: () => Routes.EXERCISE_SETTINGS
   onPress1: () => Routes.EDIT_WORKOUT
 }) {
   return (
     <Pressable style={styles.workoutPreview}>
       <View style={styles.titleAndEditIconsRow}>
-        <Text style={styles.workoutTitle}>{props.exercise.name}</Text>
+        <Text style={styles.workoutTitle}>{props.exercise.template.title}</Text>
         <View style={styles.editIcons}>
           <Pressable onPress={props.onPress}>
             <MaterialCommunityIcons

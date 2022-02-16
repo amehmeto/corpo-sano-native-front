@@ -6,9 +6,19 @@ import { WorkoutInput } from '../use-cases/create-workout.use-case'
 import { v4 as uuid } from 'uuid'
 import { Workout } from '../entities/workout.entity'
 import { ProgramGateway } from './program.gateway.interface'
+import { exerciseDataBuilder } from '../../_data-builders/exercise.data-builder'
 
 export class InMemoryWorkoutGateway implements WorkoutGateway {
-  private rawWorkouts = [workoutDataBuilder()]
+  private rawWorkouts = [
+    workoutDataBuilder({
+      exercises: [
+        exerciseDataBuilder(),
+        exerciseDataBuilder(),
+        exerciseDataBuilder(),
+        exerciseDataBuilder(),
+      ],
+    }),
+  ]
   private workouts = this.rawWorkouts.map(
     (workout) =>
       new Workout(
@@ -16,10 +26,14 @@ export class InMemoryWorkoutGateway implements WorkoutGateway {
         workout.title,
         workout.description,
         workout.programId,
+        workout.exercises,
+        workout.scheduledDays,
       ),
   )
 
-  constructor(private readonly programGateway: ProgramGateway) {}
+  constructor(private readonly programGateway: ProgramGateway) {
+    console.log(this.workouts[0])
+  }
 
   fillWithExercises(
     workoutId: string,
@@ -44,11 +58,12 @@ export class InMemoryWorkoutGateway implements WorkoutGateway {
   }
 
   async findById(workoutId: string): Promise<Workout> {
-    await this.updateWorkouts()
+    //await this.updateWorkouts()
 
-    const workout = this.workouts.find((_workout) => _workout.id === workoutId)
-    if (!workout) throw new Error('Workout not found')
-    return Promise.resolve(workout)
+    /*const workout = this.workouts.find((_workout) => _workout.id === workoutId)
+    if (!workout) throw new Error('Workout not found')*/
+    console.log(this.workouts[0])
+    return Promise.resolve(this.workouts[0])
   }
 
   private async updateWorkouts() {

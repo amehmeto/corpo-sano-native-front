@@ -7,10 +7,9 @@ export class SaveWorkoutEditUseCase {
 
   async execute(
     workoutId: string,
-    exercises: ExerciseTemplate[],
     scheduledDays: ScheduledDay[],
   ): Promise<void> {
     await this.workoutGateway.scheduleDays(workoutId, scheduledDays)
-    await this.workoutGateway.fillWithExercises(workoutId, exercises)
+    //await this.workoutGateway.fillWithExercises(workoutId, exercises)
   }
 }

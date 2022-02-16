@@ -39,7 +39,7 @@ export function WorkoutPreviewCard({
           </Pressable>
         </View>
       </View>
-      <Text>{`${workout.exercises.length} exercises`}</Text>
+      <Text>{`${workout.exercises?.length || 0} exercises`}</Text>
       <View style={styles.dayInitialContainer}>{dayInitials}</View>
     </Pressable>
   )
