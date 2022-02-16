@@ -64,8 +64,8 @@ export default function EditWorkoutScreen({
   }: ListRenderItemInfo<Exercise>) => (
     <ExerciseCardComponent
       exercise={exercise}
-      onPress={() => Routes.EXERCISE_SETTINGS}
-      onPress1={() => Routes.EDIT_WORKOUT}
+      goToExerciseSettings={() => Routes.EXERCISE_SETTINGS}
+      gotToEditWorkout={() => Routes.EDIT_WORKOUT}
     />
   )
 

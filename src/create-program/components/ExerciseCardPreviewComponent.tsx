@@ -6,33 +6,53 @@ import React from 'react'
 import { Margin } from '../../../design-system/enums/margin.enum'
 import { Padding } from '../../../design-system/enums/padding.enum'
 
-export function ExerciseCardComponent(props: {
-  exercise: any
+type ExerciseCardComponentProps = {
+  exercise: Exercise
+  goToExerciseSettings: () => Routes.EXERCISE_SETTINGS
+  gotToEditWorkout: () => Routes.EDIT_WORKOUT
+}
+
+function EditExerciseButton(props: {
   onPress: () => Routes.EXERCISE_SETTINGS
-  onPress1: () => Routes.EDIT_WORKOUT
 }) {
+  return (
+    <Pressable onPress={props.onPress}>
+      <MaterialCommunityIcons
+        name={'square-edit-outline'}
+        size={20}
+        color={'gray'}
+      />
+    </Pressable>
+  )
+}
+
+function DeleteExerciseButton(props: { onPress: () => Routes.EDIT_WORKOUT }) {
+  return (
+    <Pressable onPress={props.onPress}>
+      <MaterialCommunityIcons
+        name={'delete-outline'}
+        size={20}
+        color={'gray'}
+      />
+    </Pressable>
+  )
+}
+
+export function ExerciseCardComponent({
+  exercise,
+  goToExerciseSettings,
+  gotToEditWorkout,
+}: ExerciseCardComponentProps) {
   return (
     <Pressable style={styles.workoutPreview}>
       <View style={styles.titleAndEditIconsRow}>
-        <Text style={styles.workoutTitle}>{props.exercise.template.title}</Text>
+        <Text style={styles.workoutTitle}>{exercise.template.title}</Text>
         <View style={styles.editIcons}>
-          <Pressable onPress={props.onPress}>
-            <MaterialCommunityIcons
-              name={'square-edit-outline'}
-              size={20}
-              color={'gray'}
-            />
-          </Pressable>
-          <Pressable onPress={props.onPress1}>
-            <MaterialCommunityIcons
-              name={'delete-outline'}
-              size={20}
-              color={'gray'}
-            />
-          </Pressable>
+          <EditExerciseButton onPress={goToExerciseSettings} />
+          <DeleteExerciseButton onPress={gotToEditWorkout} />
         </View>
       </View>
-      <Text>{`${3} sets of ${15} reps`}</Text>
+      <Text>{`${exercise.numberOfSets} sets of ${exercise.numberOfReps} reps`}</Text>
       <Text>{`rest: ${3} ' ${15} '' \t final rest: ${3} ' ${15} ''`}</Text>
     </Pressable>
   )
