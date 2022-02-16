@@ -24,8 +24,8 @@ export function exerciseDataBuilder(exercise = {}) {
     position: faker.datatype.number({ min: 0, max: 10 }),
     numberOfSets: faker.datatype.number({ min: 1, max: 4 }),
     numberOfReps: faker.datatype.number({ min: 8, max: 15 }),
-    interSetsRestTime: 30,
-    finalRestTime: 120,
+    interSetsRestTime: faker.datatype.number({ min: 0, max: 40 }),
+    finalRestTime: faker.datatype.number({ min: 60, max: 180 }),
   }
   return { ...template, ...exercise }
 }
