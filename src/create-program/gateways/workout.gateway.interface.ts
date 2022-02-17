@@ -1,7 +1,6 @@
-import { ScheduledDay } from '../entities/scheduled-day.entity'
 import { ExerciseTemplate } from '../entities/exercise-template.entity'
 import { WorkoutInput } from '../use-cases/create-workout.use-case'
-import { Workout } from '../entities/workout.entity'
+import { ScheduledDay, Workout } from '../entities/workout.entity'
 
 export interface WorkoutGateway {
   fillWithExercises(
@@ -9,6 +8,8 @@ export interface WorkoutGateway {
     exerciseTemplates: ExerciseTemplate[],
   ): Promise<boolean>
   scheduleDays(workoutId: string, days: ScheduledDay[]): Promise<boolean>
-  create(workoutInput: WorkoutInput): Promise<Workout>
+  create(workoutInput: Partial<any>): Promise<Workout>
   findById(workoutId: string): Promise<Workout>
+  find(): Promise<Workout[]>
+  update(workoutId: string, workout: Workout): Promise<boolean>
 }

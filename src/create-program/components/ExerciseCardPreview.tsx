@@ -6,23 +6,17 @@ import { Margin } from '../../../design-system/enums/margin.enum'
 import { Padding } from '../../../design-system/enums/padding.enum'
 import { EditExerciseButton } from './EditExerciseButton'
 import { DeleteExerciseButton } from './DeleteExerciseButton'
-import { computeMinutesAndSeconds } from '../use-cases/compute-minutes-and-seconds.handler'
 
 type ExerciseCardComponentProps = {
   exercise: Exercise
   goToExerciseSettings: () => Routes.EXERCISE_SETTINGS
   gotToEditWorkout: () => Routes.EDIT_WORKOUT
 }
-export function ExerciseCardComponent({
+export function ExerciseCardPreview({
   exercise,
   goToExerciseSettings,
   gotToEditWorkout,
 }: ExerciseCardComponentProps) {
-  const { minutes: restTimeMinutes, seconds: restTimeSeconds } =
-    computeMinutesAndSeconds(exercise.interSetsRestTime)
-  const { minutes: finalRestMinutes, seconds: finalRestSeconds } =
-    computeMinutesAndSeconds(exercise.finalRestTime)
-
   return (
     <Pressable style={styles.workoutPreview}>
       <View style={styles.titleAndEditIconsRow}>
@@ -34,7 +28,7 @@ export function ExerciseCardComponent({
       </View>
       <Text>{`${exercise.numberOfSets} sets of ${exercise.numberOfReps} reps`}</Text>
       <Text>
-        {`rest: ${restTimeMinutes} ' ${restTimeSeconds} '' \t final rest: ${finalRestMinutes} ' ${finalRestSeconds} ''`}
+        {`rest: ${exercise.interSetsRestTime.minutes} ' ${exercise.interSetsRestTime.seconds} '' \t final rest: ${exercise.finalRestTime.minutes} ' ${exercise.finalRestTime.seconds} ''`}
       </Text>
     </Pressable>
   )

@@ -1,4 +1,4 @@
-import { ScheduledDay } from '../entities/scheduled-day.entity'
+import { ScheduledDay } from '../entities/workout.entity'
 
 export function scheduleWantedDays(
   prevScheduledDays: ScheduledDay[],

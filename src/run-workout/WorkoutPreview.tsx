@@ -1,16 +1,20 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { exercisesFakeData } from '../create-program/gateways/exercise.fake-data.repository'
+import { exerciseDataBuilder } from '../_data-builders/exercise.data-builder'
 
 export default function WorkoutPreview({ navigation }: any) {
   function goTo(route: string) {
     navigation.navigate(route)
   }
 
-  const exercisesElements = exercisesFakeData.map((exercise, index) => {
+  const exercisesElements = [
+    exerciseDataBuilder(),
+    exerciseDataBuilder(),
+    exerciseDataBuilder(),
+  ].map((exercise, index) => {
     return (
       <View key={index}>
-        <Text style={styles.exercise}>{exercise.title}</Text>
+        <Text style={styles.exercise}>{exercise.template.title}</Text>
       </View>
     )
   })

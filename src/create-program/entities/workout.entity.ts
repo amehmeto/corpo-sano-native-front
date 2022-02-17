@@ -1,6 +1,15 @@
 import { Exercise } from './exercise.entity'
 
-class WeekDays {}
+export type WeekDay =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday'
+
+export type ScheduledDay = { name: WeekDay; isScheduled: boolean }
 
 export class Workout {
   constructor(
@@ -8,10 +17,23 @@ export class Workout {
     public readonly title: string,
     public readonly description: string,
     public readonly programId: string,
-    public readonly exercises?: Exercise[],
-    public readonly scheduleDays?: WeekDays[],
+    public readonly exercises: Exercise[],
+    public readonly scheduledDays: ScheduledDay[],
   ) {
     if (!this.exercises) this.exercises = []
-    if (!this.scheduleDays) this.scheduleDays = []
+    if (this.scheduledDays === []) {
+      this.scheduledDays = [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
+      ].map((day) => ({
+        name: day as WeekDay,
+        isScheduled: false,
+      })) as ScheduledDay[]
+    }
   }
 }

@@ -1,27 +1,14 @@
 import { Workout } from '../entities/workout.entity'
-import { WeekDays } from '../../_data-builders/types/week-days.enum'
 import { FontSize } from '../../../design-system/enums/font-size.enum'
 import { Margin } from '../../../design-system/enums/margin.enum'
 import { Padding } from '../../../design-system/enums/padding.enum'
 import { StyleSheet } from 'react-native'
 
-function isDayScheduled(workout: Workout, weekDay: WeekDays, index: number) {
-  return (
-    workout.scheduleDays!.includes(weekDay) &&
-    index === Object.keys(WeekDays).indexOf(weekDay)
-  )
-}
-
-export function determineDayInitialStyle(workout: Workout, index: number) {
+export function determineDayInitialStyle(workout: Workout) {
   let dayInitialStyle = [styles.dayInitial] as {}[]
 
-  if (!workout.scheduleDays) return dayInitialStyle
-
-  const weekDays = Object.keys(WeekDays) as Array<keyof typeof WeekDays>
-
-  weekDays.forEach((weekDay) => {
-    if (isDayScheduled(workout, weekDay as WeekDays, index))
-      dayInitialStyle.push(styles.scheduledDayInitial)
+  workout.scheduledDays.forEach((day) => {
+    if (day.isScheduled) dayInitialStyle.push(styles.scheduledDayInitial)
   })
 
   return dayInitialStyle

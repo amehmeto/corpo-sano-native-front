@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid'
 import { WorkoutInput } from '../use-cases/create-workout.use-case'
 import { Workout } from '../entities/workout.entity'
 import { ProgramInput } from '../use-cases/create-program.use-case'
+import { WorkoutMapper } from '../mappers/workout.mapper'
 
 export class InMemoryProgramGateway implements ProgramGateway {
   private rawPrograms = [programDataBuilder()]
@@ -14,7 +15,9 @@ export class InMemoryProgramGateway implements ProgramGateway {
         rawProgram.id,
         rawProgram.title,
         rawProgram.description,
-        rawProgram.workouts,
+        rawProgram.workouts.map((workout) =>
+          WorkoutMapper.mapToDomain(workout),
+        ),
       ),
   )
 
@@ -35,6 +38,7 @@ export class InMemoryProgramGateway implements ProgramGateway {
   }
 
   find(): Promise<Program[]> {
+    console.log(this.programs[0].workouts)
     return Promise.resolve(this.programs)
   }
 
@@ -56,6 +60,8 @@ export class InMemoryProgramGateway implements ProgramGateway {
         workoutInput.title,
         workoutInput.description,
         workoutInput.programId,
+        [],
+        [],
       ),
     )
     return Promise.resolve(program)

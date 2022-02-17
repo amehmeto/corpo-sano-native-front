@@ -6,5 +6,7 @@ export class Program {
     public readonly title: string,
     public readonly description: string,
     public readonly workouts: Workout[],
-  ) {}
+  ) {
+    if (!workouts) this.workouts = [] as Workout[]
+  }
 }

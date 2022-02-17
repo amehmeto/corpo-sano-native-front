@@ -1,12 +1,12 @@
 import { WorkoutGateway } from './workout.gateway.interface'
 import { ExerciseTemplate } from '../entities/exercise-template.entity'
-import { ScheduledDay } from '../entities/scheduled-day.entity'
 import { workoutDataBuilder } from '../../_data-builders/workout.data-builder'
 import { WorkoutInput } from '../use-cases/create-workout.use-case'
 import { v4 as uuid } from 'uuid'
-import { Workout } from '../entities/workout.entity'
+import { ScheduledDay, Workout } from '../entities/workout.entity'
 import { ProgramGateway } from './program.gateway.interface'
 import { exerciseDataBuilder } from '../../_data-builders/exercise.data-builder'
+import { WorkoutMapper } from '../mappers/workout.mapper'
 
 export class InMemoryWorkoutGateway implements WorkoutGateway {
   private rawWorkouts = [
@@ -19,20 +19,18 @@ export class InMemoryWorkoutGateway implements WorkoutGateway {
       ],
     }),
   ]
-  private workouts = this.rawWorkouts.map(
-    (workout) =>
-      new Workout(
-        uuid(),
-        workout.title,
-        workout.description,
-        workout.programId,
-        workout.exercises,
-        workout.scheduledDays,
-      ),
-  )
+  private workouts = this.rawWorkouts.map((workout) => {
+    return WorkoutMapper.mapToDomain(workout)
+  })
 
-  constructor(private readonly programGateway: ProgramGateway) {
-    console.log(this.workouts[0])
+  constructor(private readonly programGateway: ProgramGateway) {}
+
+  update(workoutId: string, workout: Workout): Promise<boolean> {
+    return Promise.resolve(true)
+  }
+
+  find(): Promise<Workout[]> {
+    return Promise.resolve(this.workouts)
   }
 
   fillWithExercises(
@@ -52,6 +50,8 @@ export class InMemoryWorkoutGateway implements WorkoutGateway {
       workoutInput.title,
       workoutInput.description,
       workoutInput.programId,
+      [],
+      [],
     )
     this.workouts.push(createdWorkout)
     return Promise.resolve(createdWorkout)
@@ -62,7 +62,6 @@ export class InMemoryWorkoutGateway implements WorkoutGateway {
 
     /*const workout = this.workouts.find((_workout) => _workout.id === workoutId)
     if (!workout) throw new Error('Workout not found')*/
-    console.log(this.workouts[0])
     return Promise.resolve(this.workouts[0])
   }
 

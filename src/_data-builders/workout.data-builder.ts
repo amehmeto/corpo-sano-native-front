@@ -10,7 +10,6 @@ export function workoutDataBuilder(workout = {}) {
     exercises: [],
     scheduledDays: [],
   }
-  console.log(workout)
   return {
     ...template,
     ...workout,

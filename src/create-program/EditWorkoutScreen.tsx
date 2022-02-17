@@ -6,26 +6,29 @@ import {
   View,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { scheduledDaysFakeData } from './gateways/schedule-days.fake-data.repository'
-import { SaveWorkoutEditUseCase } from './use-cases/save-workout-edit.use-case'
+import { UpdateWorkoutUseCase } from './use-cases/update-workout.usecase'
 import { v4 as uuid } from 'uuid'
 import { scheduleWantedDays } from './use-cases/schedule-days.handler'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
-import { Workout } from './entities/workout.entity'
+import { ScheduledDay, Workout } from './entities/workout.entity'
 import { workoutGateway } from '../di-container.experiment'
-import { GetWorkoutUseCase } from './use-cases/get-workout.use-case'
+import { GetWorkoutUseCase } from './use-cases/get-workout.usecase'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Exercise } from './entities/exercise.entity'
-import { ExerciseCardComponent } from './components/ExerciseCardPreviewComponent'
+import { ExerciseCardPreview } from './components/ExerciseCardPreview'
 
-const updateWorkoutEditUseCase = new SaveWorkoutEditUseCase(workoutGateway)
+const updateWorkoutEditUseCase = new UpdateWorkoutUseCase(workoutGateway)
 const getWorkoutUseCase = new GetWorkoutUseCase(workoutGateway)
 
 type EditWorkoutScreenProps = NativeStackScreenProps<
   RouteParams,
   Routes.EDIT_WORKOUT
 >
+
+function formatForButton(day: ScheduledDay) {
+  return `${day.name.charAt(0)}${day.name.slice(1, 3)}`
+}
 
 export default function EditWorkoutScreen({
   route,
@@ -34,23 +37,30 @@ export default function EditWorkoutScreen({
   const workoutId = route.params.workoutId
 
   const [workout, setWorkout] = useState<Workout | undefined>(undefined)
-  const [scheduledDays, setScheduledDays] = useState(scheduledDaysFakeData)
 
   useEffect(() => {
-    getWorkoutUseCase.execute(workoutId).then((_workout) => {
-      setWorkout(_workout)
-    })
+    getWorkoutUseCase
+      .execute(workoutId)
+      .then((retrievedWorkout) => setWorkout(retrievedWorkout))
   }, [])
 
   const scheduleDay = (dayIndex: number) => {
-    setScheduledDays((prevScheduledDays) =>
-      scheduleWantedDays(prevScheduledDays, dayIndex),
-    )
+    setWorkout((prevWorkout) => {
+      if (!prevWorkout?.scheduledDays) return prevWorkout
+      const newScheduledDays = scheduleWantedDays(
+        prevWorkout?.scheduledDays,
+        dayIndex,
+      )
+      return {
+        ...prevWorkout,
+        scheduledDays: newScheduledDays,
+      }
+    })
   }
 
   const updateWorkout = async () => {
     try {
-      await updateWorkoutEditUseCase.execute(workoutId, scheduledDays)
+      if (workout) await updateWorkoutEditUseCase.execute(workoutId, workout)
       navigation.push(Routes.PROGRAM_PREVIEW, {
         programId: uuid(),
       })
@@ -62,36 +72,57 @@ export default function EditWorkoutScreen({
   const renderExerciseCard = ({
     item: exercise,
   }: ListRenderItemInfo<Exercise>) => (
-    <ExerciseCardComponent
+    <ExerciseCardPreview
       exercise={exercise}
       goToExerciseSettings={() => Routes.EXERCISE_SETTINGS}
       gotToEditWorkout={() => Routes.EDIT_WORKOUT}
     />
   )
 
-  const daysSelector = scheduledDays.map((day, index) => {
+  const renderScheduledDayButton = ({
+    item: day,
+    index,
+  }: ListRenderItemInfo<ScheduledDay>) => {
+    const dayStyle = day ? styles.scheduledDay : styles.day
+    return (
+      <Text onPress={() => scheduleDay(index)} style={dayStyle}>
+        {formatForButton(day)}
+      </Text>
+    )
+  }
+  /*  const daysSelector = scheduledDays.map((day, index) => {
     const dayStyle = day.isScheduled ? styles.scheduledDay : styles.day
     return (
       <Text key={index} style={dayStyle} onPress={() => scheduleDay(index)}>
         {day.day.slice(0, 3)}
       </Text>
     )
-  })
+  })*/
 
   if (!workout) return <Text>Loading...</Text>
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{workout.title}</Text>
-      <Text>{workout.description ?? 'No description'}</Text>
-
       <FlatList
-        style={[styles.scroll]}
+        style={styles.scroll}
         data={workout.exercises}
         renderItem={renderExerciseCard}
         keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <>
+            <Text style={styles.title}>{workout.title}</Text>
+            <Text>{workout.description ?? 'No description'}</Text>
+          </>
+        }
       />
 
+      {/*
       <View style={styles.days}>{daysSelector}</View>
+      */}
+      <FlatList
+        style={styles.days}
+        data={workout.scheduledDays}
+        renderItem={renderScheduledDayButton}
+      />
 
       <Button text={'Update Workout'} onPress={updateWorkout} />
     </View>
@@ -147,5 +178,7 @@ const styles = StyleSheet.create({
   days: {
     display: 'flex',
     flexDirection: 'row',
+
+    borderStyle: 'solid',
   },
 })

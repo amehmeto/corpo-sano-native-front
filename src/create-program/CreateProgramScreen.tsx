@@ -19,7 +19,7 @@ export default function CreateProgramScreen({
   navigation,
 }: CreateProgramScreenProps) {
   const [title, setTitle] = useState('3 weeks upper body')
-  const [description, setDescription] = useState(faker.lorem.paragraph())
+  const [description, setDescription] = useState(faker.lorem.sentence())
 
   async function createProgram() {
     try {

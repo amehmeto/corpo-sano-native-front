@@ -1,14 +1,20 @@
-import { ScheduledDay } from '../entities/scheduled-day.entity'
 import { ExerciseTemplate } from '../entities/exercise-template.entity'
 import { WorkoutGateway } from './workout.gateway.interface'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
 import { WorkoutInput } from '../use-cases/create-workout.use-case'
-import { Workout } from '../entities/workout.entity'
+import { ScheduledDay, Workout } from '../entities/workout.entity'
 
 export class GraphQLWorkoutGateway
   extends GraphQLGateway
   implements WorkoutGateway
 {
+  update(workoutId: string, workout: Workout): Promise<boolean> {
+    throw new Error('Method not implemented.')
+  }
+  find(): Promise<Workout[]> {
+    throw new Error('Method not implemented.')
+  }
+
   findById(workoutId: string): Promise<Workout> {
     throw new Error('Method not implemented.')
   }

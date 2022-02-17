@@ -60,7 +60,7 @@ export default function ProgramPreviewScreen({
     const dayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
 
     const dayInitialElements = dayInitials.map((initial, index) => {
-      const dayInitialStyle = determineDayInitialStyle(workout, index)
+      const dayInitialStyle = determineDayInitialStyle(workout)
       return (
         <Text key={index} style={dayInitialStyle}>
           {initial}
@@ -84,24 +84,25 @@ export default function ProgramPreviewScreen({
     )
   }
 
-  const workoutPreviewElements =
-    program && program.workouts && program.workouts.length > 0 ? (
+  return !program ? (
+    <Text>Loading...</Text>
+  ) : (
+    <View style={styles.container}>
       <FlatList
         style={styles.workoutPreviewList}
         data={program.workouts}
         renderItem={renderWorkoutPreview}
         keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <>
+            <Text style={styles.title}>{program.title}</Text>
+            <Text style={styles.description}>{program.description}</Text>
+          </>
+        }
+        ListEmptyComponent={
+          <Text>{'Your program is empty. Add one or several workout now'}</Text>
+        }
       />
-    ) : (
-      <Text>{'Your program is empty. Add one or several workout now'}</Text>
-    )
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{program?.title}</Text>
-
-      <Text style={styles.description}>{program?.description}</Text>
-
-      {workoutPreviewElements}
 
       <Button text={'Add a workout'} onPress={goToCreateWorkout} />
 
