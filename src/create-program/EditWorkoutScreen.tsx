@@ -86,7 +86,9 @@ export default function EditWorkoutScreen({
     item: day,
     index,
   }: ListRenderItemInfo<ScheduledDay>) => {
-    const dayStyle = day ? styles.scheduledDay : styles.unscheduledDay
+    const dayStyle = day.isScheduled
+      ? styles.scheduledDay
+      : styles.unscheduledDay
     return (
       <Text onPress={() => scheduleDay(index)} style={dayStyle}>
         {formatForButton(day)}
