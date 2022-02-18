@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { scheduledDaysDataBuilder } from './scheduled-days.data-builder'
 
 export function workoutDataBuilder(workout = {}) {
   const titleExamples = ['Upper body', 'Legs', 'Pull workout', 'Cardio']
@@ -8,7 +9,7 @@ export function workoutDataBuilder(workout = {}) {
     description: faker.lorem.paragraph(),
     programId: faker.datatype.uuid(),
     exercises: [],
-    scheduledDays: [],
+    scheduledDays: scheduledDaysDataBuilder(),
   }
   return {
     ...template,

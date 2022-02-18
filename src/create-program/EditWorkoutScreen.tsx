@@ -17,6 +17,9 @@ import { GetWorkoutUseCase } from './use-cases/get-workout.usecase'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Exercise } from './entities/exercise.entity'
 import { ExerciseCardPreview } from './components/ExerciseCardPreview'
+import { FontSize } from '../../design-system/enums/font-size.enum'
+import { Padding } from '../../design-system/enums/padding.enum'
+import { Margin } from '../../design-system/enums/margin.enum'
 
 const updateWorkoutEditUseCase = new UpdateWorkoutUseCase(workoutGateway)
 const getWorkoutUseCase = new GetWorkoutUseCase(workoutGateway)
@@ -27,7 +30,7 @@ type EditWorkoutScreenProps = NativeStackScreenProps<
 >
 
 function formatForButton(day: ScheduledDay) {
-  return `${day.name.charAt(0)}${day.name.slice(1, 3)}`
+  return `${day.name.charAt(0).toUpperCase()}${day.name.slice(1, 3)}`
 }
 
 export default function EditWorkoutScreen({
@@ -83,45 +86,32 @@ export default function EditWorkoutScreen({
     item: day,
     index,
   }: ListRenderItemInfo<ScheduledDay>) => {
-    const dayStyle = day ? styles.scheduledDay : styles.day
+    const dayStyle = day ? styles.scheduledDay : styles.unscheduledDay
     return (
       <Text onPress={() => scheduleDay(index)} style={dayStyle}>
         {formatForButton(day)}
       </Text>
     )
   }
-  /*  const daysSelector = scheduledDays.map((day, index) => {
-    const dayStyle = day.isScheduled ? styles.scheduledDay : styles.day
-    return (
-      <Text key={index} style={dayStyle} onPress={() => scheduleDay(index)}>
-        {day.day.slice(0, 3)}
-      </Text>
-    )
-  })*/
 
   if (!workout) return <Text>Loading...</Text>
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>{workout.title}</Text>
+      <Text>{workout.description ?? 'No description'}</Text>
       <FlatList
         style={styles.scroll}
         data={workout.exercises}
         renderItem={renderExerciseCard}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={
-          <>
-            <Text style={styles.title}>{workout.title}</Text>
-            <Text>{workout.description ?? 'No description'}</Text>
-          </>
-        }
       />
 
-      {/*
-      <View style={styles.days}>{daysSelector}</View>
-      */}
       <FlatList
         style={styles.days}
         data={workout.scheduledDays}
         renderItem={renderScheduledDayButton}
+        scrollEnabled={false}
+        keyExtractor={(item, index) => index.toString()}
+        horizontal={true}
       />
 
       <Button text={'Update Workout'} onPress={updateWorkout} />
@@ -131,54 +121,56 @@ export default function EditWorkoutScreen({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    margin: Margin.MEDIUM,
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: FontSize.HEADING_4,
   },
   exercises: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
-    paddingTop: 10,
+    paddingTop: Padding.MEDIUM,
     minWidth: '60%',
   },
   scroll: {
     width: '90%',
     maxHeight: '60%',
   },
-  day: {
+  days: {
+    margin: Margin.MEDIUM,
+    flexGrow: 0,
+  },
+  unscheduledDay: {
+    height: 'min-content',
+
     textAlign: 'center',
-    padding: 10,
+    padding: Padding.MEDIUM,
     borderRadius: 10,
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'gray',
-    margin: 2,
-    fontSize: 8,
+    margin: Margin.SMALL,
+    fontSize: FontSize.BODY_TEXT_SMALL,
   },
   scheduledDay: {
+    height: 'min-content',
+
     textAlign: 'center',
     textDecorationColor: 'green',
-    padding: 10,
+    padding: Padding.MEDIUM,
     borderRadius: 10,
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'green',
-    margin: 2,
-    fontSize: 8,
+    margin: Margin.SMALL,
+    fontSize: FontSize.BODY_TEXT_SMALL,
     fontWeight: 'bold',
     backgroundColor: '#80ff80',
-  },
-  days: {
-    display: 'flex',
-    flexDirection: 'row',
-
-    borderStyle: 'solid',
   },
 })

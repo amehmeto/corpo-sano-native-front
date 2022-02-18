@@ -3,7 +3,6 @@ import { ScheduledDay, Workout } from '../entities/workout.entity'
 import { ExerciseTemplate } from '../entities/exercise-template.entity'
 import { workoutDataBuilder } from '../../_data-builders/workout.data-builder'
 import { WorkoutMapper } from '../mappers/workout.mapper'
-import { exerciseDataBuilder } from '../../_data-builders/exercise.data-builder'
 
 export class InMemoryWorkoutGatewayStub implements WorkoutGateway {
   private rawWorkouts = [
@@ -47,7 +46,13 @@ export class InMemoryWorkoutGatewayStub implements WorkoutGateway {
     //return Promise.resolve(false)
   }
 
-  update(workoutId: string, workout: Workout): Promise<boolean> {
-    return Promise.resolve(false)
+  update(workoutId: string, workout: Partial<Workout>): Promise<boolean> {
+    const workoutIndex = this.workouts.findIndex(
+      (_workout) => _workout.id === workoutId,
+    )
+    const updatedWorkout = { ...this.workouts[workoutIndex], ...workout }
+    const mappedWorkout = WorkoutMapper.mapToDomain(updatedWorkout)
+    this.workouts[workoutIndex] = mappedWorkout
+    return Promise.resolve(true)
   }
 }

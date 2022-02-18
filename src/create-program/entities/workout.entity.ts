@@ -11,6 +11,16 @@ export type WeekDay =
 
 export type ScheduledDay = { name: WeekDay; isScheduled: boolean }
 
+export type ScheduledDays = [
+  ScheduledDay,
+  ScheduledDay,
+  ScheduledDay,
+  ScheduledDay,
+  ScheduledDay,
+  ScheduledDay,
+  ScheduledDay,
+]
+
 export class Workout {
   constructor(
     public readonly id: string,
@@ -18,22 +28,8 @@ export class Workout {
     public readonly description: string,
     public readonly programId: string,
     public readonly exercises: Exercise[],
-    public readonly scheduledDays: ScheduledDay[],
+    public readonly scheduledDays: ScheduledDays,
   ) {
     if (!this.exercises) this.exercises = []
-    if (this.scheduledDays === []) {
-      this.scheduledDays = [
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
-        'sunday',
-      ].map((day) => ({
-        name: day as WeekDay,
-        isScheduled: false,
-      })) as ScheduledDay[]
-    }
   }
 }

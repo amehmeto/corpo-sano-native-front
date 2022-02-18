@@ -7,6 +7,7 @@ import { ScheduledDay, Workout } from '../entities/workout.entity'
 import { ProgramGateway } from './program.gateway.interface'
 import { exerciseDataBuilder } from '../../_data-builders/exercise.data-builder'
 import { WorkoutMapper } from '../mappers/workout.mapper'
+import { scheduledDaysDataBuilder } from '../../_data-builders/scheduled-days.data-builder'
 
 export class InMemoryWorkoutGateway implements WorkoutGateway {
   private rawWorkouts = [
@@ -51,7 +52,7 @@ export class InMemoryWorkoutGateway implements WorkoutGateway {
       workoutInput.description,
       workoutInput.programId,
       [],
-      [],
+      scheduledDaysDataBuilder(),
     )
     this.workouts.push(createdWorkout)
     return Promise.resolve(createdWorkout)

@@ -1,9 +1,9 @@
-import { ScheduledDay } from '../entities/workout.entity'
+import { ScheduledDays } from '../entities/workout.entity'
 
 export function scheduleWantedDays(
-  prevScheduledDays: ScheduledDay[],
+  prevScheduledDays: ScheduledDays,
   dayIndex: number,
-) {
+): ScheduledDays {
   return prevScheduledDays.map((day, index) => {
     return index === dayIndex
       ? {
@@ -11,5 +11,5 @@ export function scheduleWantedDays(
           isScheduled: !day.isScheduled,
         }
       : day
-  })
+  }) as ScheduledDays
 }
