@@ -1,6 +1,7 @@
 import { Button, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { exerciseDataBuilder } from '../_data-builders/exercise.data-builder'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 export default function AddExercisesScreen() {
   const exercisesElements = [
@@ -16,7 +17,7 @@ export default function AddExercisesScreen() {
   })
 
   return (
-    <View style={styles.container}>
+    <View style={screenContainerStyle.container}>
       <Text style={styles.title}>Add exercises</Text>
 
       <Text>Choose among the exercises below :</Text>
@@ -31,12 +32,6 @@ export default function AddExercisesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 20,

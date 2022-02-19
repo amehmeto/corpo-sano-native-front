@@ -15,12 +15,15 @@ import { GetAthleteUseCase } from './use-cases/get-athlete.use-case'
 import { AthleteGateway } from './gateways/athlete.gateway.interface'
 import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
+import { Margin } from '../../design-system/enums/margin.enum'
 
 const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()
 const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
-const athleteId = 'asfdadsfas'
 
 export function HomeScreen({ navigation }: any) {
+  const athleteId = 'asfdadsfas'
+
   const [athlete, setAthlete] = useState<Athlete | undefined>(undefined)
 
   useEffect(() => {
@@ -66,8 +69,8 @@ export function HomeScreen({ navigation }: any) {
 
 const styles = StyleSheet.create({
   container: {
+    margin: Margin.MEDIUM,
     flex: 1,
-    backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',

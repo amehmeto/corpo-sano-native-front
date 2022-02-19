@@ -3,6 +3,7 @@ import React from 'react'
 import { SetRunnerRow } from './SetRunnerRow'
 import { Button } from '../../design-system/Button'
 import { SetsLabelHeader } from './SetsLabelHeader'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 export default function SetsRunnerScreen({ navigation }: any) {
   const setsStatistics = [
@@ -21,7 +22,7 @@ export default function SetsRunnerScreen({ navigation }: any) {
   })
 
   return (
-    <View style={styles.container}>
+    <View style={screenContainerStyle.container}>
       <Text style={styles.title}>Push-ups</Text>
 
       <SetsLabelHeader />
@@ -40,12 +41,6 @@ export default function SetsRunnerScreen({ navigation }: any) {
 }
 
 export const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 30,

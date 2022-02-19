@@ -1,7 +1,6 @@
 import {
   FlatList,
   ListRenderItemInfo,
-  Modal,
   StyleSheet,
   Text,
   View,
@@ -14,12 +13,14 @@ import { Workout } from './entities/workout.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
 import { determineDayInitialStyle } from './use-cases/determine-schedule-days-initial-style.handler'
-import { Padding } from '../../design-system/enums/padding.enum'
 import { Program } from './entities/program.entity'
 import { GetProgramUseCase } from './use-cases/get-program.use-case'
-import { programGateway } from '../di-container.experiment'
+import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { WorkoutPreviewCard } from './components/WorkoutPreviewCard'
 import { DeleteWorkoutUseCase } from './use-cases/remove-workout.use-case'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
+import { DeleteWorkoutModal } from './components/program-preview-screen/DeleteWorkoutModalButton'
+import { EmptyProgramInfo } from './components/program-preview-screen/EmptyProgramInfo'
 
 const getProgramUseCase = new GetProgramUseCase(programGateway)
 const deleteWorkoutUseCase = new DeleteWorkoutUseCase(programGateway)
@@ -29,6 +30,27 @@ type ProgramPreviewProps = NativeStackScreenProps<
   Routes.PROGRAM_PREVIEW
 >
 
+function cancelWorkoutDelete(
+  setIsDeleteWorkoutModalVisible: (
+    value: ((prevState: boolean) => boolean) | boolean,
+  ) => void,
+) {
+  return () => setIsDeleteWorkoutModalVisible(false)
+}
+
+function deleteWorkout(
+  programId: string,
+  removeModalWorkoutId: string | undefined,
+  setIsDeleteWorkoutModalVisible: (
+    value: ((prevState: boolean) => boolean) | boolean,
+  ) => void,
+) {
+  return async () => {
+    await deleteWorkoutUseCase.execute(programId, removeModalWorkoutId!)
+    setIsDeleteWorkoutModalVisible(false)
+  }
+}
+
 export default function ProgramPreviewScreen({
   route,
   navigation,
@@ -36,7 +58,7 @@ export default function ProgramPreviewScreen({
   const programId = route.params.programId
 
   const [program, setProgram] = useState<Program | undefined>(undefined)
-  const [isRemoveModalVisible, setIsRemoveModalVisible] =
+  const [isDeleteWorkoutModalVisible, setIsDeleteWorkoutModalVisible] =
     useState<boolean>(false)
   const [removeModalWorkoutId, setRemoveModalWorkoutId] = useState<
     string | undefined
@@ -77,7 +99,7 @@ export default function ProgramPreviewScreen({
         }}
         openDeleteModal={() => {
           setRemoveModalWorkoutId(workout.id)
-          setIsRemoveModalVisible(true)
+          setIsDeleteWorkoutModalVisible(true)
         }}
         dayInitials={dayInitialElements}
       />
@@ -87,67 +109,35 @@ export default function ProgramPreviewScreen({
   return !program ? (
     <Text>Loading...</Text>
   ) : (
-    <View style={styles.container}>
+    <View style={screenContainerStyle.container}>
+      <Text style={styles.title}>{program.title}</Text>
+      <Text style={styles.description}>{program.description}</Text>
       <FlatList
         style={styles.workoutPreviewList}
         data={program.workouts}
         renderItem={renderWorkoutPreview}
         keyExtractor={(item) => item.id}
-        ListHeaderComponent={
-          <>
-            <Text style={styles.title}>{program.title}</Text>
-            <Text style={styles.description}>{program.description}</Text>
-          </>
-        }
-        ListEmptyComponent={
-          <Text>{'Your program is empty. Add one or several workout now'}</Text>
-        }
+        ListEmptyComponent={<EmptyProgramInfo />}
       />
 
       <Button text={'Add a workout'} onPress={goToCreateWorkout} />
 
-      <Modal
-        animationType={'slide'}
-        transparent={true}
-        visible={isRemoveModalVisible}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.deleteWorkoutModal}>
-            <Text style={styles.deleteWorkoutModalQuestion}>
-              {'Remove this workout from the program?'}
-            </Text>
-            <View style={styles.deleteWorkoutModalButtons}>
-              <Button
-                style={[styles.deleteWorkoutModalButton, styles.cancelButton]}
-                text={'Cancel'}
-                onPress={() => setIsRemoveModalVisible(false)}
-              />
-              <Button
-                style={[styles.deleteWorkoutModalButton, styles.deleteButton]}
-                text={'Remove'}
-                onPress={async () => {
-                  await deleteWorkoutUseCase.execute(
-                    programId,
-                    removeModalWorkoutId!,
-                  )
-                  setIsRemoveModalVisible(false)
-                }}
-              />
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <DeleteWorkoutModal
+        visible={isDeleteWorkoutModalVisible}
+        cancelWorkoutDelete={cancelWorkoutDelete(
+          setIsDeleteWorkoutModalVisible,
+        )}
+        deleteWorkout={deleteWorkout(
+          programId,
+          removeModalWorkoutId,
+          setIsDeleteWorkoutModalVisible,
+        )}
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 20,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: FontSize.HEADING_4,
@@ -158,34 +148,5 @@ const styles = StyleSheet.create({
   },
   workoutPreviewList: {
     width: '100%',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  deleteWorkoutModal: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-  },
-  deleteWorkoutModalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    margin: Margin.LARGE,
-  },
-  deleteWorkoutModalQuestion: {
-    margin: Margin.LARGE,
-  },
-  deleteWorkoutModalButton: {
-    borderRadius: 5,
-    paddingVertical: Padding.SMALL,
-    paddingHorizontal: Padding.LARGE,
-  },
-  cancelButton: {
-    backgroundColor: 'grey',
-    marginRight: Margin.LARGE,
-  },
-  deleteButton: {
-    backgroundColor: 'red',
   },
 })

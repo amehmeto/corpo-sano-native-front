@@ -12,7 +12,7 @@ import { scheduleWantedDays } from './use-cases/schedule-days.handler'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
 import { ScheduledDay, Workout } from './entities/workout.entity'
-import { workoutGateway } from '../di-container.experiment'
+import { workoutGateway } from '../_infrastructure/dependency-injection.container'
 import { GetWorkoutUseCase } from './use-cases/get-workout.usecase'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Exercise } from './entities/exercise.entity'
@@ -20,6 +20,7 @@ import { ExerciseCardPreview } from './components/ExerciseCardPreview'
 import { FontSize } from '../../design-system/enums/font-size.enum'
 import { Padding } from '../../design-system/enums/padding.enum'
 import { Margin } from '../../design-system/enums/margin.enum'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 const updateWorkoutEditUseCase = new UpdateWorkoutUseCase(workoutGateway)
 const getWorkoutUseCase = new GetWorkoutUseCase(workoutGateway)
@@ -98,9 +99,10 @@ export default function EditWorkoutScreen({
 
   if (!workout) return <Text>Loading...</Text>
   return (
-    <View style={styles.container}>
+    <View style={screenContainerStyle.container}>
       <Text style={styles.title}>{workout.title}</Text>
       <Text>{workout.description ?? 'No description'}</Text>
+
       <FlatList
         style={styles.scroll}
         data={workout.exercises}
@@ -122,12 +124,6 @@ export default function EditWorkoutScreen({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    margin: Margin.MEDIUM,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: FontSize.HEADING_4,

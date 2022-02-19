@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from '../../design-system/Button'
 import { Feather } from '@expo/vector-icons'
 import { Routes } from '../router/Router'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 export default function WorkoutSessionSummaryScreen({ navigation }: any) {
   const todaySessionExercisesStats = [
@@ -40,7 +41,7 @@ export default function WorkoutSessionSummaryScreen({ navigation }: any) {
   )
 
   return (
-    <View style={styles.container}>
+    <View style={screenContainerStyle.container}>
       <Text style={styles.title}>Upper Body Workout</Text>
 
       <Text>Congratulations, you've just finished your workout session!</Text>
@@ -61,12 +62,6 @@ export default function WorkoutSessionSummaryScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 30,

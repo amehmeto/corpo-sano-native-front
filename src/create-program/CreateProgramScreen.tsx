@@ -6,7 +6,8 @@ import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { faker } from '@faker-js/faker'
-import { programGateway } from '../di-container.experiment'
+import { programGateway } from '../_infrastructure/dependency-injection.container'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 const createProgramUseCase = new CreateProgramUseCase(programGateway)
 
@@ -41,7 +42,7 @@ export default function CreateProgramScreen({
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={screenContainerStyle.container}>
         <Text style={styles.title}>Create a program</Text>
 
         <View style={styles.fields}>
@@ -67,12 +68,6 @@ export default function CreateProgramScreen({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 20,

@@ -5,6 +5,7 @@ import { NumberSetter } from './components/NumberSetter'
 import { Button } from '../../design-system/Button'
 import { FontSize } from '../../design-system/enums/font-size.enum'
 import { Routes } from '../router/Router'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 export default function ExerciseSettingsScreen({ navigation }: any) {
   function goToHomeScreen() {
@@ -12,7 +13,7 @@ export default function ExerciseSettingsScreen({ navigation }: any) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={screenContainerStyle.container}>
       <Text style={styles.title}>Pull-ups</Text>
 
       <Text style={styles.subTitle}>Number of sets</Text>
@@ -33,12 +34,6 @@ export default function ExerciseSettingsScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: FontSize.HEADING_2,

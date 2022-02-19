@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { Routes } from '../router/Router'
 import { CreateWorkoutUseCase } from './use-cases/create-workout.use-case'
-import { programGateway } from '../di-container.experiment'
+import { programGateway } from '../_infrastructure/dependency-injection.container'
+import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 const createWorkoutUseCase = new CreateWorkoutUseCase(programGateway)
 
@@ -34,7 +35,7 @@ export default function CreateWorkoutScreen({ route, navigation }: any) {
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={screenContainerStyle.container}>
         <Text style={styles.title}>Create a workout</Text>
 
         <View style={styles.fields}>
@@ -60,12 +61,6 @@ export default function CreateWorkoutScreen({ route, navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 20,
