@@ -15,14 +15,9 @@ export class Athlete {
     public readonly programs?: Program[],
   ) {
     this.setWeightUnitMetric(biometrics.weightUnit)
-    this.setBodyFat(biometrics.bodyFat)
   }
 
   private setWeightUnitMetric(weightUnit: string) {
     this.biometrics.weightUnit = weightUnit === UnitSystem.METRIC ? 'kg' : 'lbs'
-  }
-
-  private setBodyFat(bodyFat: number) {
-    this.biometrics.bodyFat = bodyFat / 10
   }
 }

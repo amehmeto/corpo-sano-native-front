@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import { UpdateWorkoutUseCase } from './use-cases/update-workout.usecase'
 import { v4 as uuid } from 'uuid'
-import { scheduleWantedDays } from './use-cases/schedule-days.handler'
+import { scheduleWantedDays } from './handlers/edit-workout-screen/schedule-days.handler'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
 import { ScheduledDay, Workout } from './entities/workout.entity'
@@ -21,6 +21,7 @@ import { FontSize } from '../../design-system/enums/font-size.enum'
 import { Padding } from '../../design-system/enums/padding.enum'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
+import { formatForButton } from './handlers/edit-workout-screen/format-day-name-for-button.handler'
 
 const updateWorkoutEditUseCase = new UpdateWorkoutUseCase(workoutGateway)
 const getWorkoutUseCase = new GetWorkoutUseCase(workoutGateway)
@@ -29,10 +30,6 @@ type EditWorkoutScreenProps = NativeStackScreenProps<
   RouteParams,
   Routes.EDIT_WORKOUT
 >
-
-function formatForButton(day: ScheduledDay) {
-  return `${day.name.charAt(0).toUpperCase()}${day.name.slice(1, 3)}`
-}
 
 export default function EditWorkoutScreen({
   route,
@@ -49,28 +46,14 @@ export default function EditWorkoutScreen({
   }, [])
 
   const scheduleDay = (dayIndex: number) => {
-    setWorkout((prevWorkout) => {
-      if (!prevWorkout?.scheduledDays) return prevWorkout
-      const newScheduledDays = scheduleWantedDays(
-        prevWorkout?.scheduledDays,
-        dayIndex,
-      )
-      return {
-        ...prevWorkout,
-        scheduledDays: newScheduledDays,
-      }
-    })
+    setWorkout((prevWorkout) => scheduleWantedDays(prevWorkout, dayIndex))
   }
 
   const updateWorkout = async () => {
-    try {
-      if (workout) await updateWorkoutEditUseCase.execute(workoutId, workout)
-      navigation.push(Routes.PROGRAM_PREVIEW, {
-        programId: uuid(),
-      })
-    } catch (e) {
-      console.error(e)
-    }
+    if (workout) await updateWorkoutEditUseCase.execute(workoutId, workout)
+    navigation.push(Routes.PROGRAM_PREVIEW, {
+      programId: uuid(),
+    })
   }
 
   const renderExerciseCard = ({

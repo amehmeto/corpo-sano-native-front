@@ -1,5 +1,4 @@
 import { ExerciseTemplate } from '../entities/exercise-template.entity'
-import { WorkoutInput } from '../use-cases/create-workout.use-case'
 import { ScheduledDay, Workout } from '../entities/workout.entity'
 
 export interface WorkoutGateway {

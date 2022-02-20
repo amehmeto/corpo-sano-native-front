@@ -15,7 +15,6 @@ import { GetAthleteUseCase } from './use-cases/get-athlete.use-case'
 import { AthleteGateway } from './gateways/athlete.gateway.interface'
 import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
-import { screenContainerStyle } from '../../design-system/screen-container.style'
 import { Margin } from '../../design-system/enums/margin.enum'
 
 const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()

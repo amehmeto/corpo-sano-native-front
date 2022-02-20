@@ -8,9 +8,16 @@ const unitSystem = Object.values(UnitSystem)
 const gender = Object.values(Gender)
 const weightGoal = Object.values(WeightGoal)
 
+function generateBodyFat() {
+  const bodyFat = faker.datatype.number({ min: 80, max: 370 })
+  const quotient = Math.floor(bodyFat / 10)
+  const remainder = bodyFat % 10
+  return `${quotient}.${remainder}`
+}
+
 export function biometricsDataBuilder(biometrics = {}) {
   const template = {
-    bodyFat: faker.datatype.number({ min: 80, max: 370 }),
+    bodyFat: generateBodyFat(),
     height: faker.datatype.number(),
     lengthUnit: faker.random.arrayElement(unitSystem),
     weight: faker.datatype.number({ min: 60, max: 120 }),
