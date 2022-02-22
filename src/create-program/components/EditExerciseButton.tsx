@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 
 export function EditExerciseButton(props: {
-  onPress: () => Routes.EXERCISE_SETTINGS
+  onPress: () => void
 }) {
   return (
     <Pressable onPress={props.onPress}>

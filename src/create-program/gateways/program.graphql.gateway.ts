@@ -1,7 +1,7 @@
 import { ProgramGateway } from './program.gateway.interface'
 import { Program } from '../entities/program.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
-import { WorkoutInput } from '../use-cases/create-workout.use-case'
+import { WorkoutInput } from '../use-cases/create-workout.usecase'
 
 export class GraphQLProgramGateway
   extends GraphQLGateway

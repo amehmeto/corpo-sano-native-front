@@ -61,8 +61,12 @@ export default function EditWorkoutScreen({
   }: ListRenderItemInfo<Exercise>) => (
     <ExerciseCardPreview
       exercise={exercise}
-      goToExerciseSettings={() => Routes.EXERCISE_SETTINGS}
-      gotToEditWorkout={() => Routes.EDIT_WORKOUT}
+      goToExerciseSettings={() => navigation.push(Routes.EXERCISE_SETTINGS, {
+        exerciseId: exercise.id,
+      })}
+      gotToEditWorkout={() => navigation.push(Routes.EDIT_WORKOUT, {
+        workoutId: workoutId,
+      })}
     />
   )
 

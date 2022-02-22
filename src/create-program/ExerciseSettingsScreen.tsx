@@ -1,20 +1,36 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RestTimeSetter } from './components/RestTimeSetter'
 import { NumberSetter } from './components/NumberSetter'
 import { Button } from '../../design-system/Button'
 import { FontSize } from '../../design-system/enums/font-size.enum'
 import { Routes } from '../router/Router'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
+import { Exercise } from './entities/exercise.entity'
+import { GetExerciseUseCase } from './get-exercise.usecase'
+import { InMemoryExerciseGateway } from './gateways/exercise.in-memory.gateway'
 
-export default function ExerciseSettingsScreen({ navigation }: any) {
+const getExerciseUseCase = new GetExerciseUseCase(new InMemoryExerciseGateway())
+
+export default function ExerciseSettingsScreen({ navigation, route}: any) {
+  const exerciseId = route.params.exerciseId
+
+  const [exercise, setExercise] = useState<Exercise | undefined>(undefined)
+
+  useEffect(() => {
+    getExerciseUseCase.execute(exerciseId).then(_exercise =>
+      setExercise(_exercise)
+    )
+    }
+  )
+
   function goToHomeScreen() {
     navigation.navigate(Routes.HOME)
   }
 
-  return (
+  return !exercise ? <Text> Loading ... </Text> : (
     <View style={screenContainerStyle.container}>
-      <Text style={styles.title}>Pull-ups</Text>
+      <Text style={styles.title}>{exercise.template.title}</Text>
 
       <Text style={styles.subTitle}>Number of sets</Text>
       <NumberSetter />

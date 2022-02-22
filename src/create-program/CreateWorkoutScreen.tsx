@@ -3,11 +3,11 @@ import { NavBar } from '../home/components/NavBar'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { Routes } from '../router/Router'
-import { CreateWorkoutUseCase } from './use-cases/create-workout.use-case'
+import { CreateWorkoutUsecase } from './use-cases/create-workout.usecase'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 
-const createWorkoutUseCase = new CreateWorkoutUseCase(programGateway)
+const createWorkoutUseCase = new CreateWorkoutUsecase(programGateway)
 
 export default function CreateWorkoutScreen({ route, navigation }: any) {
   const [title, setTitle] = useState('Leg day')

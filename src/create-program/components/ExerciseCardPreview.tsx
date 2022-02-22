@@ -9,8 +9,8 @@ import { DeleteExerciseButton } from './DeleteExerciseButton'
 
 type ExerciseCardComponentProps = {
   exercise: Exercise
-  goToExerciseSettings: () => Routes.EXERCISE_SETTINGS
-  gotToEditWorkout: () => Routes.EDIT_WORKOUT
+  goToExerciseSettings: () => void
+  gotToEditWorkout: () => void
 }
 export function ExerciseCardPreview({
   exercise,

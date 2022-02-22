@@ -14,15 +14,15 @@ import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
 import { determineDayInitialStyle } from './use-cases/determine-schedule-days-initial-style.handler'
 import { Program } from './entities/program.entity'
-import { GetProgramUseCase } from './use-cases/get-program.use-case'
+import { GetProgramUsecase } from './use-cases/get-program.usecase'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { WorkoutPreviewCard } from './components/WorkoutPreviewCard'
-import { DeleteWorkoutUseCase } from './use-cases/remove-workout.use-case'
+import { DeleteWorkoutUseCase } from './use-cases/remove-workout.usecase'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 import { DeleteWorkoutModal } from './components/program-preview-screen/DeleteWorkoutModalButton'
 import { EmptyProgramInfo } from './components/program-preview-screen/EmptyProgramInfo'
 
-const getProgramUseCase = new GetProgramUseCase(programGateway)
+const getProgramUseCase = new GetProgramUsecase(programGateway)
 const deleteWorkoutUseCase = new DeleteWorkoutUseCase(programGateway)
 
 type ProgramPreviewProps = NativeStackScreenProps<

@@ -7,7 +7,7 @@ export type WorkoutInput = {
   programId: string
 }
 
-export class CreateWorkoutUseCase {
+export class CreateWorkoutUsecase {
   constructor(private readonly programGateway: ProgramGateway) {}
 
   async execute(
