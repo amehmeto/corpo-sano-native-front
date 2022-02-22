@@ -4,8 +4,12 @@ import { Button } from '../../../design-system/Button'
 import { FontSize } from '../../../design-system/enums/font-size.enum'
 import { IsActiveTextInputStyle } from '../../../design-system/TextInput'
 
-export function NumberSetter() {
-  const [number, setNumber] = useState(0)
+type NumberSetterProps = {
+  _number: number
+}
+
+export function NumberSetter({_number}: NumberSetterProps) {
+  const [number, setNumber] = useState(_number)
 
   function addNumber() {
     setNumber((prevNumber) => prevNumber + 1)

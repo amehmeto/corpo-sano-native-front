@@ -33,10 +33,10 @@ export default function ExerciseSettingsScreen({ navigation, route}: any) {
       <Text style={styles.title}>{exercise.template.title}</Text>
 
       <Text style={styles.subTitle}>Number of sets</Text>
-      <NumberSetter />
+      <NumberSetter _number={exercise.numberOfSets}/>
 
       <Text style={styles.subTitle}>Number of reps</Text>
-      <NumberSetter />
+      <NumberSetter _number={exercise.numberOfReps}/>
 
       <Text style={styles.subTitle}>Inter sets rest time</Text>
       <RestTimeSetter />
