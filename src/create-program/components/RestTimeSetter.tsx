@@ -2,13 +2,18 @@ import { Text, TextInput, View, StyleSheet } from 'react-native'
 import React from 'react'
 import { FontSize } from '../../../design-system/enums/font-size.enum'
 import { TextInputStyle } from '../../../design-system/TextInput'
+import { PrintableTime } from '../entities/exercise.entity'
 
-export function RestTimeSetter() {
+type RestTimeSetterProps = {
+  time: PrintableTime
+}
+
+export function RestTimeSetter({time}: RestTimeSetterProps) {
   return (
     <View style={styles.numberSetter}>
-      <TextInput style={[styles.number, TextInputStyle]} value={'3'} />
+      <TextInput style={[styles.number, TextInputStyle]} value={time.minutes.toString()} />
       <Text style={styles.number}>min</Text>
-      <TextInput style={[styles.number, TextInputStyle]} value={'00'} />
+      <TextInput style={[styles.number, TextInputStyle]} value={time.seconds} />
     </View>
   )
 }

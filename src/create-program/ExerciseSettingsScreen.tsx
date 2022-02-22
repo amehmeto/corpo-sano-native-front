@@ -39,10 +39,10 @@ export default function ExerciseSettingsScreen({ navigation, route}: any) {
       <NumberSetter _number={exercise.numberOfReps}/>
 
       <Text style={styles.subTitle}>Inter sets rest time</Text>
-      <RestTimeSetter />
+      <RestTimeSetter time={exercise.interSetsRestTime} />
 
       <Text style={styles.subTitle}>Final rest time</Text>
-      <RestTimeSetter />
+      <RestTimeSetter time={exercise.finalRestTime}/>
 
       <Button text={'Save Exercise Settings'} onPress={goToHomeScreen} />
     </View>
