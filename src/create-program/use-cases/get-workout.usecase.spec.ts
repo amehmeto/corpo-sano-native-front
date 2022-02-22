@@ -20,13 +20,13 @@ describe('Get Workout Use Case', () => {
     expect(retrievedWorkout).toStrictEqual(expectedWorkout)
   })
 
-  it('should format the time 120 secondes into 2 min 00', async () => {
+  it('should format the time 120 seconds into 2 min 00', async () => {
     const workout = await workoutGateway.create({
       title: 'Leg day',
       description: 'never skip the leg day',
       programId: 'program-id',
       exercises: [
-        exerciseDataBuilder({ interSetRestTime: 120, finalRestTime: 230 }),
+        exerciseDataBuilder({ interSetsRestTime: 120, finalRestTime: 230 }),
       ],
     })
 
