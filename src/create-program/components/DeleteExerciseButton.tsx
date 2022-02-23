@@ -3,11 +3,9 @@ import { Pressable } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'
 
-export function DeleteExerciseButton(props: {
-  onPress: () => void
-}) {
+export function DeleteExerciseButton(props: { openDeleteModal: () => void }) {
   return (
-    <Pressable onPress={props.onPress}>
+    <Pressable onPress={props.openDeleteModal}>
       <MaterialCommunityIcons
         name={'delete-outline'}
         size={20}

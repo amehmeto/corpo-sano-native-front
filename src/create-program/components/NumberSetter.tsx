@@ -8,7 +8,7 @@ type NumberSetterProps = {
   _number: number
 }
 
-export function NumberSetter({_number}: NumberSetterProps) {
+export function NumberSetter({ _number }: NumberSetterProps) {
   const [number, setNumber] = useState(_number)
 
   function addNumber() {

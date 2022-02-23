@@ -12,12 +12,12 @@ import { Button } from '../../design-system/Button'
 import { Workout } from './entities/workout.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { FontSize } from '../../design-system/enums/font-size.enum'
-import { determineDayInitialStyle } from './use-cases/determine-schedule-days-initial-style.handler'
+import { determineDayInitialStyle } from './usecases/determine-schedule-days-initial-style.handler'
 import { Program } from './entities/program.entity'
-import { GetProgramUsecase } from './use-cases/get-program.usecase'
+import { GetProgramUsecase } from './usecases/get-program.usecase'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { WorkoutPreviewCard } from './components/WorkoutPreviewCard'
-import { DeleteWorkoutUseCase } from './use-cases/remove-workout.usecase'
+import { DeleteWorkoutUseCase } from './usecases/delete-workout.usecase'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 import { DeleteWorkoutModal } from './components/program-preview-screen/DeleteWorkoutModalButton'
 import { EmptyProgramInfo } from './components/program-preview-screen/EmptyProgramInfo'
@@ -40,13 +40,13 @@ function cancelWorkoutDelete(
 
 function deleteWorkout(
   programId: string,
-  removeModalWorkoutId: string | undefined,
+  deleteModalWorkoutId: string | undefined,
   setIsDeleteWorkoutModalVisible: (
     value: ((prevState: boolean) => boolean) | boolean,
   ) => void,
 ) {
   return async () => {
-    await deleteWorkoutUseCase.execute(programId, removeModalWorkoutId!)
+    await deleteWorkoutUseCase.execute(programId, deleteModalWorkoutId!)
     setIsDeleteWorkoutModalVisible(false)
   }
 }
@@ -60,7 +60,7 @@ export default function ProgramPreviewScreen({
   const [program, setProgram] = useState<Program | undefined>(undefined)
   const [isDeleteWorkoutModalVisible, setIsDeleteWorkoutModalVisible] =
     useState<boolean>(false)
-  const [removeModalWorkoutId, setRemoveModalWorkoutId] = useState<
+  const [deleteModalWorkoutId, setDeleteModalWorkoutId] = useState<
     string | undefined
   >(undefined)
 
@@ -98,7 +98,7 @@ export default function ProgramPreviewScreen({
           })
         }}
         openDeleteModal={() => {
-          setRemoveModalWorkoutId(workout.id)
+          setDeleteModalWorkoutId(workout.id)
           setIsDeleteWorkoutModalVisible(true)
         }}
         dayInitials={dayInitialElements}
@@ -129,7 +129,7 @@ export default function ProgramPreviewScreen({
         )}
         deleteWorkout={deleteWorkout(
           programId,
-          removeModalWorkoutId,
+          deleteModalWorkoutId,
           setIsDeleteWorkoutModalVisible,
         )}
       />

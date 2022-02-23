@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavBar } from '../home/components/NavBar'
-import { CreateProgramUsecase } from './use-cases/create-program.usecase'
+import { CreateProgramUsecase } from './usecases/create-program.usecase'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'

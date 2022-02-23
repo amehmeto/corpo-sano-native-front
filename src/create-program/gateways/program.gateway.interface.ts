@@ -1,6 +1,6 @@
 import { Program } from '../entities/program.entity'
-import { ProgramInput } from '../use-cases/create-program.usecase'
-import { WorkoutInput } from '../use-cases/create-workout.usecase'
+import { ProgramInput } from '../usecases/create-program.usecase'
+import { WorkoutInput } from '../usecases/create-workout.usecase'
 
 export interface ProgramGateway {
   create(programInput: ProgramInput): Promise<Program>

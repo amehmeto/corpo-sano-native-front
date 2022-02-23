@@ -8,10 +8,13 @@ type RestTimeSetterProps = {
   time: PrintableTime
 }
 
-export function RestTimeSetter({time}: RestTimeSetterProps) {
+export function RestTimeSetter({ time }: RestTimeSetterProps) {
   return (
     <View style={styles.numberSetter}>
-      <TextInput style={[styles.number, TextInputStyle]} value={time.minutes.toString()} />
+      <TextInput
+        style={[styles.number, TextInputStyle]}
+        value={time.minutes.toString()}
+      />
       <Text style={styles.number}>min</Text>
       <TextInput style={[styles.number, TextInputStyle]} value={time.seconds} />
     </View>

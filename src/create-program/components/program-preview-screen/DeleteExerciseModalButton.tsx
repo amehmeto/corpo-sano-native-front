@@ -4,34 +4,34 @@ import React from 'react'
 import { Margin } from '../../../../design-system/enums/margin.enum'
 import { Padding } from '../../../../design-system/enums/padding.enum'
 
-type DeleteWorkoutModalProps = {
+type DeleteExerciseModalProps = {
   visible: boolean
-  cancelWorkoutDelete: () => void
-  deleteWorkout: () => Promise<void>
+  cancelExerciseDelete: () => void
+  deleteExercise: () => Promise<void>
 }
 
-export function DeleteWorkoutModal({
+export function DeleteExerciseModal({
   visible,
-  cancelWorkoutDelete,
-  deleteWorkout,
-}: DeleteWorkoutModalProps) {
+  cancelExerciseDelete,
+  deleteExercise,
+}: DeleteExerciseModalProps) {
   return (
     <Modal animationType={'slide'} transparent={true} visible={visible}>
       <View style={styles.modalContainer}>
         <View style={styles.deleteExerciseModal}>
           <Text style={styles.deleteExerciseModalQuestion}>
-            {'Remove this workout from the program?'}
+            {'Remove this exercise from the workout?'}
           </Text>
           <View style={styles.deleteExerciseModalButtons}>
             <Button
               style={[styles.deleteExerciseModalButton, styles.cancelButton]}
               text={'Cancel'}
-              onPress={cancelWorkoutDelete}
+              onPress={cancelExerciseDelete}
             />
             <Button
               style={[styles.deleteExerciseModalButton, styles.deleteButton]}
               text={'Remove'}
-              onPress={deleteWorkout}
+              onPress={deleteExercise}
             />
           </View>
         </View>

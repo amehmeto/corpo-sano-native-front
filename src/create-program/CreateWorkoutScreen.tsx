@@ -3,7 +3,7 @@ import { NavBar } from '../home/components/NavBar'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { Routes } from '../router/Router'
-import { CreateWorkoutUsecase } from './use-cases/create-workout.usecase'
+import { CreateWorkoutUsecase } from './usecases/create-workout.usecase'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 

@@ -10,11 +10,16 @@ export class InMemoryExerciseGateway implements ExerciseGateway {
       this.rawExercise.template,
       this.rawExercise.numberOfSets,
       this.rawExercise.numberOfReps,
-      {minutes: 2, seconds: "20"},
-      {minutes: 2, seconds: "20"},)
+      { minutes: 2, seconds: '20' },
+      { minutes: 2, seconds: '20' },
+    ),
   ]
 
   findById(exerciseId: string): Promise<Exercise> {
     return Promise.resolve(this.exercises[0])
+  }
+
+  deleteExercise(exerciseId: string | undefined): boolean {
+    return false
   }
 }
