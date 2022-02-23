@@ -66,11 +66,6 @@ export default function EditWorkoutScreen({
           exerciseId: exercise.id,
         })
       }
-      gotToEditWorkout={() =>
-        navigation.push(Routes.EDIT_WORKOUT, {
-          workoutId: workoutId,
-        })
-      }
     />
   )
 

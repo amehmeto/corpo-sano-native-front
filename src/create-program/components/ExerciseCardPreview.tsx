@@ -14,7 +14,6 @@ const deleteExerciseUseCase = new DeleteExerciseUseCase(exerciseGateway)
 type ExerciseCardComponentProps = {
   exercise: Exercise
   goToExerciseSettings: () => void
-  gotToEditWorkout: () => void
 }
 
 function deleteExercise(
@@ -40,7 +39,6 @@ function cancelExerciseDelete(
 export function ExerciseCardPreview({
   exercise,
   goToExerciseSettings,
-  gotToEditWorkout,
 }: ExerciseCardComponentProps) {
   const [isDeleteExerciseModalVisible, setIsDeleteExerciseModalVisible] =
     useState<boolean>(false)
