@@ -62,7 +62,6 @@ export default function CreateProgramScreen({
 
         <Button text={'Create program'} onPress={createProgram} />
       </View>
-      <NavBar />
     </>
   )
 }

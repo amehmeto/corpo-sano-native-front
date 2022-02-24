@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { NavBar } from './components/NavBar'
 import { DailyTask } from './gateways/home.fake-data.repository'
 import { GetAthleteUseCase } from './use-cases/get-athlete.use-case'
 import { AthleteGateway } from './gateways/athlete.gateway.interface'
@@ -61,7 +60,6 @@ export function HomeScreen({ navigation }: any) {
           <Text>Loading...</Text>
         )}
       </View>
-      <NavBar />
     </>
   )
 }
