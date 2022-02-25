@@ -1,5 +1,4 @@
 import { Exercise } from '../entities/exercise.entity'
-import { Routes } from '../../router/Router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Margin } from '../../../design-system/enums/margin.enum'
@@ -9,9 +8,10 @@ import { DeleteExerciseButton } from './DeleteExerciseButton'
 
 type ExerciseCardComponentProps = {
   exercise: Exercise
-  goToExerciseSettings: () => Routes.EXERCISE_SETTINGS
-  gotToEditWorkout: () => Routes.EDIT_WORKOUT
+  goToExerciseSettings: () => void
+  gotToEditWorkout: () => void
 }
+
 export function ExerciseCardPreview({
   exercise,
   goToExerciseSettings,
