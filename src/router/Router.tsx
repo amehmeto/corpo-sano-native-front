@@ -67,8 +67,6 @@ export function Router() {
     return <Screen key={index} name={route.name} component={route.component} />
   })
   return (
-    <NavigationContainer>
       <Navigator initialRouteName={Routes.HOME}>{screens}</Navigator>
-    </NavigationContainer>
   )
 }

@@ -55,7 +55,6 @@ export default function CreateWorkoutScreen({ route, navigation }: any) {
 
         <Button text={'Create workout'} onPress={createWorkout} />
       </View>
-      <NavBar />
     </>
   )
 }
