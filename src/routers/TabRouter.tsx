@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { Router } from './Router'
+import { Colors } from '../../design-system/enums/colors.enum'
 
 const Tab = createBottomTabNavigator()
 
@@ -31,14 +32,14 @@ const tabRoutes = [
 type TabSettings = {
   name: string
   iconName: ioniconsNames | 'settings'
-  color: 'gray'
+  focused: boolean
 }
 
 function generateTabIcon(tab: TabSettings) {
   const elementAttributes = {
     name: tab.iconName,
     size: tab.iconName === 'settings' ? 38.5 : 40,
-    color: 'gray',
+    color: tab.focused ? Colors.PRIMARY_700 : 'gray',
   }
 
   return tab.iconName === 'settings' ? (
@@ -57,11 +58,13 @@ const tabScreens = tabRoutes.map((tabRoute, index) => {
       name={tabRoute.name}
       component={tabRoute.component}
       options={{
-        tabBarIcon: () =>
+        tabBarIcon: ({ focused }) =>
           generateTabIcon({
             name: tabRoute.name,
             iconName: tabRoute.iconName,
+            focused,
           } as TabSettings),
+        tabBarActiveTintColor: 'green',
         tabBarStyle: { marginVertical: 5, borderTopColor: 'white' },
         headerShown: false,
       }}
