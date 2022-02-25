@@ -6,14 +6,14 @@ import {
   View,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { UpdateWorkoutUseCase } from './use-cases/update-workout.usecase'
+import { UpdateWorkoutUseCase } from './usecases/update-workout.usecase'
 import { v4 as uuid } from 'uuid'
 import { scheduleWantedDays } from './handlers/edit-workout-screen/schedule-days.handler'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
 import { ScheduledDay, Workout } from './entities/workout.entity'
 import { workoutGateway } from '../_infrastructure/dependency-injection.container'
-import { GetWorkoutUseCase } from './use-cases/get-workout.usecase'
+import { GetWorkoutUseCase } from './usecases/get-workout.usecase'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { Exercise } from './entities/exercise.entity'
 import { ExerciseCardPreview } from './components/ExerciseCardPreview'
@@ -65,9 +65,6 @@ export default function EditWorkoutScreen({
         navigation.push(Routes.EXERCISE_SETTINGS, {
           exerciseId: exercise.id,
         })
-      }
-      gotToEditWorkout={() =>
-        navigation.push(Routes.EDIT_WORKOUT, { workoutId })
       }
     />
   )

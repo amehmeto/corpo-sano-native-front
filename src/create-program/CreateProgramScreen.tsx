@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { NavBar } from '../home/components/NavBar'
-import { CreateProgramUseCase } from './use-cases/create-program.use-case'
+import { CreateProgramUsecase } from './usecases/create-program.usecase'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../router/Router'
@@ -9,7 +9,7 @@ import { faker } from '@faker-js/faker'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 
-const createProgramUseCase = new CreateProgramUseCase(programGateway)
+const createProgramUseCase = new CreateProgramUsecase(programGateway)
 
 type CreateProgramScreenProps = NativeStackScreenProps<
   RouteParams,
@@ -62,7 +62,6 @@ export default function CreateProgramScreen({
 
         <Button text={'Create program'} onPress={createProgram} />
       </View>
-      <NavBar />
     </>
   )
 }

@@ -2,8 +2,11 @@ import { InMemoryProgramGateway } from '../create-program/gateways/program.in-me
 import { ProgramGateway } from '../create-program/gateways/program.gateway.interface'
 import { WorkoutGateway } from '../create-program/gateways/workout.gateway.interface'
 import { InMemoryWorkoutGateway } from '../create-program/gateways/workout.in-memory.gateway'
+import { InMemoryExerciseGateway } from '../create-program/gateways/exercise.in-memory.gateway'
+import { ExerciseGateway } from '../create-program/gateways/exercise.gateway.interface'
 
 export const programGateway: ProgramGateway = new InMemoryProgramGateway()
 export const workoutGateway: WorkoutGateway = new InMemoryWorkoutGateway(
   programGateway,
 )
+export const exerciseGateway: ExerciseGateway = new InMemoryExerciseGateway()

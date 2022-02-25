@@ -1,7 +1,7 @@
 import { ExerciseTemplate } from '../entities/exercise-template.entity'
 import { WorkoutGateway } from './workout.gateway.interface'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
-import { WorkoutInput } from '../use-cases/create-workout.use-case'
+import { WorkoutInput } from '../usecases/create-workout.usecase'
 import { ScheduledDay, Workout } from '../entities/workout.entity'
 
 export class GraphQLWorkoutGateway
