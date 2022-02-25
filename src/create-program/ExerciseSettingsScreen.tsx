@@ -7,7 +7,7 @@ import { FontSize } from '../../design-system/enums/font-size.enum'
 import { Routes } from '../router/Router'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 import { Exercise } from './entities/exercise.entity'
-import { GetExerciseUseCase } from './get-exercise.usecase'
+import { GetExerciseUseCase } from './usecases/get-exercise.usecase'
 import { InMemoryExerciseGateway } from './gateways/exercise.in-memory.gateway'
 
 const getExerciseUseCase = new GetExerciseUseCase(new InMemoryExerciseGateway())

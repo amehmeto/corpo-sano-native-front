@@ -19,13 +19,13 @@ export class InMemoryExerciseGateway implements ExerciseGateway {
     return Promise.resolve(this.exercises[0])
   }
 
-  deleteExercise(exerciseId: string): boolean {
+  deleteExercise(exerciseId: string): Promise<boolean> {
     const exerciseIndex = this.exercises.findIndex(
       (_exercise) => _exercise.id == exerciseId,
     )
 
     if (exerciseIndex === -1) throw new Error('Exercise not found')
     this.exercises.splice(exerciseIndex, 1)
-    return false
+    return Promise.resolve(false)
   }
 }

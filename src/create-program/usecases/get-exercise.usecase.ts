@@ -1,5 +1,5 @@
-import { Exercise } from './entities/exercise.entity'
-import { ExerciseGateway } from './gateways/exercise.gateway.interface'
+import { Exercise } from '../entities/exercise.entity'
+import { ExerciseGateway } from '../gateways/exercise.gateway.interface'
 
 export class GetExerciseUseCase {
   constructor(private exerciseGateway: ExerciseGateway) {}

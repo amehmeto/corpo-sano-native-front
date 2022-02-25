@@ -16,14 +16,18 @@ type ExerciseCardComponentProps = {
   goToExerciseSettings: () => void
 }
 
-function deleteExercise(
+async function deleteExercise(
   deleteModalExerciseId: string | undefined,
   setIsDeleteExerciseModalVisible: (
     value: ((prevState: boolean) => boolean) | boolean,
   ) => void,
 ) {
-  return async () => {
-    await deleteExerciseUseCase.execute(deleteModalExerciseId!)
+  try {
+    if (deleteModalExerciseId)
+      await deleteExerciseUseCase.execute(deleteModalExerciseId)
+  } catch (error) {
+    console.log(error)
+  } finally {
     setIsDeleteExerciseModalVisible(false)
   }
 }
@@ -33,7 +37,7 @@ function cancelExerciseDelete(
     value: ((prevState: boolean) => boolean) | boolean,
   ) => void,
 ) {
-  return () => setIsDeleteExerciseModalVisible(false)
+  setIsDeleteExerciseModalVisible(false)
 }
 
 export function ExerciseCardPreview({
@@ -67,13 +71,12 @@ export function ExerciseCardPreview({
 
       <DeleteExerciseModal
         visible={isDeleteExerciseModalVisible}
-        cancelExerciseDelete={cancelExerciseDelete(
-          setIsDeleteExerciseModalVisible,
-        )}
-        deleteExercise={deleteExercise(
-          deleteModalExerciseId,
-          setIsDeleteExerciseModalVisible,
-        )}
+        cancelExerciseDelete={() =>
+          cancelExerciseDelete(setIsDeleteExerciseModalVisible)
+        }
+        deleteExercise={() =>
+          deleteExercise(deleteModalExerciseId, setIsDeleteExerciseModalVisible)
+        }
       />
     </Pressable>
   )

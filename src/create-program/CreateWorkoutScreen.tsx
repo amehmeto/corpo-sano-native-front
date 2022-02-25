@@ -1,5 +1,4 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
-import { NavBar } from '../home/components/NavBar'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { Routes } from '../router/Router'
