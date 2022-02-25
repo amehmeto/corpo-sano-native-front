@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator()
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 
 const tabRoutes = [
-  { name: 'Home', component: Router, iconName: 'home' as ioniconsNames },
+  { name: 'Dashboard', component: Router, iconName: 'home' as ioniconsNames },
   { name: 'Progression', component: Progression, iconName: 'trending-up' as ioniconsNames },
   { name: 'Workouts', component: Progression, iconName: 'dumbbell' as ioniconsNames },
   { name: 'Settings', component: Progression, iconName: 'settings' as 'settings' },
@@ -40,15 +40,17 @@ function generateTabIcon(tab: TabSettings) {
   )
 }
 
-const tabScreens = tabRoutes.map((tabRoute) => {
+const tabScreens = tabRoutes.map((tabRoute, index) => {
   return (
     <Tab.Screen
+      key={index}
       name={tabRoute.name}
       component={tabRoute.component}
       options={{
         tabBarIcon: () => (
           generateTabIcon({ name: tabRoute.name, iconName: tabRoute.iconName } as TabSettings)
         ),
+        tabBarStyle: { marginVertical: 20 },
         headerShown: false
       }}
     />

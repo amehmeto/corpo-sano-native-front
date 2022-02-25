@@ -1,4 +1,4 @@
-import { Routes } from '../../router/Router'
+import { Routes } from '../../routers/Router'
 
 export class DailyTask {
   constructor(

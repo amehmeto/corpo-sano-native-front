@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { Routes } from '../router/Router'
+import { Routes } from '../routers/Router'
 
 export function dailyTaskDataBuilder(dailTask = {}) {
   const template = {

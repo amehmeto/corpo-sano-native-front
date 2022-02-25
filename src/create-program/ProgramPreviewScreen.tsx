@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RouteParams, Routes } from '../router/Router'
+import { RouteParams, Routes } from '../routers/Router'
 import { Button } from '../../design-system/Button'
 import { Workout } from './entities/workout.entity'
 import { Margin } from '../../design-system/enums/margin.enum'

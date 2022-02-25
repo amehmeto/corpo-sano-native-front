@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { DailyTask } from './gateways/home.fake-data.repository'
-import { GetAthleteUseCase } from './use-cases/get-athlete.use-case'
+import { GetAthleteUseCase } from './usecases/get-athlete.use-case'
 import { AthleteGateway } from './gateways/athlete.gateway.interface'
 import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
@@ -68,6 +68,9 @@ const styles = StyleSheet.create({
   container: {
     margin: Margin.MEDIUM,
     flex: 1,
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: 'red',
   },
   header: {
     flexDirection: 'row',

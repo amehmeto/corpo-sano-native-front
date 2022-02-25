@@ -29,7 +29,7 @@ export default function ProfileSummary({ athlete }: ProfileSummaryProps) {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 16,
