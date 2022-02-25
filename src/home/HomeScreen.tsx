@@ -68,9 +68,6 @@ const styles = StyleSheet.create({
   container: {
     margin: Margin.MEDIUM,
     flex: 1,
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: 'red',
   },
   header: {
     flexDirection: 'row',

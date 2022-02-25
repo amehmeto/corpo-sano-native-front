@@ -66,7 +66,5 @@ export function Router() {
   const screens = routes.map((route, index) => {
     return <Screen key={index} name={route.name} component={route.component} />
   })
-  return (
-      <Navigator initialRouteName={Routes.HOME}>{screens}</Navigator>
-  )
+  return <Navigator initialRouteName={Routes.HOME}>{screens}</Navigator>
 }

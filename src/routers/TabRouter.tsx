@@ -1,5 +1,4 @@
 import React from 'react'
-import { HomeScreen } from '../home/HomeScreen'
 import Progression from '../home/components/Progression'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
@@ -12,10 +11,21 @@ type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 
 const tabRoutes = [
   { name: 'Dashboard', component: Router, iconName: 'home' as ioniconsNames },
-  { name: 'Progression', component: Progression, iconName: 'trending-up' as ioniconsNames },
-  { name: 'Workouts', component: Progression, iconName: 'dumbbell' as ioniconsNames },
-  { name: 'Settings', component: Progression, iconName: 'settings' as 'settings' },
-
+  {
+    name: 'Progression',
+    component: Progression,
+    iconName: 'trending-up' as ioniconsNames,
+  },
+  {
+    name: 'Workouts',
+    component: Progression,
+    iconName: 'dumbbell' as ioniconsNames,
+  },
+  {
+    name: 'Settings',
+    component: Progression,
+    iconName: 'settings' as 'settings',
+  },
 ] as const
 
 type TabSettings = {
@@ -47,11 +57,13 @@ const tabScreens = tabRoutes.map((tabRoute, index) => {
       name={tabRoute.name}
       component={tabRoute.component}
       options={{
-        tabBarIcon: () => (
-          generateTabIcon({ name: tabRoute.name, iconName: tabRoute.iconName } as TabSettings)
-        ),
-        tabBarStyle: { marginVertical: 20 },
-        headerShown: false
+        tabBarIcon: () =>
+          generateTabIcon({
+            name: tabRoute.name,
+            iconName: tabRoute.iconName,
+          } as TabSettings),
+        tabBarStyle: { marginVertical: 5, borderTopColor: 'white' },
+        headerShown: false,
       }}
     />
   )
@@ -60,9 +72,7 @@ const tabScreens = tabRoutes.map((tabRoute, index) => {
 function TabRouter() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        {tabScreens}
-      </Tab.Navigator>
+      <Tab.Navigator>{tabScreens}</Tab.Navigator>
     </NavigationContainer>
   )
 }
