@@ -1,4 +1,4 @@
-import { Routes } from '../../routers/Router'
+import { Routes } from '../../routers/HomeRouter'
 import { v4 as uuid } from 'uuid'
 import { dailyTaskDataBuilder } from '../../_data-builders/daily-tasks.data-builder'
 

@@ -4,7 +4,7 @@ import { programDataBuilder } from '../../_data-builders/program.data-builder'
 import { v4 as uuid } from 'uuid'
 import { WorkoutInput } from '../usecases/create-workout.usecase'
 import { Workout } from '../entities/workout.entity'
-import { ProgramInput } from '../usecases/create-program.usecase'
+import { ProgramInput } from '../usecases/create-program-use.case'
 import { WorkoutMapper } from '../mappers/workout.mapper'
 import { scheduledDaysDataBuilder } from '../../_data-builders/scheduled-days.data-builder'
 

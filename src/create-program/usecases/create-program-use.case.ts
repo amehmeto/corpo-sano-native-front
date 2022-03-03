@@ -6,7 +6,7 @@ export type ProgramInput = {
   description: string
 }
 
-export class CreateProgramUsecase {
+export class CreateProgramUseCase {
   constructor(private readonly programGateway: ProgramGateway) {}
 
   async execute(programInput: ProgramInput): Promise<Program> {

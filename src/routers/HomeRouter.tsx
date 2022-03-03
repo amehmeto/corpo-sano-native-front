@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { HomeScreen } from '../home/HomeScreen'
 import CreateProgramScreen from '../create-program/CreateProgramScreen'
 import EditWorkoutScreen from '../create-program/EditWorkoutScreen'
@@ -62,7 +61,7 @@ export enum Routes {
   WORKOUT_SESSION_SUMMARY = 'WorkoutSessionSummary',
 }
 
-export function Router() {
+export function HomeRouter() {
   const screens = routes.map((route, index) => {
     return <Screen key={index} name={route.name} component={route.component} />
   })

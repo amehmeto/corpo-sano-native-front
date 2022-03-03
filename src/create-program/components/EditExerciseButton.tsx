@@ -1,4 +1,4 @@
-import { Routes } from '../../routers/Router'
+import { Routes } from '../../routers/HomeRouter'
 import { Pressable } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import React from 'react'

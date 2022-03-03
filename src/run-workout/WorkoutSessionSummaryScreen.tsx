@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Button } from '../../design-system/Button'
 import { Feather } from '@expo/vector-icons'
-import { Routes } from '../routers/Router'
+import { Routes } from '../routers/HomeRouter'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 
 export default function WorkoutSessionSummaryScreen({ navigation }: any) {

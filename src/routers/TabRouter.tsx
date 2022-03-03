@@ -3,7 +3,7 @@ import Progression from '../home/components/Progression'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { Router } from './Router'
+import { HomeRouter } from './HomeRouter'
 import { Colors } from '../../design-system/enums/colors.enum'
 
 const Tab = createBottomTabNavigator()
@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator()
 type ioniconsNames = 'home' | 'trending-up' | 'dumbbell'
 
 const tabRoutes = [
-  { name: 'Dashboard', component: Router, iconName: 'home' as ioniconsNames },
+  { name: 'Dashboard', component: HomeRouter, iconName: 'home' as ioniconsNames },
   {
     name: 'Progression',
     component: Progression,

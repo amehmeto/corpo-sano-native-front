@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
-import { Routes } from '../routers/Router'
+import { Routes } from '../routers/HomeRouter'
 import { CreateWorkoutUsecase } from './usecases/create-workout.usecase'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
