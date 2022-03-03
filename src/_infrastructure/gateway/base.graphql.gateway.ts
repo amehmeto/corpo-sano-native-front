@@ -11,12 +11,17 @@ export class GraphQLGateway {
     query: string
     variables?: object
   }): Promise<any> {
-    const token = localStorage.getItem('authToken')
-    const answer = (await axios.post(this.gatewayUrl, queryPayload, {
+    // const token = localStorage.getItem('authToken')
+
+    console.log('wersh', queryPayload)
+    const answer = (await axios.post(
+      this.gatewayUrl,
+      queryPayload /*{
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })) as any
+    }*/,
+    )) as any
     return answer.data.data
   }
 

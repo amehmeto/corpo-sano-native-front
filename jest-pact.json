@@ -5,9 +5,5 @@
   "testRegex": ".*\\.pact\\.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  },
-  "setupFiles": ["./.pact/setup.ts"
-
-  ],
-  "setupFilesAfterEnv": ["./.pact/jest.wrapper.ts"]
+  }
 }
