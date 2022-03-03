@@ -5,16 +5,18 @@ import ExerciseSettingsScreen from '../create-program/ExerciseSettingsScreen'
 import WorkoutPreviewScreen from '../run-workout/WorkoutPreview'
 import SetsRunnerScreen from '../run-workout/SetsRunnerScreen'
 import WorkoutSessionSummaryScreen from '../run-workout/WorkoutSessionSummaryScreen'
-import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CreateWorkoutScreen from '../create-program/CreateWorkoutScreen'
 import ProgramPreviewScreen from '../create-program/ProgramPreviewScreen'
+import React from 'react'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
 export type RouteParams = {
   Home: undefined
-  CreateProgram: undefined
+  CreateProgram: {
+    programId: string
+  }
   ProgramPreview: {
     programId: string
   }

@@ -4,9 +4,10 @@ import { WorkoutGateway } from '../create-program/gateways/workout.gateway.inter
 import { InMemoryWorkoutGateway } from '../create-program/gateways/workout.in-memory.gateway'
 import { InMemoryExerciseGateway } from '../create-program/gateways/exercise.in-memory.gateway'
 import { ExerciseGateway } from '../create-program/gateways/exercise.gateway.interface'
+import { ExerciseGraphqlGateway } from '../create-program/gateways/exercise.graphql.gateway'
 
 export const programGateway: ProgramGateway = new InMemoryProgramGateway()
 export const workoutGateway: WorkoutGateway = new InMemoryWorkoutGateway(
   programGateway,
 )
-export const exerciseGateway: ExerciseGateway = new InMemoryExerciseGateway()
+export const exerciseGateway: ExerciseGateway = new ExerciseGraphqlGateway()

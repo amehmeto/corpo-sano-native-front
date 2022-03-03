@@ -1,6 +1,6 @@
 import { ExerciseGateway } from './exercise.gateway.interface'
 import { Exercise } from '../entities/exercise.entity'
-import { GraphqlExerciseGateway } from './graphqlExerciseGateway'
+import { ExerciseGraphqlGateway } from './exercise.graphql.gateway'
 import { GraphQLInteraction, Matchers, Pact } from '@pact-foundation/pact'
 import path from 'path'
 import { faker } from '@faker-js/faker'
@@ -12,7 +12,7 @@ describe('Exercise Gateway', () => {
     cors: true,
     port: 3005,
     log: path.resolve(process.cwd(), 'logs', 'pact.log'),
-    logLevel: 'debug',
+    logLevel: 'trace',
     dir: path.resolve(process.cwd(), 'pacts'),
     spec: 2,
     pactfileWriteMode: 'update',
@@ -37,7 +37,6 @@ describe('Exercise Gateway', () => {
               path: 'graphql',
               method: 'POST',
             })
-            .withOperation('GetExercise')
             .withQuery(
               `query GetExercise($exerciseId: ID!) {
           getExercise(exerciseId: $exerciseId) {
@@ -75,7 +74,7 @@ describe('Exercise Gateway', () => {
       )
       .then(() => done())
 
-    exerciseGateway = new GraphqlExerciseGateway()
+    exerciseGateway = new ExerciseGraphqlGateway()
   })
 
   afterAll((done) => {

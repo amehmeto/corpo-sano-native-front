@@ -1,14 +1,22 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
-import { Routes } from '../routers/HomeRouter'
+import { RouteParams, Routes } from '../routers/HomeRouter'
 import { CreateWorkoutUsecase } from './usecases/create-workout.usecase'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
 const createWorkoutUseCase = new CreateWorkoutUsecase(programGateway)
 
-export default function CreateWorkoutScreen({ route, navigation }: any) {
+type CreateWorkoutScreenProps = NativeStackScreenProps<
+  RouteParams,
+  Routes.CREATE_PROGRAM
+>
+export default function CreateWorkoutScreen({
+  route,
+  navigation,
+}: CreateWorkoutScreenProps) {
   const [title, setTitle] = useState('Leg day')
   const [description, setDescription] = useState('Never skip the leg day')
   const programId = route.params.programId

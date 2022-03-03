@@ -13,15 +13,11 @@ export class GraphQLGateway {
   }): Promise<any> {
     // const token = localStorage.getItem('authToken')
 
-    console.log('wersh', queryPayload)
-    const answer = (await axios.post(
-      this.gatewayUrl,
-      queryPayload /*{
+    const answer = (await axios.post(this.gatewayUrl, queryPayload, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdGhsZXRlSWQiOiJlYmM2NzAyNy03NjMyLTQ5NjYtYWU1OS0zOTBkYmExMzZhNmMiLCJpYXQiOjE2NDYzMjczNDksImV4cCI6MTY0NjMzMDk0OX0.WQIBSVXnSQi6KK8fazR-qDHVLE8q4qDNFwW4IJwarf8`,
       },
-    }*/,
-    )) as any
+    })) as any
     return answer.data.data
   }
 
