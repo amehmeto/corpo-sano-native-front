@@ -11,11 +11,12 @@ export class GraphQLGateway {
     query: string
     variables?: object
   }): Promise<any> {
-    // const token = localStorage.getItem('authToken')
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdGhsZXRlSWQiOiJlYmM2NzAyNy03NjMyLTQ5NjYtYWU1OS0zOTBkYmExMzZhNmMiLCJpYXQiOjE2NDYzODI4NDIsImV4cCI6MTY0NjM4NjQ0Mn0.m6zaABtzAtGxISajKY2c9DtAv2dLQ4JKqkBuvjl4184' //localStorage.getItem('authToken')
 
     const answer = (await axios.post(this.gatewayUrl, queryPayload, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdGhsZXRlSWQiOiJlYmM2NzAyNy03NjMyLTQ5NjYtYWU1OS0zOTBkYmExMzZhNmMiLCJpYXQiOjE2NDYzMjczNDksImV4cCI6MTY0NjMzMDk0OX0.WQIBSVXnSQi6KK8fazR-qDHVLE8q4qDNFwW4IJwarf8`,
+        Authorization: `Bearer ${token}`,
       },
     })) as any
     return answer.data.data

@@ -9,12 +9,12 @@ import {
   View,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { DailyTask } from './gateways/home.fake-data.repository'
 import { GetAthleteUseCase } from './usecases/get-athlete.use-case'
 import { AthleteGateway } from './gateways/athlete.gateway.interface'
 import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
+import { DailyTask } from './entities/daily-task.entity'
 
 const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()
 const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
