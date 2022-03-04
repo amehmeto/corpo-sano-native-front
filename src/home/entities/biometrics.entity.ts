@@ -1,6 +1,7 @@
 import { UnitSystem } from '../../_data-builders/types/metric-system.enum'
 import { Gender } from '../../_data-builders/types/gender.enum'
 import { WeightGoal } from '../../_data-builders/types/weight-goal.enum'
+import { DailyTask } from './daily-task.entity'
 
 export class Biometrics {
   constructor(
@@ -14,3 +15,27 @@ export class Biometrics {
     public readonly weightGoal: WeightGoal,
   ) {}
 }
+
+const getAthleteQuery = `query GetAthlete($athleteId: ID!){
+        getAthlete(athleteId: $athleteId) {
+          id
+          name
+          email
+          password
+          dailyTasks {
+            name
+          }
+          programs
+          biometrics {
+            id
+            height
+            bodyFat
+            lengthUnit
+            weight
+            weightUnit
+            gender
+            birthday
+            weightGoal
+          }
+        }
+      }`

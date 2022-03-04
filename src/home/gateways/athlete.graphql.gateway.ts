@@ -1,6 +1,31 @@
 import { AthleteGateway } from './athlete.gateway.interface'
 import { Athlete } from '../entities/athlete.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
+import { Biometrics } from '../entities/biometrics.entity'
+
+function mapToDomain(getAthlete: any) {
+  let rawBiometrics = getAthlete.biometrics
+  const mappedBiometrics = new Biometrics(
+    rawBiometrics.bodyFat,
+    rawBiometrics.height,
+    rawBiometrics.weight,
+    rawBiometrics.lengthUnit,
+    rawBiometrics.weightUnit,
+    rawBiometrics.gender,
+    rawBiometrics.birthday,
+    rawBiometrics.weightGoal,
+  )
+  return new Athlete(
+    getAthlete.id,
+    getAthlete.name,
+    getAthlete.email,
+    getAthlete.password,
+    getAthlete.avatar,
+    mappedBiometrics,
+    getAthlete.dailyTasks,
+    getAthlete.programs,
+  )
+}
 
 export class GraphQLAthleteGateway
   extends GraphQLGateway
@@ -39,7 +64,7 @@ export class GraphQLAthleteGateway
       }
 
       const { getAthlete } = await this.request(getAthleteQueryPayload)
-      return getAthlete
+      return mapToDomain(getAthlete)
     } catch (e) {
       throw this.handleError(e)
     }

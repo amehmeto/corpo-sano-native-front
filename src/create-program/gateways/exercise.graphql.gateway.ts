@@ -31,7 +31,6 @@ export class ExerciseGraphqlGateway
     }
 
     const { getExercise } = await this.request(getExerciseQuery)
-    console.log(getExercise)
     return getExercise
   }
 }
