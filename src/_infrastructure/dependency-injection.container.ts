@@ -4,11 +4,9 @@ import { WorkoutGateway } from '../create-program/gateways/workout.gateway.inter
 import { InMemoryWorkoutGateway } from '../create-program/gateways/workout.in-memory.gateway'
 import { ExerciseGateway } from '../create-program/gateways/exercise.gateway.interface'
 import { ExerciseGraphqlGateway } from '../create-program/gateways/exercise.graphql.gateway'
-import { LoginGateway } from '../login/login.gateway.interface'
-import { LoginGraphqlGateway } from '../login/dependency-injection.container'
-import { Login } from '../create-program/entities/login.entity'
+import { LoginGateway } from '../login/gateways/login.gateway.interface'
+import { GraphqlLoginGateway } from '../login/gateways/login.graphql.gateway'
 import AsyncStorage from '@react-native-community/async-storage'
-
 
 export const programGateway: ProgramGateway = new InMemoryProgramGateway()
 export const workoutGateway: WorkoutGateway = new InMemoryWorkoutGateway(
@@ -16,10 +14,15 @@ export const workoutGateway: WorkoutGateway = new InMemoryWorkoutGateway(
 )
 export const exerciseGateway: ExerciseGateway = new ExerciseGraphqlGateway()
 
-export const loginGateway: LoginGateway = new LoginGraphqlGateway()
+export const loginGateway: LoginGateway = new GraphqlLoginGateway()
 
-loginGateway.login({
-  email: 'Aliyah_Rippin64@hotmail.com',
-  password: '$2b$10$JsRFxroTkMbSUJYHNzZm..mJbqqaR0cAUefX4Fo1mdZzM34oy97CC',
-}).then(token =>
-  AsyncStorage.setItem('token', token))
+// TODO: to be remove and done correctly in the (near) futur
+export async function initializeTokenCheatCode() {
+  const token = await loginGateway.login({
+    email: 'Carlie41@yahoo.com',
+    password: 'qwerty',
+  })
+
+  await AsyncStorage.setItem('token', token)
+  return token
+}

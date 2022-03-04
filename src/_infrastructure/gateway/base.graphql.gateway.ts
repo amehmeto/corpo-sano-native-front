@@ -12,7 +12,7 @@ export class GraphQLGateway {
     query: string
     variables?: object
   }): Promise<any> {
-    const token = AsyncStorage.getItem("token")
+    const token = await AsyncStorage.getItem('token')
     const answer = (await axios.post(this.gatewayUrl, queryPayload, {
       headers: {
         Authorization: `Bearer ${token}`,
