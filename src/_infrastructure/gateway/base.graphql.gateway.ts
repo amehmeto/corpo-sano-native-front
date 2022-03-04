@@ -1,4 +1,5 @@
 import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export class GraphQLGateway {
   protected readonly port = '3005'
@@ -11,9 +12,7 @@ export class GraphQLGateway {
     query: string
     variables?: object
   }): Promise<any> {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdGhsZXRlSWQiOiJlYmM2NzAyNy03NjMyLTQ5NjYtYWU1OS0zOTBkYmExMzZhNmMiLCJpYXQiOjE2NDYzODI4NDIsImV4cCI6MTY0NjM4NjQ0Mn0.m6zaABtzAtGxISajKY2c9DtAv2dLQ4JKqkBuvjl4184' //localStorage.getItem('authToken')
-
+    const token = AsyncStorage.getItem("token")
     const answer = (await axios.post(this.gatewayUrl, queryPayload, {
       headers: {
         Authorization: `Bearer ${token}`,
