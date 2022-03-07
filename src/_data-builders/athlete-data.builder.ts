@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { dailyTaskDataBuilder } from './daily-tasks.data-builder'
 import { biometricsDataBuilder } from './biometrics.data-builder'
+import { programDataBuilder } from './program.data-builder'
 
 export function athleteDataBuilder(athlete = {}) {
   const hashedPassword =
@@ -22,7 +23,7 @@ export function athleteDataBuilder(athlete = {}) {
         route: 'WorkoutPreview',
       }),
     ],
-    //programs: [programDataBuilder()],
+    programs: [programDataBuilder()],
   }
 
   return { ...template, ...athlete }
