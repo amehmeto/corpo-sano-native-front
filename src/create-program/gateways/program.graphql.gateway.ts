@@ -62,14 +62,17 @@ export class GraphQLProgramGateway
     }
   }
 
+  //TODO should to create in backend
   deleteWorkout(programId: string, workoutId: string): Promise<boolean> {
     return Promise.resolve(false)
   }
 
+  //TODO should to create in backend
   find(): Promise<Program[]> {
     return Promise.resolve([])
   }
 
+  //TODO should to create in backend
   findById(programId: string): Promise<Program | undefined> {
     return Promise.resolve(undefined)
   }

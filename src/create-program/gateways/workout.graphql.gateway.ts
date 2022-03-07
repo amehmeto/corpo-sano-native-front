@@ -4,6 +4,19 @@ import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gatew
 import { WorkoutInput } from '../usecases/create-workout-use.case'
 import { ScheduledDay, Workout } from '../entities/workout.entity'
 
+class WorkoutMapper {
+  static mapToDomain(workout: Workout){
+    return new Workout(
+      workout.id,
+      workout.title,
+      workout.description,
+      workout.programId,
+      workout.exercises,
+      workout.scheduledDays
+    )
+  }
+}
+
 export class GraphQLWorkoutGateway
   extends GraphQLGateway
   implements WorkoutGateway
@@ -11,12 +24,49 @@ export class GraphQLWorkoutGateway
   update(workoutId: string, workout: Workout): Promise<boolean> {
     throw new Error('Method not implemented.')
   }
+
+  //TODO should to add in backend
   find(): Promise<Workout[]> {
     throw new Error('Method not implemented.')
   }
 
-  findById(workoutId: string): Promise<Workout> {
-    throw new Error('Method not implemented.')
+  async findById(workoutId: string): Promise<Workout> {
+    try {
+      const WORKOUT_MUTATION = `query GetWorkout($workoutId: ID!) {
+          getWorkout(workoutId: $workoutId) {
+            id
+            title
+            exercises {
+              id
+              template {
+                title
+              }
+            }
+            sessions {
+              id
+              performances {
+                id
+                sets
+                exercise {
+                  id
+                }
+              }
+            }
+          }
+        }`
+
+      const findWorkoutIdByIdMutationPayload = {
+        query: WORKOUT_MUTATION,
+        variables: {
+          workoutId: workoutId,
+        },
+      }
+
+      const { getWorkout } = await this.request(findWorkoutIdByIdMutationPayload)
+      return WorkoutMapper.mapToDomain(getWorkout)
+    } catch (e) {
+      throw this.handleError(e)
+    }
   }
 
   async scheduleDays(
