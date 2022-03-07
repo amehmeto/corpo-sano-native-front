@@ -9,7 +9,7 @@ describe('Login Gateway', () => {
   })
 
   it('should return token', async () => {
-    const payload = {email: 'Shaniya46@hotmail.com', password: 'qwerty'}
+      const payload = {email: 'Shaniya46@hotmail.com', password: 'qwerty'}
     const expectedToken = expect.any(String)
 
     const retrievedToken = await loginGateway.login(payload)

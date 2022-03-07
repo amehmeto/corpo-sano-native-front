@@ -2,12 +2,13 @@ import { ProgramGateway } from './program.gateway.interface'
 import { Program } from '../entities/program.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
 import { WorkoutInput } from '../usecases/create-workout.usecase'
+import { ProgramInput } from '../usecases/create-program-use.case'
+import { ProgramMapper } from '../mappers/program.mapper'
 
 export class GraphQLProgramGateway
   extends GraphQLGateway
-  implements ProgramGateway
-{
-  async create(programInput: Program): Promise<Program> {
+  implements ProgramGateway {
+  async create(programInput: ProgramInput): Promise<Program> {
     try {
       const CREATE_PROGRAM_MUTATION = `mutation
         createProgram($title: String!) {
@@ -25,7 +26,7 @@ export class GraphQLProgramGateway
       }
 
       const { createProgram } = await this.request(createProgramMutationPayload)
-      return createProgram
+      return ProgramMapper.mapToDomain(createProgram)
     } catch (e) {
       throw this.handleError(e)
     }
