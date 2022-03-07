@@ -5,14 +5,14 @@ import { WorkoutInput } from '../usecases/create-workout-use.case'
 import { ScheduledDay, Workout } from '../entities/workout.entity'
 
 class WorkoutMapper {
-  static mapToDomain(workout: Workout){
+  static mapToDomain(workout: Workout) {
     return new Workout(
       workout.id,
       workout.title,
       workout.description,
       workout.programId,
       workout.exercises,
-      workout.scheduledDays
+      workout.scheduledDays,
     )
   }
 }
@@ -21,8 +21,44 @@ export class GraphQLWorkoutGateway
   extends GraphQLGateway
   implements WorkoutGateway
 {
-  update(workoutId: string, workout: Workout): Promise<boolean> {
-    throw new Error('Method not implemented.')
+  async update(workoutId: string, workout: Workout): Promise<boolean> {
+    try {
+      const UPDATE_WORKOUT_MUTATION = `mutation UpdateWorkout(
+          $workoutId: ID!,
+          $payload: PatchWorkoutInput!
+        ) {
+          updateWorkout(workoutId: $workoutId, payload: $payload) {
+            id
+            title
+           
+            exercises {
+              position
+              template {
+                id
+                title
+              }
+            }
+          }
+        }`
+
+      const updateWorkoutMutationPayload = {
+        query: UPDATE_WORKOUT_MUTATION,
+        variables: {
+          workoutId: workoutId,
+          payload: {
+            exercises: workout.exercises,
+            scheduledDays: workout.scheduledDays,
+          },
+        },
+      }
+
+      const { updateWorkout } = await this.request(updateWorkoutMutationPayload)
+
+      //TODO According to the architect's thought, this place can be turned into an object.
+      return updateWorkout ? true : false
+    } catch (error) {
+      throw this.handleError(error)
+    }
   }
 
   //TODO should to add in backend
@@ -55,17 +91,17 @@ export class GraphQLWorkoutGateway
           }
         }`
 
-      const findWorkoutIdByIdMutationPayload = {
+      const findWorkoutByIdMutationPayload = {
         query: WORKOUT_MUTATION,
         variables: {
           workoutId: workoutId,
         },
       }
 
-      const { getWorkout } = await this.request(findWorkoutIdByIdMutationPayload)
+      const { getWorkout } = await this.request(findWorkoutByIdMutationPayload)
       return WorkoutMapper.mapToDomain(getWorkout)
-    } catch (e) {
-      throw this.handleError(e)
+    } catch (error) {
+      throw this.handleError(error)
     }
   }
 
