@@ -13,17 +13,18 @@ import { GetAthleteUseCase } from './usecases/get-athlete.use-case'
 import { Athlete } from './entities/athlete.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { DailyTask } from './entities/daily-task.entity'
-import { athleteGateway } from '../_infrastructure/dependency-injection.container'
+import { athleteGateway, initializeTokenCheatCode } from '../_infrastructure/dependency-injection.container'
 
 const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
 
 export function HomeScreen({ navigation }: any) {
-  const athleteId = 'ebc67027-7632-4966-ae59-390dba136a6c'
+  const athleteId = '93c87b16-9c92-4440-9ce3-658050ba8dd8'
 
   const [athlete, setAthlete] = useState<Athlete | undefined>(undefined)
 
   useEffect(() => {
-    getAthleteUseCase.execute(athleteId).then((_athlete) => {
+    initializeTokenCheatCode().then(() =>
+    getAthleteUseCase.execute(athleteId)).then((_athlete) => {
       setAthlete(_athlete)
     })
   }, [])

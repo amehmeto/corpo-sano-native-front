@@ -1,13 +1,16 @@
 import { ProgramGateway } from './program.gateway.interface'
 import { Program } from '../entities/program.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
-import { WorkoutInput } from '../usecases/create-workout.usecase'
+import { WorkoutInput } from '../usecases/create-workout-use.case'
 import { ProgramInput } from '../usecases/create-program-use.case'
 import { ProgramMapper } from '../mappers/program.mapper'
+import { Workout } from '../entities/workout.entity'
+import { WorkoutMapper } from '../mappers/workout.mapper'
 
 export class GraphQLProgramGateway
   extends GraphQLGateway
-  implements ProgramGateway {
+  implements ProgramGateway
+{
   async create(programInput: ProgramInput): Promise<Program> {
     try {
       const CREATE_PROGRAM_MUTATION = `mutation
@@ -32,8 +35,31 @@ export class GraphQLProgramGateway
     }
   }
 
-  addWorkout(programId: string, workoutInput: WorkoutInput): Promise<Program> {
-    throw new Error('Method not implemented.')
+  async addWorkout(
+    programId: string,
+    workoutInput: WorkoutInput,
+  ): Promise<Workout> {
+    try {
+      const ADD_WORKOUT_MUTATION = `mutation CreateWorkout($title: String!, $programId: ID!) {
+          createWorkout(title: $title, programId: $programId) {
+            id
+            title
+          }
+        }`
+
+      const addWorkoutMutationPayload = {
+        query: ADD_WORKOUT_MUTATION,
+        variables: {
+          title: workoutInput.title,
+          programId: '23c8b6ce-9b10-465c-a581-44ca59d2c3ac',
+        },
+      }
+
+      const { createWorkout } = await this.request(addWorkoutMutationPayload)
+      return WorkoutMapper.mapToDomain(createWorkout)
+    } catch (e) {
+      throw this.handleError(e)
+    }
   }
 
   deleteWorkout(programId: string, workoutId: string): Promise<boolean> {

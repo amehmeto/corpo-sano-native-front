@@ -1,7 +1,7 @@
 import { WorkoutGateway } from './workout.gateway.interface'
 import { ExerciseTemplate } from '../entities/exercise-template.entity'
 import { workoutDataBuilder } from '../../_data-builders/workout.data-builder'
-import { WorkoutInput } from '../usecases/create-workout.usecase'
+import { WorkoutInput } from '../usecases/create-workout-use.case'
 import { v4 as uuid } from 'uuid'
 import { ScheduledDay, Workout } from '../entities/workout.entity'
 import { ProgramGateway } from './program.gateway.interface'
