@@ -19,10 +19,10 @@ export const exerciseGateway: ExerciseGateway = new ExerciseGraphqlGateway()
 
 export const loginGateway: LoginGateway = new GraphqlLoginGateway()
 
-// TODO: to be remove and done correctly in the (near) futur
+// TODO: to be remove and done correctly in the (near) future
 export async function initializeTokenCheatCode() {
   const token = await loginGateway.login({
-    email: 'Carlie41@yahoo.com',
+    email: 'Shaniya46@hotmail.com',
     password: 'qwerty',
   })
 

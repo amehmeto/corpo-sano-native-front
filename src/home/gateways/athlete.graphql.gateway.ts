@@ -64,7 +64,6 @@ export class GraphQLAthleteGateway
       }
 
       const { getAthlete } = await this.request(getAthleteQueryPayload)
-      console.log(getAthlete)
       return mapToDomain(getAthlete)
     } catch (e) {
       throw this.handleError(e)
