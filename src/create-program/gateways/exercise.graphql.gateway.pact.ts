@@ -3,7 +3,6 @@ import { Exercise } from '../entities/exercise.entity'
 import { ExerciseGraphqlGateway } from './exercise.graphql.gateway'
 import { GraphQLInteraction, Matchers, Pact } from '@pact-foundation/pact'
 import path from 'path'
-import { faker } from '@faker-js/faker'
 
 describe('Exercise Gateway', () => {
   let exerciseGateway: ExerciseGateway
@@ -21,24 +20,22 @@ describe('Exercise Gateway', () => {
     host: '127.0.0.1',
   })
 
-  beforeAll((done) => {
+  beforeAll(() => {
     const contentTypeJsonMatcher = Matchers.term({
       matcher: 'application\\/json; *charset=utf-8',
       generate: 'application/json; charset=utf-8',
     })
 
-    provider
-      .setup()
-      .then(() =>
-        provider.addInteraction(
-          new GraphQLInteraction()
-            .uponReceiving('a findById query')
-            .withRequest({
-              path: 'graphql',
-              method: 'POST',
-            })
-            .withQuery(
-              `query GetExercise($exerciseId: ID!) {
+    const promise = provider.setup().then(() =>
+      provider.addInteraction(
+        new GraphQLInteraction()
+          .uponReceiving('a findById query')
+          .withRequest({
+            path: 'graphql',
+            method: 'POST',
+          })
+          .withQuery(
+            `query GetExercise($exerciseId: ID!) {
           getExercise(exerciseId: $exerciseId) {
             id
             template {
@@ -52,34 +49,35 @@ describe('Exercise Gateway', () => {
             }
           }
         }`,
-            )
-            .withVariables({
-              exerciseId: '42',
-            })
-            .willRespondWith({
-              status: 200,
-              headers: {
-                'Content-Type': contentTypeJsonMatcher,
+          )
+          .withVariables({
+            exerciseId: '42',
+          })
+          .willRespondWith({
+            status: 200,
+            headers: {
+              'Content-Type': contentTypeJsonMatcher,
+            },
+            body: {
+              data: {
+                id: '42',
+                numberOfSets: 0,
+                template: {},
+                workout: {},
               },
-              body: {
-                data: {
-                  id: '42',
-                  numberOfSets: 0,
-                  template: {},
-                  workout: {},
-                },
-              },
-            }),
-        ),
-      )
-      .then(() => done())
+            },
+          }),
+      ),
+    )
 
     exerciseGateway = new ExerciseGraphqlGateway()
+
+    return promise
   })
 
-  afterAll((done) => {
-    provider.finalize().then(() => done())
-  })
+  afterEach(() => provider.verify())
+
+  afterAll(() => provider.finalize())
 
   it('should find exercise by id', async () => {
     const exerciseId = '42'
@@ -89,7 +87,5 @@ describe('Exercise Gateway', () => {
     console.log(retrievedExercise)
 
     expect(retrievedExercise).toStrictEqual(expectedExercise)
-
-    await provider.verify()
   })
 })

@@ -13,11 +13,11 @@ export class GraphQLGateway {
     variables?: object
   }): Promise<any> {
     const token = await AsyncStorage.getItem('token')
-    const answer = (await axios.post(this.gatewayUrl, queryPayload, {
+    const answer = await axios.post(this.gatewayUrl, queryPayload, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })) as any
+    })
     return answer.data.data
   }
 
