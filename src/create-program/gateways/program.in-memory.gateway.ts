@@ -2,7 +2,7 @@ import { ProgramGateway } from './program.gateway.interface'
 import { Program } from '../entities/program.entity'
 import { programDataBuilder } from '../../_data-builders/program.data-builder'
 import { v4 as uuid } from 'uuid'
-import { WorkoutInput } from '../usecases/create-workout.usecase'
+import { WorkoutInput } from '../usecases/create-workout-use.case'
 import { Workout } from '../entities/workout.entity'
 import { ProgramInput } from '../usecases/create-program-use.case'
 import { WorkoutMapper } from '../mappers/workout.mapper'
@@ -51,7 +51,7 @@ export class InMemoryProgramGateway implements ProgramGateway {
   async addWorkout(
     programId: string,
     workoutInput: WorkoutInput,
-  ): Promise<Program> {
+  ): Promise<Workout> {
     const program = await this.findById(programId)
 
     if (!program) throw new Error('Program not found')
@@ -65,7 +65,7 @@ export class InMemoryProgramGateway implements ProgramGateway {
         scheduledDaysDataBuilder(),
       ),
     )
-    return Promise.resolve(program)
+    return Promise.resolve(program.workouts[0])
   }
 
   deleteWorkout(programId: string, workoutId: string): Promise<boolean> {

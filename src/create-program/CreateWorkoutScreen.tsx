@@ -2,12 +2,12 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
 import { Button } from '../../design-system/Button'
 import { RouteParams, Routes } from '../routers/HomeRouter'
-import { CreateWorkoutUsecase } from './usecases/create-workout.usecase'
+import { CreateWorkoutUseCase } from './usecases/create-workout-use.case'
 import { programGateway } from '../_infrastructure/dependency-injection.container'
 import { screenContainerStyle } from '../../design-system/screen-container.style'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-const createWorkoutUseCase = new CreateWorkoutUsecase(programGateway)
+const createWorkoutUseCase = new CreateWorkoutUseCase(programGateway)
 
 type CreateWorkoutScreenProps = NativeStackScreenProps<
   RouteParams,

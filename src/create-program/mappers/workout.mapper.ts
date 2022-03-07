@@ -17,22 +17,24 @@ export enum ScheduledDayGqlInput {
 
 export class WorkoutMapper {
   public static mapToDomain(rawWorkout: any): Workout {
-    const mappedExercises = rawWorkout.exercises.map((rawExercise: any) => {
-      const interSetsRestTime = this.computeMinutesAndSeconds(
-        rawExercise.interSetsRestTime,
-      )
-      const finalRestTime = this.computeMinutesAndSeconds(
-        rawExercise.finalRestTime,
-      )
-      return new Exercise(
-        rawExercise.id,
-        rawExercise.template,
-        rawExercise.numberOfSets,
-        rawExercise.numberOfReps,
-        interSetsRestTime,
-        finalRestTime,
-      )
-    })
+    const mappedExercises = !rawWorkout.exercises
+      ? []
+      : rawWorkout.exercises.map((rawExercise: any) => {
+          const interSetsRestTime = this.computeMinutesAndSeconds(
+            rawExercise.interSetsRestTime,
+          )
+          const finalRestTime = this.computeMinutesAndSeconds(
+            rawExercise.finalRestTime,
+          )
+          return new Exercise(
+            rawExercise.id,
+            rawExercise.template,
+            rawExercise.numberOfSets,
+            rawExercise.numberOfReps,
+            interSetsRestTime,
+            finalRestTime,
+          )
+        })
     const mappedScheduledDays = this.generateDomainScheduledDays(
       rawWorkout.scheduledDays,
     )

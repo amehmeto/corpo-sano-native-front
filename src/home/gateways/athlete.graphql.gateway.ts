@@ -1,6 +1,7 @@
 import { AthleteGateway } from './athlete.gateway.interface'
 import { Athlete } from '../entities/athlete.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
+import { AthleteMapper } from '../mappers/athlete.mapper'
 
 export class GraphQLAthleteGateway
   extends GraphQLGateway
@@ -39,7 +40,7 @@ export class GraphQLAthleteGateway
       }
 
       const { getAthlete } = await this.request(getAthleteQueryPayload)
-      return getAthlete
+      return AthleteMapper.mapToDomain(getAthlete)
     } catch (e) {
       throw this.handleError(e)
     }

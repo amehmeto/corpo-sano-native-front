@@ -10,22 +10,21 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { GetAthleteUseCase } from './usecases/get-athlete.use-case'
-import { AthleteGateway } from './gateways/athlete.gateway.interface'
-import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { DailyTask } from './entities/daily-task.entity'
+import { athleteGateway, initializeTokenCheatCode } from '../_infrastructure/dependency-injection.container'
 
-const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()
 const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
 
 export function HomeScreen({ navigation }: any) {
-  const athleteId = 'asfdadsfas'
+  const athleteId = '93c87b16-9c92-4440-9ce3-658050ba8dd8'
 
   const [athlete, setAthlete] = useState<Athlete | undefined>(undefined)
 
   useEffect(() => {
-    getAthleteUseCase.execute(athleteId).then((_athlete) => {
+    initializeTokenCheatCode().then(() =>
+    getAthleteUseCase.execute(athleteId)).then((_athlete) => {
       setAthlete(_athlete)
     })
   }, [])

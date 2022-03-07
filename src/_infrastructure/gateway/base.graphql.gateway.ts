@@ -1,7 +1,8 @@
 import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export class GraphQLGateway {
-  protected readonly port = '3005'
+  protected readonly port = 3005
   // TODO: utiliser les variables d'environnements dès que possible. Issue Jest ouverte, bloqué pour l'instant
   protected readonly backendApi = 'localhost'
   // protected readonly backendApi = '51.159.164.130'
@@ -11,14 +12,12 @@ export class GraphQLGateway {
     query: string
     variables?: object
   }): Promise<any> {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdGhsZXRlSWQiOiJlYmM2NzAyNy03NjMyLTQ5NjYtYWU1OS0zOTBkYmExMzZhNmMiLCJpYXQiOjE2NDYzODI4NDIsImV4cCI6MTY0NjM4NjQ0Mn0.m6zaABtzAtGxISajKY2c9DtAv2dLQ4JKqkBuvjl4184' //localStorage.getItem('authToken')
-
-    const answer = (await axios.post(this.gatewayUrl, queryPayload, {
+    const token = await AsyncStorage.getItem('token')
+    const answer = await axios.post(this.gatewayUrl, queryPayload, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })) as any
+    })
     return answer.data.data
   }
 
