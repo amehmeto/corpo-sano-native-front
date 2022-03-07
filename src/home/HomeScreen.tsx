@@ -10,17 +10,15 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { GetAthleteUseCase } from './usecases/get-athlete.use-case'
-import { AthleteGateway } from './gateways/athlete.gateway.interface'
-import { InMemoryAthleteGateway } from './gateways/athlete.in-memory.gateway'
 import { Athlete } from './entities/athlete.entity'
 import { Margin } from '../../design-system/enums/margin.enum'
 import { DailyTask } from './entities/daily-task.entity'
+import { athleteGateway } from '../_infrastructure/dependency-injection.container'
 
-const athleteGateway: AthleteGateway = new InMemoryAthleteGateway()
 const getAthleteUseCase = new GetAthleteUseCase(athleteGateway)
 
 export function HomeScreen({ navigation }: any) {
-  const athleteId = 'asfdadsfas'
+  const athleteId = 'ebc67027-7632-4966-ae59-390dba136a6c'
 
   const [athlete, setAthlete] = useState<Athlete | undefined>(undefined)
 

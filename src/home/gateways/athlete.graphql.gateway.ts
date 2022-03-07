@@ -4,7 +4,7 @@ import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gatew
 import { Biometrics } from '../entities/biometrics.entity'
 
 function mapToDomain(getAthlete: any) {
-  let rawBiometrics = getAthlete.biometrics
+  const rawBiometrics = getAthlete.biometrics
   const mappedBiometrics = new Biometrics(
     rawBiometrics.bodyFat,
     rawBiometrics.height,
@@ -64,6 +64,7 @@ export class GraphQLAthleteGateway
       }
 
       const { getAthlete } = await this.request(getAthleteQueryPayload)
+      console.log(getAthlete)
       return mapToDomain(getAthlete)
     } catch (e) {
       throw this.handleError(e)

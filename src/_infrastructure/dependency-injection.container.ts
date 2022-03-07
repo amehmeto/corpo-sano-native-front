@@ -7,7 +7,10 @@ import { ExerciseGraphqlGateway } from '../create-program/gateways/exercise.grap
 import { LoginGateway } from '../login/gateways/login.gateway.interface'
 import { GraphqlLoginGateway } from '../login/gateways/login.graphql.gateway'
 import AsyncStorage from '@react-native-community/async-storage'
+import { AthleteGateway } from '../home/gateways/athlete.gateway.interface'
+import { GraphQLAthleteGateway } from '../home/gateways/athlete.graphql.gateway'
 
+export const athleteGateway: AthleteGateway = new GraphQLAthleteGateway()
 export const programGateway: ProgramGateway = new InMemoryProgramGateway()
 export const workoutGateway: WorkoutGateway = new InMemoryWorkoutGateway(
   programGateway,

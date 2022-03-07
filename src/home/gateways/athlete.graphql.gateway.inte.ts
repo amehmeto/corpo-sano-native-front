@@ -17,40 +17,16 @@ describe('Athlete Gateway', () => {
   })
 
   beforeAll(async () => {
-    jest.mock('axios', () => {
-      return {
-        post: jest.fn().mockResolvedValue({
-          data: rawAthleteData,
-        }),
-      }
-    })
     await initializeTokenCheatCode()
     athleteGateway = new GraphQLAthleteGateway()
   })
 
   it('should find an athlete by id', async () => {
     const athleteId = 'ebc67027-7632-4966-ae59-390dba136a6c'
-    const expectedMappedAthlete = new Athlete(
-      athleteId,
-      rawAthleteData.name,
-      rawAthleteData.email,
-      rawAthleteData.password,
-      rawAthleteData.avatar,
-      new Biometrics(
-        rawAthleteData.biometrics.bodyFat,
-        rawAthleteData.biometrics.height,
-        rawAthleteData.biometrics.weight,
-        rawAthleteData.biometrics.lengthUnit,
-        rawAthleteData.biometrics.weightUnit,
-        rawAthleteData.biometrics.gender,
-        expect.any(Date),
-        rawAthleteData.biometrics.weightGoal,
-      ),
-    )
+    const expectedMappedAthlete = expect.any(Athlete)
 
     const retrievedAthlete = await athleteGateway.findById(athleteId)
 
-    console.log(retrievedAthlete)
     expect(retrievedAthlete).toStrictEqual(expectedMappedAthlete)
   })
 })

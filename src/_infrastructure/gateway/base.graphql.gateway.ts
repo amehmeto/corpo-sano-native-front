@@ -2,7 +2,7 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
 
 export class GraphQLGateway {
-  protected readonly port = '3005'
+  protected readonly port = 3005
   // TODO: utiliser les variables d'environnements dès que possible. Issue Jest ouverte, bloqué pour l'instant
   protected readonly backendApi = 'localhost'
   // protected readonly backendApi = '51.159.164.130'
