@@ -2,15 +2,15 @@ import { ExerciseGateway } from './exercise.gateway.interface'
 import { Exercise } from '../entities/exercise.entity'
 import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gateway'
 
-class ExerciseMapper{
-  static mapToDomain(rawExercise: any){
+class ExerciseMapper {
+  static mapToDomain(rawExercise: any) {
     return new Exercise(
       rawExercise.id,
       rawExercise.template,
       rawExercise.numberOfSets,
       rawExercise.numberOfReps,
       rawExercise.interSetsRestTime,
-      rawExercise.finalRestTime
+      rawExercise.finalRestTime,
     )
   }
 }
@@ -32,10 +32,7 @@ export class ExerciseGraphqlGateway
         },
       }
 
-      const { deleteExercise } = await this.request(
-        deleteExerciseMutationPayload,
-      )
-      return deleteExercise
+      return await this.request(deleteExerciseMutationPayload)
     } catch (error) {
       return Promise.resolve(false)
     }
@@ -61,7 +58,7 @@ export class ExerciseGraphqlGateway
       },
     }
 
-    const { getExercise } = await this.request(getExerciseQuery)
+    const getExercise = await this.request(getExerciseQuery)
     return ExerciseMapper.mapToDomain(getExercise)
   }
 }

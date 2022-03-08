@@ -98,7 +98,7 @@ export class GraphQLWorkoutGateway
         },
       }
 
-      const { getWorkout } = await this.request(findWorkoutByIdMutationPayload)
+      const getWorkout = await this.request(findWorkoutByIdMutationPayload)
       return WorkoutMapper.mapToDomain(getWorkout)
     } catch (error) {
       throw this.handleError(error)
@@ -126,10 +126,7 @@ export class GraphQLWorkoutGateway
         },
       }
 
-      const { scheduleWorkout } = await this.request(
-        scheduleWorkoutMutationPayload,
-      )
-      return scheduleWorkout
+      return await this.request(scheduleWorkoutMutationPayload)
     } catch (e) {
       throw this.handleError(e)
     }
@@ -166,10 +163,7 @@ export class GraphQLWorkoutGateway
         },
       }
 
-      const { fillWorkoutWithExercises } = await this.request(
-        fillWorkoutWithExercisesMutationPayload,
-      )
-      return fillWorkoutWithExercises
+      return await this.request(fillWorkoutWithExercisesMutationPayload)
     } catch (e) {
       throw this.handleError(e)
     }

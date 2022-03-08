@@ -1,4 +1,7 @@
-import { exerciseGateway, initializeTokenCheatCode } from '../../_infrastructure/dependency-injection.container'
+import {
+  exerciseGateway,
+  initializeTokenCheatCode,
+} from '../../_infrastructure/dependency-injection.container'
 import { ExerciseGraphqlGateway } from './exercise.graphql.gateway'
 import { Exercise } from '../entities/exercise.entity'
 

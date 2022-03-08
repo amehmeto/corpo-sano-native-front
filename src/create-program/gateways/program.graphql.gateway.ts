@@ -28,7 +28,7 @@ export class GraphQLProgramGateway
         },
       }
 
-      const { createProgram } = await this.request(createProgramMutationPayload)
+      const createProgram = await this.request(createProgramMutationPayload)
       return ProgramMapper.mapToDomain(createProgram)
     } catch (e) {
       throw this.handleError(e)
@@ -55,7 +55,7 @@ export class GraphQLProgramGateway
         },
       }
 
-      const { createWorkout } = await this.request(addWorkoutMutationPayload)
+      const createWorkout = await this.request(addWorkoutMutationPayload)
       return WorkoutMapper.mapToDomain(createWorkout)
     } catch (e) {
       throw this.handleError(e)

@@ -1,5 +1,10 @@
 import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage'
+import {
+  getDataKey,
+  handleGraphQLResponse,
+  Query,
+} from './handle-graphql-response'
 
 export class GraphQLGateway {
   protected readonly port = 3005
@@ -8,17 +13,17 @@ export class GraphQLGateway {
   // protected readonly backendApi = '51.159.164.130'
   protected readonly gatewayUrl = `http://${this.backendApi}:${this.port}/graphql`
 
-  protected async request(queryPayload: {
-    query: string
-    variables?: object
-  }): Promise<any> {
+  protected async request(queryPayload: Query): Promise<any> {
     const token = await AsyncStorage.getItem('token')
     const answer = await axios.post(this.gatewayUrl, queryPayload, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    return answer.data.data
+
+    const dataKey = getDataKey(queryPayload)
+
+    return handleGraphQLResponse(answer.data, dataKey)
   }
 
   protected handleError(e: unknown) {
