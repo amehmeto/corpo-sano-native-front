@@ -22,7 +22,7 @@ export function getDataKey(query: Query) {
 }
 
 function getResponseData(response: any, dataKey: string) {
-  if (dataKey === 'signIn'){
+  if (dataKey === 'signIn') {
     const { token } = response.data[dataKey]
     return token
   }
