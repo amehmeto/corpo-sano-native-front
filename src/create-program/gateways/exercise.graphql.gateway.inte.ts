@@ -1,16 +1,17 @@
-import {
-  exerciseGateway,
-  initializeTokenCheatCode,
-} from '../../_infrastructure/dependency-injection.container'
 import { ExerciseGraphqlGateway } from './exercise.graphql.gateway'
 import { Exercise } from '../entities/exercise.entity'
+import { initializeIntegrationTestEnvironment } from '../../tests/initializeIntegrationTestEnvironment'
 
 describe('Exercise Gateway', () => {
+  jest.setTimeout(10000)
   let exerciseGateway: ExerciseGraphqlGateway
 
-  beforeAll(async () => {
-    await initializeTokenCheatCode()
+  beforeAll( () => {
     exerciseGateway = new ExerciseGraphqlGateway()
+  })
+
+  beforeEach(async () => {
+    await initializeIntegrationTestEnvironment()
   })
 
   it('should delete exercise', async () => {
