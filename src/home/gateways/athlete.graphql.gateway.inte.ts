@@ -5,7 +5,7 @@ import { Athlete } from '../entities/athlete.entity'
 import { initializeIntegrationTestEnvironment } from '../../tests/initializeIntegrationTestEnvironment'
 
 describe('Athlete Gateway', () => {
-  jest.setTimeout(10000)
+  jest.setTimeout(30000)
   let athleteGateway: AthleteGateway
 
   beforeAll(async () => {
