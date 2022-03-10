@@ -3,13 +3,19 @@ import { Program } from '../entities/program.entity'
 import { GraphQLProgramGateway } from './program.graphql.gateway'
 import { initializeTokenCheatCode } from '../../_infrastructure/dependency-injection.container'
 import { Workout } from '../entities/workout.entity'
+import { initializeIntegrationTestEnvironment } from '../../tests/initializeIntegrationTestEnvironment'
 
 describe('Program Gateway', () => {
+  jest.setTimeout(10000)
   let programGateway: ProgramGateway
 
   beforeAll(async () => {
     await initializeTokenCheatCode()
     programGateway = new GraphQLProgramGateway()
+  })
+
+  beforeEach(async () => {
+    await initializeIntegrationTestEnvironment()
   })
 
   it('should create a program', async () => {

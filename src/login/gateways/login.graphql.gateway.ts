@@ -17,7 +17,6 @@ export class GraphqlLoginGateway
       },
     }
 
-    const { signIn } = await this.request(signInQuery)
-    return signIn.token
+    return await this.request(signInQuery)
   }
 }

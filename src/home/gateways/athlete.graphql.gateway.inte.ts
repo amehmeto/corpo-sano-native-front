@@ -2,13 +2,19 @@ import { AthleteGateway } from './athlete.gateway.interface'
 import { GraphQLAthleteGateway } from './athlete.graphql.gateway'
 import { initializeTokenCheatCode } from '../../_infrastructure/dependency-injection.container'
 import { Athlete } from '../entities/athlete.entity'
+import { initializeIntegrationTestEnvironment } from '../../tests/initializeIntegrationTestEnvironment'
 
 describe('Athlete Gateway', () => {
+  jest.setTimeout(10000)
   let athleteGateway: AthleteGateway
 
   beforeAll(async () => {
     await initializeTokenCheatCode()
     athleteGateway = new GraphQLAthleteGateway()
+  })
+
+  beforeEach(async () => {
+    await initializeIntegrationTestEnvironment()
   })
 
   it('should find an athlete by id', async () => {

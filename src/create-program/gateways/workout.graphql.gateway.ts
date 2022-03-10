@@ -4,19 +4,105 @@ import { GraphQLGateway } from '../../_infrastructure/gateway/base.graphql.gatew
 import { WorkoutInput } from '../usecases/create-workout-use.case'
 import { ScheduledDay, Workout } from '../entities/workout.entity'
 
+class WorkoutMapper {
+  static mapToDomain(workout: Workout) {
+    return new Workout(
+      workout.id,
+      workout.title,
+      workout.description,
+      workout.programId,
+      workout.exercises,
+      workout.scheduledDays,
+    )
+  }
+}
+
 export class GraphQLWorkoutGateway
   extends GraphQLGateway
   implements WorkoutGateway
 {
-  update(workoutId: string, workout: Workout): Promise<boolean> {
-    throw new Error('Method not implemented.')
+  async update(workoutId: string, workout: Workout): Promise<boolean> {
+    try {
+      const UPDATE_WORKOUT_MUTATION = `mutation UpdateWorkout(
+          $workoutId: ID!,
+          $payload: PatchWorkoutInput!
+        ) {
+          updateWorkout(workoutId: $workoutId, payload: $payload) {
+            id
+            title
+           
+            exercises {
+              position
+              template {
+                id
+                title
+              }
+            }
+          }
+        }`
+
+      const updateWorkoutMutationPayload = {
+        query: UPDATE_WORKOUT_MUTATION,
+        variables: {
+          workoutId: workoutId,
+          payload: {
+            exercises: workout.exercises,
+            scheduledDays: workout.scheduledDays,
+          },
+        },
+      }
+
+      const { updateWorkout } = await this.request(updateWorkoutMutationPayload)
+
+      //TODO According to the architect's thought, this place can be turned into an object.
+      return updateWorkout ? true : false
+    } catch (error) {
+      throw this.handleError(error)
+    }
   }
+
+  //TODO should to add in backend
   find(): Promise<Workout[]> {
     throw new Error('Method not implemented.')
   }
 
-  findById(workoutId: string): Promise<Workout> {
-    throw new Error('Method not implemented.')
+  async findById(workoutId: string): Promise<Workout> {
+    try {
+      const WORKOUT_MUTATION = `query GetWorkout($workoutId: ID!) {
+          getWorkout(workoutId: $workoutId) {
+            id
+            title
+            exercises {
+              id
+              template {
+                title
+              }
+            }
+            sessions {
+              id
+              performances {
+                id
+                sets
+                exercise {
+                  id
+                }
+              }
+            }
+          }
+        }`
+
+      const findWorkoutByIdMutationPayload = {
+        query: WORKOUT_MUTATION,
+        variables: {
+          workoutId: workoutId,
+        },
+      }
+
+      const getWorkout = await this.request(findWorkoutByIdMutationPayload)
+      return WorkoutMapper.mapToDomain(getWorkout)
+    } catch (error) {
+      throw this.handleError(error)
+    }
   }
 
   async scheduleDays(
@@ -40,10 +126,7 @@ export class GraphQLWorkoutGateway
         },
       }
 
-      const { scheduleWorkout } = await this.request(
-        scheduleWorkoutMutationPayload,
-      )
-      return scheduleWorkout
+      return await this.request(scheduleWorkoutMutationPayload)
     } catch (e) {
       throw this.handleError(e)
     }
@@ -80,10 +163,7 @@ export class GraphQLWorkoutGateway
         },
       }
 
-      const { fillWorkoutWithExercises } = await this.request(
-        fillWorkoutWithExercisesMutationPayload,
-      )
-      return fillWorkoutWithExercises
+      return await this.request(fillWorkoutWithExercisesMutationPayload)
     } catch (e) {
       throw this.handleError(e)
     }

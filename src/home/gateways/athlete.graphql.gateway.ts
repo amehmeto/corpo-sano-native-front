@@ -39,7 +39,7 @@ export class GraphQLAthleteGateway
         },
       }
 
-      const { getAthlete } = await this.request(getAthleteQueryPayload)
+      const getAthlete = await this.request(getAthleteQueryPayload)
       return AthleteMapper.mapToDomain(getAthlete)
     } catch (e) {
       throw this.handleError(e)
