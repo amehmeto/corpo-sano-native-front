@@ -1,19 +1,28 @@
 import { Workout } from '../entities/workout.entity'
 import { GraphQLWorkoutGateway } from './workout.graphql.gateway'
 import { initializeTokenCheatCode } from '../../_infrastructure/dependency-injection.container'
-import { initializeIntegrationTestEnvironment } from '../../tests/initializeIntegrationTestEnvironment'
+import {
+  deletePipe,
+  initializeIntegrationTestEnvironment,
+  startServer,
+} from '../../tests/initializeIntegrationTestEnvironment'
 
 describe('Workout Gateway', () => {
   jest.setTimeout(10000)
   let workoutGateway: GraphQLWorkoutGateway
 
   beforeAll(async () => {
+    await startServer()
     await initializeTokenCheatCode()
     workoutGateway = new GraphQLWorkoutGateway()
   })
 
   beforeEach(async () => {
     await initializeIntegrationTestEnvironment()
+  })
+
+  afterAll(() => {
+    deletePipe()
   })
 
   it('should get workout with id', async () => {
