@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import CreateWorkoutScreen from '../create-program/CreateWorkoutScreen'
 import ProgramPreviewScreen from '../create-program/ProgramPreviewScreen'
 import React from 'react'
+import { LoginScreen } from '../login/LoginScreen'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
@@ -40,7 +41,7 @@ export type RouteParams = {
 }
 
 const routes = [
-  { name: 'Home', component: HomeScreen },
+  { name: 'Home', component: LoginScreen},
   { name: 'CreateProgram', component: CreateProgramScreen },
   { name: 'ProgramPreview', component: ProgramPreviewScreen },
   { name: 'CreateWorkout', component: CreateWorkoutScreen },
