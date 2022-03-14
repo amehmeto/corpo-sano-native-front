@@ -4,7 +4,7 @@ import { Biometrics } from './biometrics.entity'
 import { UnitSystem } from '../../_data-builders/types/metric-system.enum'
 
 export class Athlete {
-  public avatar: string = 'default'
+  public avatar = 'default'
 
   constructor(
     public readonly id: string,
