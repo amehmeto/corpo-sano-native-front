@@ -1,4 +1,4 @@
-import { ExerciseGraphqlGateway } from './exercise.graphql.gateway'
+import { GraphQLExerciseGateway } from './exercise.graphql.gateway'
 import { Exercise } from '../entities/exercise.entity'
 import {
   deletePipe,
@@ -8,11 +8,11 @@ import {
 
 describe('Exercise Gateway', () => {
   jest.setTimeout(10000)
-  let exerciseGateway: ExerciseGraphqlGateway
+  let exerciseGateway: GraphQLExerciseGateway
 
   beforeAll( async () => {
     await startServer()
-    exerciseGateway = new ExerciseGraphqlGateway()
+    exerciseGateway = new GraphQLExerciseGateway()
   })
 
   beforeEach(async () => {
