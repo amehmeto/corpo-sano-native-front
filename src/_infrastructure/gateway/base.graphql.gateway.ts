@@ -23,7 +23,7 @@ export class GraphQLGateway {
 
     const dataKey = getDataKey(queryPayload)
 
-    return Promise.resolve(handleGraphQLResponse(answer.data, dataKey))
+    return handleGraphQLResponse(answer.data, dataKey)
   }
 
   protected handleError(e: unknown) {
