@@ -75,7 +75,7 @@ const tabScreens = tabRoutes.map((tabRoute, index) => {
 function TabRouter() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>{tabScreens}</Tab.Navigator>
+      <Tab.Navigator screenOptions={{tabBarStyle: { position: 'absolute' }}}>{tabScreens}</Tab.Navigator>
     </NavigationContainer>
   )
 }
