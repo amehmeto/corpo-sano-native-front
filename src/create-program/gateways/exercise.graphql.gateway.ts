@@ -15,7 +15,7 @@ class ExerciseMapper {
   }
 }
 
-export class ExerciseGraphqlGateway
+export class GraphQLExerciseGateway
   extends GraphQLGateway
   implements ExerciseGateway
 {
