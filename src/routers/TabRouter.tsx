@@ -64,6 +64,7 @@ const tabScreens = tabRoutes.map((tabRoute, index) => {
             iconName: tabRoute.iconName,
             focused,
           } as TabSettings),
+        tabBarLabelPosition: 'below-icon',
         tabBarActiveTintColor: 'green',
         tabBarStyle: { marginVertical: 5, borderTopColor: 'white' },
         headerShown: false,
