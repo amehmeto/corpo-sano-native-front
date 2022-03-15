@@ -7,7 +7,7 @@ type AvatarProps = {
 }
 
 export function Avatar({ source }: AvatarProps) {
-  if(!source) source = DefaultAvatar
+  if(source === 'default') source = DefaultAvatar
   return (
     <Image
       style={styles.avatar}
